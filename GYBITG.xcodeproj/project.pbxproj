@@ -14,8 +14,8 @@
 		3F5C0E22227275A900307F74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E21227275A900307F74 /* Assets.xcassets */; };
 		3F5C0E25227275A900307F74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E23227275A900307F74 /* LaunchScreen.storyboard */; };
 		3F5C0E30227275A900307F74 /* GYBITGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C0E2F227275A900307F74 /* GYBITGTests.swift */; };
-		A8EE23F6227279EB00B9CEBF /* VideoStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23F5227279EB00B9CEBF /* VideoStructTests.swift */; };
 		A8EE23F9227283F700B9CEBF /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23F8227283F700B9CEBF /* Video.swift */; };
+		A8EE23FF2273B16300B9CEBF /* VideoStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +40,8 @@
 		3F5C0E2B227275A900307F74 /* GYBITGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GYBITGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5C0E2F227275A900307F74 /* GYBITGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYBITGTests.swift; sourceTree = "<group>"; };
 		3F5C0E31227275A900307F74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A8EE23F5227279EB00B9CEBF /* VideoStructTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStructTests.swift; sourceTree = "<group>"; };
 		A8EE23F8227283F700B9CEBF /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStructTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +100,7 @@
 			children = (
 				3F5C0E2F227275A900307F74 /* GYBITGTests.swift */,
 				3F5C0E31227275A900307F74 /* Info.plist */,
-				A8EE23F5227279EB00B9CEBF /* VideoStructTests.swift */,
+				A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */,
 			);
 			path = GYBITGTests;
 			sourceTree = "<group>";
@@ -224,7 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8EE23F6227279EB00B9CEBF /* VideoStructTests.swift in Sources */,
+				A8EE23FF2273B16300B9CEBF /* VideoStructTests.swift in Sources */,
 				3F5C0E30227275A900307F74 /* GYBITGTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
