@@ -14,6 +14,8 @@
 		3F5C0E22227275A900307F74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E21227275A900307F74 /* Assets.xcassets */; };
 		3F5C0E25227275A900307F74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E23227275A900307F74 /* LaunchScreen.storyboard */; };
 		3F5C0E30227275A900307F74 /* GYBITGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C0E2F227275A900307F74 /* GYBITGTests.swift */; };
+		3FA615C62273715C00A059FC /* GameStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615C52273715C00A059FC /* GameStat.swift */; };
+		3FA615F62273D7FB00A059FC /* GameStatStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615F52273D7FB00A059FC /* GameStatStructTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		3F5C0E2B227275A900307F74 /* GYBITGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GYBITGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5C0E2F227275A900307F74 /* GYBITGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYBITGTests.swift; sourceTree = "<group>"; };
 		3F5C0E31227275A900307F74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FA615C52273715C00A059FC /* GameStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStat.swift; sourceTree = "<group>"; };
+		3FA615F52273D7FB00A059FC /* GameStatStructTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatStructTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +83,9 @@
 		3F5C0E17227275A600307F74 /* GYBITG */ = {
 			isa = PBXGroup;
 			children = (
+				3FA615C22273705700A059FC /* Controllers */,
+				3FA615C12273704C00A059FC /* Models */,
 				3F5C0E18227275A600307F74 /* AppDelegate.swift */,
-				3F5C0E1A227275A600307F74 /* FirstViewController.swift */,
-				3F5C0E1C227275A600307F74 /* SecondViewController.swift */,
 				3F5C0E1E227275A600307F74 /* Main.storyboard */,
 				3F5C0E21227275A900307F74 /* Assets.xcassets */,
 				3F5C0E23227275A900307F74 /* LaunchScreen.storyboard */,
@@ -95,8 +99,26 @@
 			children = (
 				3F5C0E2F227275A900307F74 /* GYBITGTests.swift */,
 				3F5C0E31227275A900307F74 /* Info.plist */,
+				3FA615F52273D7FB00A059FC /* GameStatStructTests.swift */,
 			);
 			path = GYBITGTests;
+			sourceTree = "<group>";
+		};
+		3FA615C12273704C00A059FC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3FA615C52273715C00A059FC /* GameStat.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3FA615C22273705700A059FC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3F5C0E1A227275A600307F74 /* FirstViewController.swift */,
+				3F5C0E1C227275A600307F74 /* SecondViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F5C0E1D227275A600307F74 /* SecondViewController.swift in Sources */,
+				3FA615C62273715C00A059FC /* GameStat.swift in Sources */,
 				3F5C0E19227275A600307F74 /* AppDelegate.swift in Sources */,
 				3F5C0E1B227275A600307F74 /* FirstViewController.swift in Sources */,
 			);
@@ -209,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FA615F62273D7FB00A059FC /* GameStatStructTests.swift in Sources */,
 				3F5C0E30227275A900307F74 /* GYBITGTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
