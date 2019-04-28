@@ -23,64 +23,53 @@ class GameStatStructTests: XCTestCase {
     
     // MARK: Initialize GameStat
     /** Business Rule: Each GameStat has
+    * required "gameDate" date property
+    * required "userId" string property
+    * required "statId" int property
     * optional "points" int property
     * optional "rebounds" int property
     * optional "assists" int property
     * optional "steals" int property
     * optional "blocks" int property
     * optional "minutesPlayed" int property
-    * required "gameDate" date property
-    * required "userId" string property
-    * required "statId" int property
     */
     
+    // Test a GameStat with required userId, statId, & gameDate property
+    func testInit_GameStatWithUserId() {
+        let testGameStat = GameStat(userId: testUserId, statId: testStatId, gameDate: testDate)
+        XCTAssertEqual(testGameStat.userId, testUserId)
+        XCTAssertEqual(testGameStat.statId, testStatId)
+        XCTAssertEqual(testGameStat.gameDate, testDate)
+    }
     // Test a GameStat with optional points property
     func testInit_GameStatWithPoints() {
-
-        let testGameStat = GameStat(points: 22, gameDate: testDate, userId: testUserId, statId: testStatId)
+        let testGameStat = GameStat(userId: testUserId, statId: testStatId, gameDate: testDate, points: 22)
         XCTAssertNotNil(testGameStat)
         XCTAssertEqual(testGameStat.points, 22)
     }
     // Test a GameStat with optional rebounds property
     func testInit_GameStatWithRebounds() {
-        let testGameStat = GameStat(rebounds: 6, gameDate: testDate, userId: testUserId, statId: testStatId)
+        let testGameStat = GameStat(userId: testUserId, statId: testStatId, gameDate: testDate, rebounds: 6)
         XCTAssertEqual(testGameStat.rebounds, 6)
     }
     // Test a GameStat with optional assists property
     func testInit_GameStatWithAssits() {
-        let testGameStat = GameStat(assists: 9, gameDate: testDate, userId: testUserId, statId: testStatId)
+        let testGameStat = GameStat(userId: testUserId, statId: testStatId, gameDate: testDate, assists: 9)
         XCTAssertEqual(testGameStat.assists, 9)
-        XCTAssertEqual(testGameStat.points, 0)
-        XCTAssertEqual(testGameStat.rebounds, 0)
     }
     // Test a GameStat with optional steals property
     func testInit_GameStatWithSteals() {
-        let testGameStat = GameStat(gameDate: testDate, userId: testUserId, statId: testStatId)
+        let testGameStat = GameStat(userId: testUserId, statId: testStatId, gameDate: testDate)
         XCTAssertEqual(testGameStat.steals, 0)
     }
     // Test a GameStat with optional blocks property
     func testInit_GameStatWithBlocks() {
-        let testGameStat = GameStat(blocks: 3, gameDate: testDate, userId: testUserId, statId: testStatId)
+        let testGameStat = GameStat(userId: testUserId, statId: testStatId, gameDate: testDate, blocks: 3)
         XCTAssertEqual(testGameStat.blocks, 3)
     }
     // Test a GameStat with optional minutesPlayed property
     func testInit_GameStatWithMinutesPlayed() {
-        let testGameStat = GameStat(minutesPlayed: 30, gameDate: testDate, userId: testUserId, statId: testStatId)
+        let testGameStat = GameStat(userId: testUserId, statId: testStatId, gameDate: testDate, minutesPlayed: 30)
         XCTAssertEqual(testGameStat.minutesPlayed, 30)
-    }
-    // Test a GameStat with required gameDate property
-    func testInit_GameStatWithGameDate() {
-        let testGameStat = GameStat(gameDate: testDate, userId: testUserId, statId: testStatId)
-        XCTAssertEqual(testGameStat.gameDate, testDate)
-    }
-    // Test a GameStat with required userId property
-    func testInit_GameStatWithUserId() {
-        let testGameStat = GameStat(gameDate: testDate, userId: testUserId, statId: testStatId)
-        XCTAssertEqual(testGameStat.userId, testUserId)
-    }
-    // Test a GameStat with required statId property
-    func testInit_GameStatWithStatId() {
-        let testGameStat = GameStat(gameDate: testDate, userId: testUserId, statId: testStatId)
-        XCTAssertEqual(testGameStat.statId, testStatId)
     }
 }

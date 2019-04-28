@@ -18,18 +18,16 @@ struct GameStat {
     let steals: Int?
     let blocks: Int?
     let minutesPlayed: Double?
-   
 
-    init(points: Int? = 0, rebounds: Int? = 0, assists: Int? = 0,steals: Int? = 0, blocks: Int? = 0, minutesPlayed: Double? = 0.0, gameDate: Date, userId: String, statId: Int) {
+    init(userId: String, statId: Int, gameDate: Date, points: Int? = 0, rebounds: Int? = 0, assists: Int? = 0,steals: Int? = 0, blocks: Int? = 0, minutesPlayed: Double? = 0.0) {
+        self.userId = userId
+        self.statId = statId
+        self.gameDate = gameDate
         self.points = points
         self.rebounds = rebounds
         self.assists = assists
         self.steals = steals
         self.blocks = blocks
         self.minutesPlayed = minutesPlayed
-        self.gameDate = gameDate
-        self.userId = userId
-        self.statId = statId
     }
-    
 }
