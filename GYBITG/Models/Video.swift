@@ -17,14 +17,16 @@ struct Video {
     let fileName: String
     let videoDuration: CMTime
     let videoURL: URL
+    let userID: String
     
-    init(videoID: String, description: String? = nil, dateTaken: Date, fileName: String, videoDuration: CMTime, videoURL: URL){
+    init(videoID: String, description: String? = nil, dateTaken: Date, fileName: String, videoDuration: CMTime, videoURL: URL, userID: String){
         self.videoID = videoID
         self.description = description
         self.dateTaken = dateTaken
         self.fileName = fileName
         self.videoDuration = videoDuration
         self.videoURL = videoURL
+        self.userID = userID
     }
     
 }
