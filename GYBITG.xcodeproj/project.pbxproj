@@ -14,6 +14,8 @@
 		3F5C0E22227275A900307F74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E21227275A900307F74 /* Assets.xcassets */; };
 		3F5C0E25227275A900307F74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E23227275A900307F74 /* LaunchScreen.storyboard */; };
 		3F5C0E30227275A900307F74 /* GYBITGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C0E2F227275A900307F74 /* GYBITGTests.swift */; };
+		A8EE23F9227283F700B9CEBF /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23F8227283F700B9CEBF /* Video.swift */; };
+		A8EE23FF2273B16300B9CEBF /* VideoStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		3F5C0E2B227275A900307F74 /* GYBITGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GYBITGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5C0E2F227275A900307F74 /* GYBITGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYBITGTests.swift; sourceTree = "<group>"; };
 		3F5C0E31227275A900307F74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A8EE23F8227283F700B9CEBF /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStructTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 		3F5C0E17227275A600307F74 /* GYBITG */ = {
 			isa = PBXGroup;
 			children = (
+				A8EE23F72272838C00B9CEBF /* Models */,
 				3F5C0E18227275A600307F74 /* AppDelegate.swift */,
 				3F5C0E1A227275A600307F74 /* FirstViewController.swift */,
 				3F5C0E1C227275A600307F74 /* SecondViewController.swift */,
@@ -95,8 +100,17 @@
 			children = (
 				3F5C0E2F227275A900307F74 /* GYBITGTests.swift */,
 				3F5C0E31227275A900307F74 /* Info.plist */,
+				A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */,
 			);
 			path = GYBITGTests;
+			sourceTree = "<group>";
+		};
+		A8EE23F72272838C00B9CEBF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A8EE23F8227283F700B9CEBF /* Video.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F5C0E1D227275A600307F74 /* SecondViewController.swift in Sources */,
+				A8EE23F9227283F700B9CEBF /* Video.swift in Sources */,
 				3F5C0E19227275A600307F74 /* AppDelegate.swift in Sources */,
 				3F5C0E1B227275A600307F74 /* FirstViewController.swift in Sources */,
 			);
@@ -209,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8EE23FF2273B16300B9CEBF /* VideoStructTests.swift in Sources */,
 				3F5C0E30227275A900307F74 /* GYBITGTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
