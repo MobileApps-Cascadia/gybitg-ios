@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3F1BE0E322792E7B0077F076 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1BE0E222792E7B0077F076 /* SecondViewController.swift */; };
 		3F1BE0E522792E7F0077F076 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1BE0E422792E7F0077F076 /* FirstViewController.swift */; };
+		3F446DA3227BB2B700A99061 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F446DA2227BB2B700A99061 /* Users.swift */; };
 		3F5C0E19227275A600307F74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C0E18227275A600307F74 /* AppDelegate.swift */; };
 		3F5C0E20227275A600307F74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E1E227275A600307F74 /* Main.storyboard */; };
 		3F5C0E22227275A900307F74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E21227275A900307F74 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		3F1BE0E222792E7B0077F076 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		3F1BE0E422792E7F0077F076 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		3F446DA2227BB2B700A99061 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		3F5C0E15227275A600307F74 /* GYBITG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GYBITG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5C0E18227275A600307F74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F5C0E1F227275A600307F74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				A8EE23F8227283F700B9CEBF /* Video.swift */,
 				3FA615C52273715C00A059FC /* GameStat.swift */,
+				3F446DA2227BB2B700A99061 /* Users.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				3FA615C62273715C00A059FC /* GameStat.swift in Sources */,
 				A8EE23F9227283F700B9CEBF /* Video.swift in Sources */,
 				3F5C0E19227275A600307F74 /* AppDelegate.swift in Sources */,
+				3F446DA3227BB2B700A99061 /* Users.swift in Sources */,
 				3F1BE0E522792E7F0077F076 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
