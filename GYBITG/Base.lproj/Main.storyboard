@@ -138,22 +138,39 @@
             </objects>
             <point key="canvasLocation" x="1514" y="0.0"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Game Stat History View Controller-->
         <scene sceneID="W6g-ZZ-yiZ">
             <objects>
-                <tableViewController id="A5s-Ag-hBp" sceneMemberID="viewController">
+                <tableViewController id="A5s-Ag-hBp" customClass="GameStatHistoryViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Eam-he-eLT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="00D-g0-n7B">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GameStatCellReuseId" id="00D-g0-n7B" customClass="GameStatCell" customModule="GYBITG" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="00D-g0-n7B" id="LVA-9I-I56">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-g5-mLw">
+                                            <rect key="frame" x="20" y="10.5" width="351" height="22.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Hwi-g5-mLw" firstAttribute="centerY" secondItem="LVA-9I-I56" secondAttribute="centerY" id="BW8-H4-x36"/>
+                                        <constraint firstItem="Hwi-g5-mLw" firstAttribute="leading" secondItem="LVA-9I-I56" secondAttribute="leadingMargin" id="FPk-3P-Fpw"/>
+                                        <constraint firstItem="Hwi-g5-mLw" firstAttribute="bottom" secondItem="LVA-9I-I56" secondAttribute="bottomMargin" id="HGv-ax-oGc"/>
+                                        <constraint firstAttribute="trailing" secondItem="Hwi-g5-mLw" secondAttribute="trailing" constant="5" id="KcH-0K-Dpi"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="gameLabel" destination="Hwi-g5-mLw" id="c8E-EI-IUQ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

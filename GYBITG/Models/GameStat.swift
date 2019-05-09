@@ -5,23 +5,23 @@
 //  Created by Student Account on 4/26/19.
 //
 
-import Foundation
+import UIKit
 
-struct GameStat {
+class GameStat: NSObject {
     
-    let statId: Int
-    let userId: String
-    let gameDate: Date
-    let points: Int?
-    let rebounds: Int?
-    let assists: Int?
-    let steals: Int?
-    let blocks: Int?
-    let minutesPlayed: Double?
-
-    init(userId: String, statId: Int, gameDate: Date, points: Int? = 0, rebounds: Int? = 0, assists: Int? = 0,steals: Int? = 0, blocks: Int? = 0, minutesPlayed: Double? = 0.0) {
-        self.userId = userId
+    var statId: Int
+    var userId: String
+    var gameDate: Date
+    var points: Int
+    var rebounds: Int
+    var assists: Int
+    var steals: Int
+    var blocks: Int
+    var minutesPlayed: Double
+    
+    init(statId: Int, userId: String, gameDate: Date, points: Int, rebounds: Int, assists: Int, steals: Int, blocks: Int, minutesPlayed: Double) {
         self.statId = statId
+        self.userId = userId
         self.gameDate = gameDate
         self.points = points
         self.rebounds = rebounds
@@ -29,5 +29,18 @@ struct GameStat {
         self.steals = steals
         self.blocks = blocks
         self.minutesPlayed = minutesPlayed
+    }
+    
+    // use this random initializer for testing
+    convenience init(random: Bool = false) {
+        let testDate: Date = Date()
+        if random {
+            let idx = arc4random_uniform(UInt32(100))
+            let randomStatId = Int(idx)
+            let randomUserId = "ksmith11"
+            self.init(statId: randomStatId, userId: randomUserId, gameDate: testDate, points: Int(arc4random_uniform(100)), rebounds: Int(arc4random_uniform(100)), assists: Int(arc4random_uniform(100)), steals: Int(arc4random_uniform(100)), blocks: Int(arc4random_uniform(100)), minutesPlayed: Double(arc4random_uniform(40)))
+        } else {
+            self.init(statId: 1, userId: "ksmith11", gameDate: testDate, points: 0, rebounds: 0, assists: 0, steals: 0, blocks: 0, minutesPlayed: 0.0)
+        }
     }
 }
