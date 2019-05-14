@@ -13,6 +13,7 @@ protocol GameStatRepoProtocol {
     func removeItem(gameStat: GameStat)
     func addGameStat(gameStat: GameStat)
     func getGameStat(statId: Int) -> GameStat
+    func getAllGameStatsByUserId(userId: String) -> [GameStat]
 }
 
 class GameStatHistoryViewController: UITableViewController {

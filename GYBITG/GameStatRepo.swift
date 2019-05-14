@@ -10,11 +10,25 @@
 import UIKit
 
 class GameStatRepo: GameStatRepoProtocol {
+    func getAllGameStatsByUserId(userId: String) -> [GameStat] {
+        var mGameStatArray: [GameStat] = []
+        for stat in allGameStats {
+            if stat.userId == userId {
+                mGameStatArray.append(stat)
+            }
+        }
+        return mGameStatArray
+    }
+    
     
     // This function returns a specific GameStat object based on the statId
     func getGameStat(statId: Int) -> GameStat {
-        
-        return GameStat()
+        for stat in allGameStats {
+            if stat.statId == statId {
+                return stat
+            }
+        }
+        return GameStat(random: true)
     }
     
     // This is mainly for testing and creating random GameStat objects
