@@ -37,7 +37,7 @@ class GameStat: NSObject {
         if random {
             let idx = arc4random_uniform(UInt32(100))
             let randomStatId = Int(idx)
-            let randomUserId = "ksmith11"
+            let randomUserId = "ksmith@gmail.com"
             self.init(statId: randomStatId, userId: randomUserId, gameDate: testDate, points: Int(arc4random_uniform(100)), rebounds: Int(arc4random_uniform(100)), assists: Int(arc4random_uniform(100)), steals: Int(arc4random_uniform(100)), blocks: Int(arc4random_uniform(100)), minutesPlayed: Double(arc4random_uniform(40)))
         } else {
             self.init(statId: 1, userId: "ksmith11", gameDate: testDate, points: 0, rebounds: 0, assists: 0, steals: 0, blocks: 0, minutesPlayed: 0.0)

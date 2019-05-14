@@ -38,7 +38,7 @@ class GameStatRepo: GameStatRepoProtocol {
     func addGameStat(gameStat: GameStat) {
         let statId = allGameStats.count + 1
         
-        let newGameStat = GameStat(statId: statId, userId: "ksmith11", gameDate: gameStat.gameDate, points: gameStat.points, rebounds: gameStat.rebounds, assists: gameStat.assists, steals: gameStat.steals, blocks: gameStat.blocks, minutesPlayed: gameStat.minutesPlayed)
+        let newGameStat = GameStat(statId: statId, userId: "ksmith@gmail.com", gameDate: gameStat.gameDate, points: gameStat.points, rebounds: gameStat.rebounds, assists: gameStat.assists, steals: gameStat.steals, blocks: gameStat.blocks, minutesPlayed: gameStat.minutesPlayed)
         
         allGameStats.append(newGameStat)
     }
