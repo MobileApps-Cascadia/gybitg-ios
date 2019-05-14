@@ -132,8 +132,12 @@ var sut: VideoRepository!
         XCTAssertNotNil(videoAdded2)
         XCTAssertNotNil(videoAdded3)
         sut.deleteAllVideos()
-        
         XCTAssertEqual(sut.videos.count, 0)
+        
+        let videoToDelete = sut.deleteVideo(videoToDeleteID: testVideo1.videoID)
+        XCTAssertNil(videoToDelete)
+        let videoToUpdate = sut.updateVideo(videoToUpdateID: testVideo2.videoID, description: "Update")
+        XCTAssertNil(videoToUpdate)
         
     }
     
