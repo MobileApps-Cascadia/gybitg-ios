@@ -19,6 +19,9 @@
 		3F5C0E25227275A900307F74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E23227275A900307F74 /* LaunchScreen.storyboard */; };
 		3F5C0E30227275A900307F74 /* GYBITGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C0E2F227275A900307F74 /* GYBITGTests.swift */; };
 		3FA615C62273715C00A059FC /* GameStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615C52273715C00A059FC /* GameStat.swift */; };
+
+		A823ECAD2284EFA3003EC330 /* VideoRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823ECAC2284EFA3003EC330 /* VideoRepositoryTests.swift */; };
+		A823ECB02284F1FA003EC330 /* VideoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823ECAF2284F1FA003EC330 /* VideoRepository.swift */; };
 		3FA615F62273D7FB00A059FC /* GameStatClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */; };
 		A8EE23F9227283F700B9CEBF /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23F8227283F700B9CEBF /* Video.swift */; };
 		A8EE23FF2273B16300B9CEBF /* VideoStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */; };
@@ -51,6 +54,8 @@
 		3F5C0E2F227275A900307F74 /* GYBITGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYBITGTests.swift; sourceTree = "<group>"; };
 		3F5C0E31227275A900307F74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FA615C52273715C00A059FC /* GameStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStat.swift; sourceTree = "<group>"; };
+		A823ECAC2284EFA3003EC330 /* VideoRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRepositoryTests.swift; sourceTree = "<group>"; };
+		A823ECAF2284F1FA003EC330 /* VideoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRepository.swift; sourceTree = "<group>"; };
 		3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatClassTests.swift; sourceTree = "<group>"; };
 		A8EE23F8227283F700B9CEBF /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStructTests.swift; sourceTree = "<group>"; };
@@ -103,6 +108,7 @@
 		3F5C0E17227275A600307F74 /* GYBITG */ = {
 			isa = PBXGroup;
 			children = (
+				A823ECAE2284F06A003EC330 /* Repositories */,
 				A8EE23F72272838C00B9CEBF /* Models */,
 				3F5C0E18227275A600307F74 /* AppDelegate.swift */,
 				3F1BE0E222792E7B0077F076 /* SecondViewController.swift */,
@@ -125,8 +131,17 @@
 				3F5C0E31227275A900307F74 /* Info.plist */,
 				3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */,
 				A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */,
+				A823ECAC2284EFA3003EC330 /* VideoRepositoryTests.swift */,
 			);
 			path = GYBITGTests;
+			sourceTree = "<group>";
+		};
+		A823ECAE2284F06A003EC330 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				A823ECAF2284F1FA003EC330 /* VideoRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		A8EE23F72272838C00B9CEBF /* Models */ = {
@@ -244,6 +259,7 @@
 				3F1BE0EF2284EF600077F076 /* GameStatRepo.swift in Sources */,
 				3F1BE0F12284F0FF0077F076 /* GameStatCell.swift in Sources */,
 				A8EE23F9227283F700B9CEBF /* Video.swift in Sources */,
+				A823ECB02284F1FA003EC330 /* VideoRepository.swift in Sources */,
 				3F5C0E19227275A600307F74 /* AppDelegate.swift in Sources */,
 				3F446DA3227BB2B700A99061 /* Users.swift in Sources */,
 				3F1BE0E522792E7F0077F076 /* FirstViewController.swift in Sources */,
@@ -258,6 +274,7 @@
 				3FA615F62273D7FB00A059FC /* GameStatClassTests.swift in Sources */,
 				A8EE23FF2273B16300B9CEBF /* VideoStructTests.swift in Sources */,
 				3F5C0E30227275A900307F74 /* GYBITGTests.swift in Sources */,
+				A823ECAD2284EFA3003EC330 /* VideoRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
