@@ -14,7 +14,6 @@
 		3F1BE0EF2284EF600077F076 /* GameStatRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1BE0EE2284EF600077F076 /* GameStatRepo.swift */; };
 		3F1BE0F12284F0FF0077F076 /* GameStatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1BE0F02284F0FF0077F076 /* GameStatCell.swift */; };
 		3F5C0E19227275A600307F74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C0E18227275A600307F74 /* AppDelegate.swift */; };
-		3F5C0E1B227275A600307F74 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C0E1A227275A600307F74 /* FirstViewController.swift */; };
 		3F5C0E20227275A600307F74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E1E227275A600307F74 /* Main.storyboard */; };
 		3F5C0E22227275A900307F74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E21227275A900307F74 /* Assets.xcassets */; };
 		3F5C0E25227275A900307F74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E23227275A900307F74 /* LaunchScreen.storyboard */; };
