@@ -136,10 +136,40 @@ var sut: VideoRepository!
         
         let videoToDelete = sut.deleteVideo(videoToDeleteID: testVideo1.videoID)
         XCTAssertNil(videoToDelete)
-        let videoToUpdate = sut.updateVideo(videoToUpdateID: testVideo2.videoID, description: "Update")
+        let videoToUpdate = sut.updateVideo(videoToUpdateID: testVideo2.videoID, description: "Update", longerVideoURL: nil)
         XCTAssertNil(videoToUpdate)
         
     }
+    
+    //Testing for updating the Video
+    //The VideoID passed in will be updated and the videoID returned or nil if not in the array
+    func testUpdateVideo_ReturnsUpdatedVideoID(){
+        let date = Date()
+        let timeInterval: TimeInterval = 600
+        let videoDuration = CMTime(seconds: (timeInterval), preferredTimescale: 1)
+        let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
+        
+        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7")
+        
+        let videoAdded1 = sut.addVideo(videoToAdd: testVideo1)
+        
+        let longerComponents = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
+        
+        let updatedVideoID = sut.updateVideo(videoToUpdateID: testVideo1.videoID, description: nil, longerVideoURL: longerComponents.url!)
+        XCTAssertEqual(updatedVideoID, videoAdded1)
+
+        
+        let description = "New Description"
+       let updatedVideoID1 = sut.updateVideo(videoToUpdateID: testVideo1.videoID, description: description, longerVideoURL: longerComponents.url!)
+        
+        XCTAssertEqual(videoAdded1, updatedVideoID1)
+        XCTAssertEqual(sut.videos[0].description, description)
+      
+        XCTAssertEqual(sut.videos[0].longerVideoURL, longerComponents.url!)
+        
+    }
+    
+    
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
@@ -147,5 +177,7 @@ var sut: VideoRepository!
             // Put the code you want to measure the time of here.
         }
     }
+    
+    
 
 }
