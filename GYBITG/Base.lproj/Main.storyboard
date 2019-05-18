@@ -83,7 +83,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.27536231884062" y="-320.08928571428572"/>
+            <point key="canvasLocation" x="-626" y="-295"/>
         </scene>
         <!--Account-->
         <scene sceneID="wg7-f3-ORb">
@@ -359,7 +359,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-1290" y="36"/>
         </scene>
         <!--Gallery View Controller-->
         <scene sceneID="Syv-5e-QFo">
@@ -388,10 +388,9 @@
                                             </button>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="Ypi-Zn-GmE">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="q4G-SX-deG" userLabel="Add Video Button">
-                                                <rect key="frame" x="368" y="9" width="26" height="26"/>
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" id="q4G-SX-deG" userLabel="Add Video Button">
+                                                <rect key="frame" x="372" y="11" width="22" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="plus-26"/>
                                             </button>
                                         </barButtonItem>
                                     </navigationItem>
@@ -426,7 +425,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQN-KY-x8D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1524.6376811594205" y="-751.33928571428567"/>
+            <point key="canvasLocation" x="51" y="-237"/>
         </scene>
     </scenes>
     <resources>
@@ -436,7 +435,6 @@
         <image name="girls-n-balls" width="2739" height="1825"/>
         <image name="icons8-back-50(1)" width="50" height="50"/>
         <image name="orangegybitgiconfromweb" width="300" height="201"/>
-        <image name="plus-26" width="26" height="26"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>

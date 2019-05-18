@@ -51,5 +51,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>Privacy — Camera Usage Description</key>
+	<string>$(GYBITG) would like to access your camera to upload videos for the Gallery</string>
+	<key>Privacy — Photo Library Usage Description</key>
+	<string>$(GYBITG) would like to access your camera to make a thumbnail of selected video for the Gallery</string>
 </dict>
 </plist>

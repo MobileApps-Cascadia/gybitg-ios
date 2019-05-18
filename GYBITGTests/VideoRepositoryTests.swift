@@ -160,7 +160,7 @@ var sut: VideoRepository!
 
         
         let description = "New Description"
-       let updatedVideoID1 = sut.updateVideo(videoToUpdateID: testVideo1.videoID, description: description, longerVideoURL: longerComponents.url!)
+        let updatedVideoID1 = sut.updateVideo(videoToUpdateID: testVideo1.videoID, description: description, longerVideoURL: longerComponents.url!)
         
         XCTAssertEqual(videoAdded1, updatedVideoID1)
         XCTAssertEqual(sut.videos[0].description, description)
