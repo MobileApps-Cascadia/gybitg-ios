@@ -391,6 +391,9 @@
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" id="q4G-SX-deG" userLabel="Add Video Button">
                                                 <rect key="frame" x="372" y="11" width="22" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="takeVideo:" destination="ZSr-6i-q4T" eventType="touchUpInside" id="GOc-kX-gut"/>
+                                                </connections>
                                             </button>
                                         </barButtonItem>
                                     </navigationItem>
