@@ -7,19 +7,6 @@
 
 import Foundation
 
-//The protocol for the VideoView
-protocol VideoRepositoryProtocol{
-    //to store all videos
-    var videos: [Video] {get}
-    func getAllVideos() -> [Video]
-    func getVideo(videoID: String) -> Video?
-    func addVideo(videoToAdd: Video) -> String
-    func updateVideo(videoToUpdateID: String, description: String?, longerVideoURL: URL?) -> String?
-    func deleteVideo(videoToDeleteID: String) -> String?
-    func deleteAllVideos()
-    
-}
-
 class VideoRepository: VideoRepositoryProtocol{
    
     internal var videos = [Video]()
