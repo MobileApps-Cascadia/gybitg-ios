@@ -1,4 +1,8 @@
-//
+//This class will take a video for the Gallery if the camera is available. Will have the app access the Photo Library if the camera is not available.
+//Will get the selected video and Save video to the main photo album.
+//Will conform to the UINavigationControllerDelegate, UIImagePickerControllerDelegate.
+//Will have a UIImageView to store a thumbnail of the video, a videoFileName,
+
 //  GalleryViewController.swift
 //  GYBITG
 //
@@ -12,10 +16,43 @@ import MobileCoreServices
 class GalleryViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     let videoFileName = "/video.mp4"
+    //to store a thumbnail of the video, a videoFileName,
+    @IBOutlet var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Sets the title of the page in the UINavigationController
+        navigationItem.title = "Gallery"
+       // navigationItem.rightBarButtonItem?.image =
+        //sets the right button of the camera to the camera system and calls the takeVideos method
+        let camera = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(takeVideos))
+        //sets the rightBarButtonItem on the UINavigationController to the camera
+        self.navigationItem.rightBarButtonItem  = camera
+
+
         // Do any additional setup after loading the view.
+    }
+    
+    //Purpose: To take a video for the Gallery if the camera is available
+    //Precondition: needs the privacy - camera usage in the info.plist, the user clicked the camera icon in the UINavigationController
+    //Postcondition: A video will be taken or selected from the photos library
+    @objc func takeVideos(){
+        let controller = UIImagePickerController()
+        
+        //Check if project runs on a device with camera available
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            
+            //Present UIImagePickerController to take video
+            controller.sourceType = .camera
+            controller.mediaTypes = [kUTTypeMovie as String]
+            controller.delegate = self
+            
+            present(controller, animated: true, completion: nil)
+        }
+        else {
+            
+            viewLibrary(controller)
+        }
     }
     
     //setting camera button to take a video
@@ -105,7 +142,6 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
     //Postcondtion: A thumbnail will be created and returned from the video or nil if video does not exist
     func turnVideoToThumbnail(_ videoURL: URL) -> UIImage? {
         
-        
         do {
             let asset = AVURLAsset(url: videoURL, options: nil)
             let imgGenerator = AVAssetImageGenerator(asset: asset)
@@ -121,5 +157,51 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
         }
         
     }
+    
+    //Purpose: To set the text of the text fields to the corresponding item properties when the view is loaded
+    //Precondition: Needs a UINavigationController to call this function when its about to swap views
+    //Postcondition: The text of the text fields to the corresponding item properties will be set to the values in the function
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //nameField.text = item.name
+       // SerialNumberField.text = item.serialNumber
+        //ValueField.text = "\(item.valueInDollars)"
+        // DateLabel.text = "\(item.dateCreated)"
+        //use the date and number formatters created above to show content
+      
+       // DateLabel.text = dateFormatter.string(from: item.dateCreated)
+    }
+    
+    //Ch14 pg 246 When the UINavigationController is about to swap views, it calls 2 Fx
+    //1. viewWillDissaperar and 2. viewWillAppear
+    //The VC that is about to be popped off the stack will have its viewWillDisappera and the Vc that is pushed on
+    // Will have viewWillApper called on it
+    //This will allow the values in the items viewTable to be updated when user taps Back button
+    //now go to ItemsVC and override the viewWillDisappear
+    //ch14 pg 251- now go to down to viewWillDisappear to implement that the keyboard will go away when the user pushes backbutton
+    //Purpose: To save changes to item to allow the values in the items viewTable to be updated when user taps Back button
+    //Precondition: Needs a UINavigationController to call this function when its about to swap views
+    //Postcondition: This will allow the values in the items viewTable to be updated when user taps Back button
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        //clear first responder to dismiss keyboard pg251
+        view.endEditing(true)
+        
+        //save changes to item
+        //item.name = nameField.text ?? ""
+        //item.serialNumber = SerialNumberField.text
+        
+        //if let valueText = ValueField.text,
+         //   let value = numberFormatter.number(from: valueText){
+        //    item.valueInDollars = value.intValue
+       // }else{
+           // item.valueInDollars = 0
+       // }
+        
+        
+    }
+    
     
 }
