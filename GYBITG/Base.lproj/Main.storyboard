@@ -402,7 +402,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem id="tJQ-9f-XCg">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="IgB-9j-3gK"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="IgB-9j-3gK"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

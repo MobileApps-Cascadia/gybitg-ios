@@ -25,7 +25,7 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
         navigationItem.title = "Gallery"
        // navigationItem.rightBarButtonItem?.image =
         //sets the right button of the camera to the camera system and calls the takeVideos method
-        let camera = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(takeVideos))
+        let camera = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(showAttachmentActionSheet))//#selector(takeVideos))
         //sets the rightBarButtonItem on the UINavigationController to the camera
         self.navigationItem.rightBarButtonItem  = camera
 
@@ -203,5 +203,31 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
         
     }
     
+    //Purpose: To show the user an actionsheet with options to choose from
+    //Precondition: The User clicks the icon
+    //Postcondtion: Will present the user with an alertController with options to choose from
+    @objc func showAttachmentActionSheet() {
     
+       let ac = UIAlertController(title: "Edit", message: "Choose Option", preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (action) -> Void in
+            self.takeVideos()
+            //pg 206
+            // .self.itemStore.removeItem(item)
+            //self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        })
+        
+        ac.addAction(cameraAction)
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        ac.addAction(cancelAction)
+        
+       /** let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) -> Void in
+            //pg 206
+           // .self.itemStore.removeItem(item)
+            //self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            })
+        
+        ac.addAction(deleteAction)*/
+        
+        present(ac, animated: true, completion: nil)
+    }
 }
