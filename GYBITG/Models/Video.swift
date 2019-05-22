@@ -6,13 +6,12 @@
 //
 
 import Foundation
-import CoreVideo
 import AVFoundation
-import CoreMedia
 
-struct Video {
+class Video: Equatable {
+    
     let videoID: String
-    let description: String?
+    var description: String?
     let dateTaken: Date
     let fileName: String
     let videoDuration: CMTime
@@ -29,4 +28,16 @@ struct Video {
         self.userID = userID
     }
     
+    //Implementing the equable method to conform to the Equatable protocol
+    static func == (lhs: Video, rhs: Video) -> Bool {
+        return lhs.videoID == rhs.videoID &&
+            lhs.description == rhs.description &&
+            lhs.dateTaken == rhs.dateTaken &&
+            lhs.fileName == rhs.fileName &&
+            lhs.videoDuration == rhs.videoDuration &&
+            lhs.videoURL == rhs.videoURL &&
+            lhs.userID == rhs.userID
+    }
+    
 }
+
