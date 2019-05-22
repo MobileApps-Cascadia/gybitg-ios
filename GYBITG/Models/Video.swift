@@ -7,6 +7,7 @@
 
 import Foundation
 import AVFoundation
+import UIKit
 
 class Video: Equatable {
     
@@ -18,8 +19,9 @@ class Video: Equatable {
     let videoURL: URL
     let userID: String
     var longerVideoURL: URL?
+    var thumbnail: UIImage?
     
-    init(videoID: String, description: String? = nil, dateTaken: Date, fileName: String, videoDuration: CMTime, videoURL: URL, userID: String, longerVideoURL: URL? = nil){
+    init(videoID: String, description: String? = nil, dateTaken: Date, fileName: String, videoDuration: CMTime, videoURL: URL, userID: String, longerVideoURL: URL? = nil, thumbnail: UIImage?){
         self.videoID = videoID
         self.description = description
         self.dateTaken = dateTaken
@@ -28,6 +30,7 @@ class Video: Equatable {
         self.videoURL = videoURL
         self.userID = userID
         self.longerVideoURL = longerVideoURL
+        self.thumbnail = thumbnail
     }
     
     //Implementing the equable method to conform to the Equatable protocol
@@ -43,7 +46,8 @@ class Video: Equatable {
             lhs.videoDuration == rhs.videoDuration &&
             lhs.videoURL == rhs.videoURL &&
             lhs.userID == rhs.userID &&
-            lhs.longerVideoURL == rhs.longerVideoURL
+            lhs.longerVideoURL == rhs.longerVideoURL &&
+            lhs.thumbnail == rhs.thumbnail
     }
     
 }

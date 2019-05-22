@@ -26,7 +26,8 @@ class MockVideoRepository: VideoRepositoryProtocol{
 
         let asset = getAVAsset(videoUrl: videoURL)
         let date: Date =  asset.creationDate?.dateValue ?? Date()
-        let video = Video(videoID: "\(date)", dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: getIPAddressForCellOrWireless()!)
+        
+        let video = Video(videoID: "\(date)", dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: getIPAddressForCellOrWireless()!, thumbnail: nil)
         return video
     }
     
@@ -125,7 +126,7 @@ class MockVideoRepository: VideoRepositoryProtocol{
     //purpose: Will update the video with the videoID with the description passed in
     //precondition: The videoID passed in exists in the array
     //postcondion: The VideoID passed in will be updated and the videoID returned or nil if not in the array
-    func updateVideo(videoToUpdateID: String, description: String?, longerVideoURL: URL?) -> String? {
+    func updateVideo(videoToUpdateID: String, description: String?, longerVideoURL: URL?, thumbnail: UIImage?) -> String? {
         
         let video = getVideo(videoID: videoToUpdateID)
         if video != nil{
@@ -134,6 +135,9 @@ class MockVideoRepository: VideoRepositoryProtocol{
             }
             if longerVideoURL != nil{
                 video!.longerVideoURL = longerVideoURL!
+            }
+            if thumbnail != nil{
+                video!.thumbnail = thumbnail
             }
             return video?.videoID
         }

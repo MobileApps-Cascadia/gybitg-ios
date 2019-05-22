@@ -21,7 +21,7 @@ protocol VideoRepositoryProtocol{
     func getAllVideos() -> [Video]
     func getVideo(videoID: String) -> Video?
     func addVideo(videoToAdd: Video) -> String
-    func updateVideo(videoToUpdateID: String, description: String?, longerVideoURL: URL?) -> String?
+    func updateVideo(videoToUpdateID: String, description: String?, longerVideoURL: URL?, thumbnail: UIImage?) -> String?
     func deleteVideo(videoToDeleteID: String) -> String?
     func deleteAllVideos()
     
@@ -134,6 +134,7 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
             let videoID = mockVideoRepository.addVideo(videoToAdd: video)
             print(videoID)
             let videoThumbnail = turnVideoToThumbnail(selectedVideo)
+            let updatevideoID = mockVideoRepository.updateVideo(videoToUpdateID: videoID, description: nil, longerVideoURL: nil, thumbnail: videoThumbnail)
             
             if videoThumbnail != nil{
                 
