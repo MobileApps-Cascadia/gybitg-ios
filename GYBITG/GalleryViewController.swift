@@ -12,6 +12,7 @@ import AVFoundation
 import Photos
 import UIKit
 import MobileCoreServices
+import CoreMedia
 
 //The protocol for the VideoView
 protocol VideoRepositoryProtocol{
@@ -28,9 +29,12 @@ protocol VideoRepositoryProtocol{
 
 class GalleryViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
+    let mockVideoRepository = MockVideoRepository()
+    
     let videoFileName = "/video.mp4"
     //to store a thumbnail of the video, a videoFileName,
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet var thumbNail: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,10 +110,9 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
             present(controller, animated: true, completion: nil)
         }
     
-    
-    //Purpose: To get the selected video and Save video to the main photo album and puts that image on the screen in the image view
+    //Purpose: To get the selected video andf Save video to the main photo album and puts that image on the screen in the image view
     //Precondtion: Needs the privacy - photo libraryadditon in the info.plist
-    //Postcondtion: The selected video will be added to the photos directory, turned into a thumbnail and put on screen in the Gallery
+    //Postcondtion: The select/Users/juanitaaguilar/Documents/gybitg-ios/GYBITG/Info.plisted video will be added to the photos directory, turned into a thumbnail and put on screen in the Gallery
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // 1
         if let selectedVideo:URL = (info[UIImagePickerController.InfoKey.mediaURL] as? URL) {
@@ -127,12 +130,18 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
             let dataPath = documentsDirectory.appendingPathComponent(videoFileName)
             try! videoData?.write(to: dataPath, options: [])
             
+           let video =  mockVideoRepository.createVideo(videoURL: selectedVideo)
+            let videoID = mockVideoRepository.addVideo(videoToAdd: video)
+            print(videoID)
             let videoThumbnail = turnVideoToThumbnail(selectedVideo)
+            
             if videoThumbnail != nil{
                 
                 //put that image on the screen in the image view
                 //need the imageView
                // imageView.image = videoThumbnail
+                thumbNail.image = videoThumbnail
+                
             }
         }
         // 3
@@ -157,6 +166,7 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
         
         do {
             let asset = AVURLAsset(url: videoURL, options: nil)
+            print("THis is the duration of the video: \(asset.duration)")
             let imgGenerator = AVAssetImageGenerator(asset: asset)
             imgGenerator.appliesPreferredTrackTransform = true
             let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
@@ -170,6 +180,10 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
         }
         
     }
+    
+   // func addVideotoRepo(videoURL: URL){
+     //   var video = Video(videoID: "", dateTaken: <#T##Date#>, fileName: <#T##String#>, videoDuration: <#T##CMTime#>, videoURL: <#T##URL#>, userID: //<#T##String#>)
+   // }
     
     //Purpose: To set the text of the text fields to the corresponding item properties when the view is loaded
     //Precondition: Needs a UINavigationController to call this function when its about to swap views

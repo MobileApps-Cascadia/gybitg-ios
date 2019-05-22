@@ -25,6 +25,7 @@
 		A823ECB02284F1FA003EC330 /* VideoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823ECAF2284F1FA003EC330 /* VideoRepository.swift */; };
 		A8EE23F9227283F700B9CEBF /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23F8227283F700B9CEBF /* Video.swift */; };
 		A8EE23FF2273B16300B9CEBF /* VideoStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */; };
+		A8F6C9872295AD7D00D5DC8D /* MockVideoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F6C9862295AD7D00D5DC8D /* MockVideoRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		A823ECAF2284F1FA003EC330 /* VideoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRepository.swift; sourceTree = "<group>"; };
 		A8EE23F8227283F700B9CEBF /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStructTests.swift; sourceTree = "<group>"; };
+		A8F6C9862295AD7D00D5DC8D /* MockVideoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockVideoRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				A823ECAF2284F1FA003EC330 /* VideoRepository.swift */,
+				A8F6C9862295AD7D00D5DC8D /* MockVideoRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				A823ECB02284F1FA003EC330 /* VideoRepository.swift in Sources */,
 				3F5C0E19227275A600307F74 /* AppDelegate.swift in Sources */,
 				3F446DA3227BB2B700A99061 /* Users.swift in Sources */,
+				A8F6C9872295AD7D00D5DC8D /* MockVideoRepository.swift in Sources */,
 				3F1BE0E522792E7F0077F076 /* FirstViewController.swift in Sources */,
 				3F1BE0ED2284EEA60077F076 /* GameStatHistoryViewController.swift in Sources */,
 			);

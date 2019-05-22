@@ -410,6 +410,9 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <viewLayoutGuide key="safeArea" id="yrz-OW-shO"/>
                     </view>
+                    <connections>
+                        <outlet property="thumbNail" destination="f3u-ME-NDk" id="chh-qO-Rf5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQN-KY-x8D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
