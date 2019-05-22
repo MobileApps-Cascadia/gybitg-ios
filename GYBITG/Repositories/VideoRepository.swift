@@ -1,20 +1,37 @@
-// This class will conform to the VideoRepositoryProtocol and implement the methods. It will have an array of videos. WIll get the all of the videos in the array of videos. Will return the video with the videoID passed in. Will insert the video passed in to the array. Will update the video with the videoID with the description passed in. Will delete the video passed in. Will delete all of the videos in the videos array.
+// This class will conform to the VideoRepositoryProtocol and implement the methods. It will have an array of videos. WIll get the all of the videos in the array of videos. Will return the video with the videoID passed in. Will insert the video passed in to the array. Will update the video with the videoID with the description, longerVideoURL or image passed in. Will delete the video passed in. Will delete all of the videos in the videos array.
 //  VideoRepository.swift
 //  GYBITG
 //
 //  Created by juanita aguilar on 5/9/19.
 //
 
-import Foundation
+import AVFoundation
+import Photos
 import UIKit
-
+import MobileCoreServices
+import CoreMedia
 class VideoRepository: VideoRepositoryProtocol{
    
     internal var videos = [Video]()
     
-    func getAllVideos() -> [Video] {
+     func getAllVideos() -> [Video] {
         return videos
     }
+    
+    
+    //Purpose: to Create a Video object from the URL of the parameter
+    //Precondition:
+    //Postcondition:
+    func createVideo(userID: String, videoURL: URL) -> Video{
+        
+        let asset = AVURLAsset(url: videoURL, options: nil)
+        
+        let date: Date =  asset.creationDate?.dateValue ?? Date()
+        
+        let video = Video(videoID: "\(date)", dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: userID, thumbnail: nil)
+        return video
+    }
+    
     
     //purpose: Will return the video with the videoID passed in
     //precondition: the video is in the array

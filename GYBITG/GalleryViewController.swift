@@ -18,6 +18,7 @@ import CoreMedia
 protocol VideoRepositoryProtocol{
     //to store all videos
     var videos: [Video] {get}
+    func createVideo(userID: String, videoURL: URL) -> Video
     func getAllVideos() -> [Video]
     func getVideo(videoID: String) -> Video?
     func addVideo(videoToAdd: Video) -> String
@@ -130,7 +131,7 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
             let dataPath = documentsDirectory.appendingPathComponent(videoFileName)
             try! videoData?.write(to: dataPath, options: [])
             
-           let video =  mockVideoRepository.createVideo(videoURL: selectedVideo)
+            let video =  mockVideoRepository.createVideo(userID: " ", videoURL: selectedVideo)
             let videoID = mockVideoRepository.addVideo(videoToAdd: video)
             print(videoID)
             let videoThumbnail = turnVideoToThumbnail(selectedVideo)
