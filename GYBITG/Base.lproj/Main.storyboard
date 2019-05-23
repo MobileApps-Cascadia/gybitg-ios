@@ -534,6 +534,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1rn-Tm-flS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3100.0000000000005" y="397.76785714285711"/>
+        </scene>
         <!--Gallery View Controller-->
         <scene sceneID="Syv-5e-QFo">
             <objects>
