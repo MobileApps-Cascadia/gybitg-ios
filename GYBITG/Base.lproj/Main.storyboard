@@ -19,10 +19,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arc-GR-tQ0">
-                                <rect key="frame" x="0.0" y="231" width="414" height="275"/>
+                                <rect key="frame" x="0.0" y="217" width="414" height="255"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="275" id="gWt-C3-gxJ"/>
+                                    <constraint firstAttribute="height" constant="275" id="gWt-C3-gxJ">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="255"/>
+                                    </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <state key="normal" title="Stats" backgroundImage="ball-basketball-basketball-court-1752757(1)">
@@ -30,17 +32,13 @@
                                     <color key="titleShadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 </state>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="orangegybitgiconfromweb" translatesAutoresizingMaskIntoConstraints="NO" id="9sU-F5-e15">
-                                <rect key="frame" x="57" y="109" width="300" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="PlF-PX-y8V"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjJ-yV-ijD">
-                                <rect key="frame" x="0.0" y="502" width="414" height="275"/>
+                                <rect key="frame" x="0.0" y="556" width="414" height="255"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="275" id="sd7-uq-9sb"/>
+                                    <constraint firstAttribute="height" constant="275" id="sd7-uq-9sb">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="255"/>
+                                    </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <state key="normal" title="Gallery" backgroundImage="action-athletes-ball-934083">
@@ -51,6 +49,12 @@
                                     <segue destination="ZSr-6i-q4T" kind="show" id="3sr-eg-fiL"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="orangegybitgiconfromweb" translatesAutoresizingMaskIntoConstraints="NO" id="9sU-F5-e15">
+                                <rect key="frame" x="37" y="109" width="300" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="PlF-PX-y8V"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
@@ -58,10 +62,18 @@
                             <constraint firstItem="arc-GR-tQ0" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="Ooh-37-7zB"/>
                             <constraint firstAttribute="trailing" secondItem="arc-GR-tQ0" secondAttribute="trailing" id="Ve5-W5-5wD"/>
                             <constraint firstItem="arc-GR-tQ0" firstAttribute="trailing" secondItem="PjJ-yV-ijD" secondAttribute="trailing" id="cxs-Hc-YhG"/>
-                            <constraint firstItem="arc-GR-tQ0" firstAttribute="top" secondItem="9sU-F5-e15" secondAttribute="bottom" constant="22" id="dWw-sy-CxZ"/>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="PjJ-yV-ijD" secondAttribute="bottom" constant="36" id="gpr-em-zew"/>
-                            <constraint firstItem="9sU-F5-e15" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="57" id="s0b-w9-Nia"/>
-                            <constraint firstItem="arc-GR-tQ0" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="231" id="xXJ-cc-Vvh"/>
+                            <constraint firstItem="arc-GR-tQ0" firstAttribute="top" secondItem="9sU-F5-e15" secondAttribute="bottom" constant="22" id="dWw-sy-CxZ">
+                                <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                            </constraint>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="PjJ-yV-ijD" secondAttribute="bottom" constant="36" id="gpr-em-zew">
+                                <variation key="heightClass=regular-widthClass=compact" constant="2"/>
+                            </constraint>
+                            <constraint firstItem="9sU-F5-e15" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="57" id="s0b-w9-Nia">
+                                <variation key="heightClass=regular-widthClass=compact" constant="37"/>
+                            </constraint>
+                            <constraint firstItem="arc-GR-tQ0" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="231" id="xXJ-cc-Vvh">
+                                <variation key="heightClass=regular-widthClass=compact" constant="217"/>
+                            </constraint>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
@@ -69,7 +81,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1659.4202898550725" y="-320.08928571428572"/>
+            <point key="canvasLocation" x="1658.4000000000001" y="-320.68965517241378"/>
         </scene>
         <!--Account-->
         <scene sceneID="wg7-f3-ORb">
@@ -80,7 +92,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="106.5" y="426.5" width="201.5" height="43"/>
+                                <rect key="frame" x="106" y="426.5" width="202" height="43"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
