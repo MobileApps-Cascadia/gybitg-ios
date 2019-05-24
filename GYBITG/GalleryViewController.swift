@@ -37,6 +37,7 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var thumbNail: UIImageView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //Sets the title of the page in the UINavigationController
@@ -79,7 +80,7 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
     //Purpose: To take a video for the Gallery if the camera is available
     //Precondition: needs the privacy - camera usage in the info.plist
     //Postcondition: A video will be taken or selected from the photos library
-    @IBAction func takeVideo(_ sender: UIButton) {
+   @IBAction func takeVideo(_ sender: UIButton) {
         
             let controller = UIImagePickerController()
             
@@ -98,7 +99,8 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
                 viewLibrary(controller)
             }
         }
-        
+   
+    
     //Purpose: To have the app access the Photo Library if the camera is not available
     //Precondition: Needs the privacy - photo library usage in the info.plist
     //Postcondition: The photo library is presented
