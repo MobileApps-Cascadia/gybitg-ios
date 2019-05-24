@@ -14,9 +14,10 @@ class GalleryCell: UITableViewCell {
     
     //These are not outlets on a controller They are outlest on a view - the custom UITableViewCell
     //So Have to connect them to the ITemCell pg214  Control click on the itemCell in the document outline and make 3 connecitons
-    @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var videoDurationLabel: UILabel!
-    @IBOutlet var thumbnail: UIImageView!
+    @IBOutlet var Description: UILabel!
+    @IBOutlet var videoDuration: UILabel!
+    @IBOutlet var thumbnail: UIButton!
+    
     
     
     //to make the labels know about the changed prefferred text size the user chooses via the Settings
@@ -24,9 +25,9 @@ class GalleryCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        descriptionLabel.adjustsFontForContentSizeCategory = true
-        videoDurationLabel.adjustsFontForContentSizeCategory = true
-        thumbnail.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        //Description.adjustsFontForContentSizeCategory = true
+      //  videoDuration.adjustsFontForContentSizeCategory = true
+       // thumbnail.adjustsImageSizeForAccessibilityContentSizeCategory = true
     }
     
 }

@@ -30,16 +30,14 @@ protocol VideoRepositoryProtocol{
 
 class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    let mockVideoRepository = MockVideoRepository()
+    var videoRepository: VideoRepositoryProtocol!
     
     let videoFileName = "/video.mp4"
-    //to store a thumbnail of the video, a videoFileName,
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var thumbNail: UIImageView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        videoRepository = MockVideoRepository()
+          tableView.reloadData()
         //Sets the title of the page in the UINavigationController
        // navigationItem.title = "Gallery"
        // navigationItem.rightBarButtonItem?.image =
@@ -48,8 +46,11 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         //sets the rightBarButtonItem on the UINavigationController to the camera
        // self.navigationItem.rightBarButtonItem? = add
 
-
+        //Dynamic cell height pg 216
+        tableView.rowHeight = 150//UITableView.automaticDimension
+        tableView.estimatedRowHeight = 150
         // Do any additional setup after loading the view.
+        
     }
     
     //setting camera button to take a video
@@ -110,13 +111,15 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             let dataPath = documentsDirectory.appendingPathComponent(videoFileName)
             try! videoData?.write(to: dataPath, options: [])
             
-            let video =  mockVideoRepository.createVideo(userID: " ", videoURL: selectedVideo)
-            let videoID = mockVideoRepository.addVideo(videoToAdd: video)
-            print(videoID)
-            let videoThumbnail = turnVideoToThumbnail(selectedVideo)
-            let updatevideoID = mockVideoRepository.updateVideo(videoToUpdateID: videoID, description: nil, longerVideoURL: nil, thumbnail: videoThumbnail)
+            addVideoToTableView(selectedVideo: selectedVideo)
             
-            if videoThumbnail != nil{
+           // let video =  videoRepository.createVideo(userID: " ", videoURL: selectedVideo)
+          //  let videoID = videoRepository.addVideo(videoToAdd: video)
+           // print(videoID)
+           // let videoThumbnail = turnVideoToThumbnail(selectedVideo)
+           // let updatevideoID = videoRepository.updateVideo(videoToUpdateID: videoID, description: nil, longerVideoURL: nil, thumbnail: videoThumbnail)
+            
+           /* if videoThumbnail != nil{
                 
                 //put that image on the screen in the image view
                 //need the imageView
@@ -124,12 +127,35 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                // thumbNail.image = videoThumbnail
               //  Thumbnail.setImage(videoThumbnail, for: .selected)
                 
-            }
+            }*/
         }
         
         picker.dismiss(animated: true)
     }
     
+    func addVideoToTableView(selectedVideo: URL){
+    //Create a new item and add it to the store
+         let videoThumbnail = turnVideoToThumbnail(selectedVideo)
+        
+        let newVideo =  videoRepository.createVideo(userID: " ", videoURL: selectedVideo)
+            newVideo.thumbnail = videoThumbnail
+        let videoID = videoRepository.addVideo(videoToAdd: newVideo)
+   // let newVideo = itemStore.createItem()
+     print(videoID)
+       
+        
+        //let updatevideoID = videoRepository.updateVideo(videoToUpdateID: videoID, description: nil, longerVideoURL: nil, thumbnail: videoThumbnail)
+        
+    //Figure out where that last item is in the array
+        if let index = videoRepository.videos.firstIndex(of: newVideo){
+             let indexPath = IndexPath(row: index, section: 0)
+        
+           //insert this new row into the table
+          tableView.insertRows(at: [indexPath], with: .automatic)
+        
+        }
+    }
+        
     //Saves a video to the photos library
     //also needs the privacy - photo libraryadditon
     @objc func videoSaved(_ video: String, didFinishSavingWithError error: NSError!, context: UnsafeMutableRawPointer){
@@ -162,6 +188,52 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         }
         
     }
+    
+    //required func of the UITableViewDataSource Protocol this returns an int for the number of rows in the table a row for each item
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)-> Int{
+      return videoRepository.videos.count
+    }
+    
+    //second required fx the UITableViewDataSource Protocol This is the nth row displays the nth entry in the allItems array. Asks the datasource for a cell to insert in a particular location of the table view.
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     
+     // Create an istance of UITableViewCell, with default appearance
+     //dont use if you have the resue code
+     // let cell = UITableViewCell(style: .value1, reuseIdentifier: "UITableViewCell")
+     
+     //Get a row or recycled cell
+     //Will check the pool or or quee of cells to see if a cell with the correct reuse identifier already exists. If not a new cell will be created and returned
+     //The identifier UITableViewCell was created in the storyBoard by selecting the cell in the ui and the attributes to indtifier and selecting the style to right Detail
+     // let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+     
+     //if using custom ItemCell do this instead of line above to deque a cell
+     let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryCell", for: indexPath) as! GalleryCell
+     
+     //set the text on the cell with the description of this item
+     //that is at the nth index of items, where n = row
+     //this cell will appera in on the table view
+        let video = videoRepository.videos[indexPath.row]
+     
+     /** cell.textLabel?.text = item.name
+     cell.detailTextLabel?.text = "$\(item.valueInDollars)"*/
+     
+     //configure the custom cell with the Item
+     cell.Description.text = video.description
+     cell.videoDuration.text = "\(video.videoDuration)"
+        if video.thumbnail != nil{
+            
+        cell.thumbnail.setImage(video.thumbnail, for: .normal)
+            cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
+            
+        }
+        //cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
+        //cell.thumbnail.imageView?.sizeThatFits((video.thumbnail?.size/10.00))
+     
+     return cell
+     }
+    
+    
+    
     
    // func addVideotoRepo(videoURL: URL){
      //   var video = Video(videoID: "", dateTaken: <#T##Date#>, fileName: <#T##String#>, videoDuration: <#T##CMTime#>, videoURL: <#T##URL#>, userID: //<#T##String#>)

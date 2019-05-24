@@ -225,7 +225,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bBB-8o-Qk7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4871" y="-223"/>
+            <point key="canvasLocation" x="1919" y="-522"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="3Tm-Kj-H7k">
@@ -371,7 +371,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e91-Yz-0dT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5673" y="-279"/>
+            <point key="canvasLocation" x="1713" y="422"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -536,11 +536,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GalleryCell" rowHeight="130" id="Okr-K2-fJ5" customClass="GalleryViewControllerTableViewCell" customModule="GYBITG" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="130"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GalleryCell" id="Okr-K2-fJ5" customClass="GalleryCell" customModule="GYBITG" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Okr-K2-fJ5" id="ACT-w0-OIc" customClass="GalleryViewControllerTableViewCell" customModule="GYBITG" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="129.66666666666666"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Okr-K2-fJ5" id="ACT-w0-OIc" customClass="GalleryCell" customModule="GYBITG" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3d4-lM-wia">
@@ -549,14 +549,15 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ed-hF-Ded">
-                                            <rect key="frame" x="16" y="11" width="138" height="101"/>
-                                            <color key="backgroundColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ed-hF-Ded">
+                                            <rect key="frame" x="16" y="11" width="138" height="24"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="138" id="2MV-rY-7kj"/>
                                             </constraints>
-                                            <state key="normal" backgroundImage="action-athletes-ball-934083">
-                                                <color key="titleShadowColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <state key="normal">
+                                                <color key="titleColor" red="0.063873121729999996" green="0.054145020859999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8N-t6-z48">
@@ -578,9 +579,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="date" destination="O8N-t6-z48" id="MPW-96-qrP"/>
-                                    <outlet property="thumbnail" destination="6Ed-hF-Ded" id="DzS-DQ-Rxm"/>
-                                    <outlet property="title" destination="3d4-lM-wia" id="uAR-9C-bNd"/>
+                                    <outlet property="Description" destination="3d4-lM-wia" id="Dbi-El-nGI"/>
+                                    <outlet property="thumbnail" destination="6Ed-hF-Ded" id="GOe-Dv-UMS"/>
+                                    <outlet property="videoDuration" destination="O8N-t6-z48" id="GSb-du-qpo"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -600,7 +601,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VYD-r1-DTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-630" y="211"/>
+            <point key="canvasLocation" x="-34" y="255"/>
         </scene>
         <!--Home-->
         <scene sceneID="EaF-96-4jy">
