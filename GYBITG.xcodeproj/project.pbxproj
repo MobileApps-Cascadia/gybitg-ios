@@ -22,7 +22,6 @@
 		3FA615C62273715C00A059FC /* GameStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615C52273715C00A059FC /* GameStat.swift */; };
 		3FA615F62273D7FB00A059FC /* GameStatClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */; };
 		A8079A4E2297CC070078E117 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8079A4D2297CC070078E117 /* GalleryCell.swift */; };
-		A8079A51229868AA0078E117 /* VideoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8079A50229868AA0078E117 /* VideoDataSource.swift */; };
 		A823ECAD2284EFA3003EC330 /* VideoRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823ECAC2284EFA3003EC330 /* VideoRepositoryTests.swift */; };
 		A823ECB02284F1FA003EC330 /* VideoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823ECAF2284F1FA003EC330 /* VideoRepository.swift */; };
 		A8EE23F9227283F700B9CEBF /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23F8227283F700B9CEBF /* Video.swift */; };
@@ -60,7 +59,6 @@
 		3FA615C52273715C00A059FC /* GameStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStat.swift; sourceTree = "<group>"; };
 		3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatClassTests.swift; sourceTree = "<group>"; };
 		A8079A4D2297CC070078E117 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
-		A8079A50229868AA0078E117 /* VideoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDataSource.swift; sourceTree = "<group>"; };
 		A823ECAC2284EFA3003EC330 /* VideoRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRepositoryTests.swift; sourceTree = "<group>"; };
 		A823ECAF2284F1FA003EC330 /* VideoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRepository.swift; sourceTree = "<group>"; };
 		A8EE23F8227283F700B9CEBF /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 		3F5C0E17227275A600307F74 /* GYBITG */ = {
 			isa = PBXGroup;
 			children = (
-				A8079A4F2298688B0078E117 /* DataSources */,
 				A823ECAE2284F06A003EC330 /* Repositories */,
 				A8EE23F72272838C00B9CEBF /* Models */,
 				3F5C0E18227275A600307F74 /* AppDelegate.swift */,
@@ -144,14 +141,6 @@
 				A823ECAC2284EFA3003EC330 /* VideoRepositoryTests.swift */,
 			);
 			path = GYBITGTests;
-			sourceTree = "<group>";
-		};
-		A8079A4F2298688B0078E117 /* DataSources */ = {
-			isa = PBXGroup;
-			children = (
-				A8079A50229868AA0078E117 /* VideoDataSource.swift */,
-			);
-			path = DataSources;
 			sourceTree = "<group>";
 		};
 		A823ECAE2284F06A003EC330 /* Repositories */ = {
@@ -274,7 +263,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F7DEC3D2282437D0027ECAA /* GalleryViewController.swift in Sources */,
-				A8079A51229868AA0078E117 /* VideoDataSource.swift in Sources */,
 				3F1BE0E322792E7B0077F076 /* SecondViewController.swift in Sources */,
 				3FA615C62273715C00A059FC /* GameStat.swift in Sources */,
 				A8079A4E2297CC070078E117 /* GalleryCell.swift in Sources */,
