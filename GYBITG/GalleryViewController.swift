@@ -28,7 +28,7 @@ protocol VideoRepositoryProtocol{
     
 }
 
-class GalleryViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     let mockVideoRepository = MockVideoRepository()
     
@@ -41,21 +41,24 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         //Sets the title of the page in the UINavigationController
-        navigationItem.title = "Gallery"
+       // navigationItem.title = "Gallery"
        // navigationItem.rightBarButtonItem?.image =
         //sets the right button of the camera to the camera system and calls the takeVideos method
-        let camera = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(showAttachmentActionSheet))//#selector(takeVideos))
+      // let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAttachmentActionSheet))//#selector(takeVideos))
         //sets the rightBarButtonItem on the UINavigationController to the camera
-        self.navigationItem.rightBarButtonItem  = camera
+       // self.navigationItem.rightBarButtonItem? = add
 
 
         // Do any additional setup after loading the view.
     }
     
+    //setting camera button to take a video
+    //will first chect to see if a camera is available
+    //will set the array to contain movies as the mediaTypes
     //Purpose: To take a video for the Gallery if the camera is available
-    //Precondition: needs the privacy - camera usage in the info.plist, the user clicked the camera icon in the UINavigationController
+    //Precondition: needs the privacy - camera usage in the info.plist
     //Postcondition: A video will be taken or selected from the photos library
-    @objc func takeVideos(){
+    @IBAction func takeVideo(_ sender: UIBarButtonItem) {
         let controller = UIImagePickerController()
         
         //Check if project runs on a device with camera available
@@ -74,32 +77,6 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     
-    //setting camera button to take a video
-    //will first chect to see if a camera is available
-    //will set the array to contain movies as the mediaTypes
-    //Purpose: To take a video for the Gallery if the camera is available
-    //Precondition: needs the privacy - camera usage in the info.plist
-    //Postcondition: A video will be taken or selected from the photos library
-   @IBAction func takeVideo(_ sender: UIButton) {
-        
-            let controller = UIImagePickerController()
-            
-            //Check if project runs on a device with camera available
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                
-                //Present UIImagePickerController to take video
-                controller.sourceType = .camera
-                controller.mediaTypes = [kUTTypeMovie as String]
-                controller.delegate = self
-                
-                present(controller, animated: true, completion: nil)
-            }
-            else {
-                
-                viewLibrary(controller)
-            }
-        }
-   
     
     //Purpose: To have the app access the Photo Library if the camera is not available
     //Precondition: Needs the privacy - photo library usage in the info.plist
@@ -117,13 +94,13 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
     //Precondtion: Needs the privacy - photo libraryadditon in the info.plist
     //Postcondtion: The select/Users/juanitaaguilar/Documents/gybitg-ios/GYBITG/Info.plisted video will be added to the photos directory, turned into a thumbnail and put on screen in the Gallery
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // 1
+        
         if let selectedVideo:URL = (info[UIImagePickerController.InfoKey.mediaURL] as? URL) {
             // Save video to the main photo album
             //calls the videoSaved fx
             let selectorToCall = #selector(self.videoSaved(_:didFinishSavingWithError:context:))
             
-            // 2
+            
             UISaveVideoAtPathToSavedPhotosAlbum(selectedVideo.relativePath, self, selectorToCall, nil)
             // Save the video to the app directory
             let videoData = try? Data(contentsOf: selectedVideo)
@@ -144,11 +121,12 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
                 //put that image on the screen in the image view
                 //need the imageView
                // imageView.image = videoThumbnail
-                thumbNail.image = videoThumbnail
+               // thumbNail.image = videoThumbnail
+              //  Thumbnail.setImage(videoThumbnail, for: .selected)
                 
             }
         }
-        // 3
+        
         picker.dismiss(animated: true)
     }
     
@@ -234,31 +212,4 @@ class GalleryViewController: UIViewController, UINavigationControllerDelegate, U
         
     }
     
-    //Purpose: To show the user an actionsheet with options to choose from
-    //Precondition: The User clicks the icon
-    //Postcondtion: Will present the user with an alertController with options to choose from
-    @objc func showAttachmentActionSheet() {
-    
-       let ac = UIAlertController(title: "Edit", message: "Choose Option", preferredStyle: .actionSheet)
-        let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (action) -> Void in
-            self.takeVideos()
-            //pg 206
-            // .self.itemStore.removeItem(item)
-            //self.tableView.deleteRows(at: [indexPath], with: .automatic)
-        })
-        
-        ac.addAction(cameraAction)
-        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        ac.addAction(cancelAction)
-        
-       /** let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) -> Void in
-            //pg 206
-           // .self.itemStore.removeItem(item)
-            //self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            })
-        
-        ac.addAction(deleteAction)*/
-        
-        present(ac, animated: true, completion: nil)
-    }
 }

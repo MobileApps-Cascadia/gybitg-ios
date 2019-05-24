@@ -21,6 +21,7 @@
 		3F7DEC3D2282437D0027ECAA /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7DEC3C2282437C0027ECAA /* GalleryViewController.swift */; };
 		3FA615C62273715C00A059FC /* GameStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615C52273715C00A059FC /* GameStat.swift */; };
 		3FA615F62273D7FB00A059FC /* GameStatClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */; };
+		A8079A4E2297CC070078E117 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8079A4D2297CC070078E117 /* GalleryCell.swift */; };
 		A823ECAD2284EFA3003EC330 /* VideoRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823ECAC2284EFA3003EC330 /* VideoRepositoryTests.swift */; };
 		A823ECB02284F1FA003EC330 /* VideoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823ECAF2284F1FA003EC330 /* VideoRepository.swift */; };
 		A8EE23F9227283F700B9CEBF /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EE23F8227283F700B9CEBF /* Video.swift */; };
@@ -57,6 +58,7 @@
 		3F7DEC3C2282437C0027ECAA /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		3FA615C52273715C00A059FC /* GameStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStat.swift; sourceTree = "<group>"; };
 		3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatClassTests.swift; sourceTree = "<group>"; };
+		A8079A4D2297CC070078E117 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
 		A823ECAC2284EFA3003EC330 /* VideoRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRepositoryTests.swift; sourceTree = "<group>"; };
 		A823ECAF2284F1FA003EC330 /* VideoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRepository.swift; sourceTree = "<group>"; };
 		A8EE23F8227283F700B9CEBF /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				3F7DEC3C2282437C0027ECAA /* GalleryViewController.swift */,
 				3F1BE0EE2284EF600077F076 /* GameStatRepo.swift */,
 				3F1BE0F02284F0FF0077F076 /* GameStatCell.swift */,
+				A8079A4D2297CC070078E117 /* GalleryCell.swift */,
 			);
 			path = GYBITG;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				3F7DEC3D2282437D0027ECAA /* GalleryViewController.swift in Sources */,
 				3F1BE0E322792E7B0077F076 /* SecondViewController.swift in Sources */,
 				3FA615C62273715C00A059FC /* GameStat.swift in Sources */,
+				A8079A4E2297CC070078E117 /* GalleryCell.swift in Sources */,
 				3F1BE0EF2284EF600077F076 /* GameStatRepo.swift in Sources */,
 				3F1BE0F12284F0FF0077F076 /* GameStatCell.swift in Sources */,
 				A8EE23F9227283F700B9CEBF /* Video.swift in Sources */,

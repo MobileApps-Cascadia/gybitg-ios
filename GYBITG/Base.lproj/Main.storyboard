@@ -81,7 +81,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1658.4000000000001" y="-320.68965517241378"/>
+            <point key="canvasLocation" x="954" y="-743"/>
         </scene>
         <!--Account-->
         <scene sceneID="wg7-f3-ORb">
@@ -130,7 +130,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ohI-EW-ROe">
-                                <rect key="frame" x="100" y="558" width="215" height="30"/>
+                                <rect key="frame" x="100" y="563" width="215" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.29769214459999999" green="0.48117658639999999" blue="0.84190819299999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="New Account">
@@ -497,7 +497,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3NT-zY-ER2">
-                                <rect key="frame" x="67" y="373" width="76" height="17"/>
+                                <rect key="frame" x="67" y="397" width="76" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -530,7 +530,7 @@
         <!--Gallery Table View Controller-->
         <scene sceneID="Syv-5e-QFo">
             <objects>
-                <tableViewController id="7Sr-sB-4lF" userLabel="Gallery Table View Controller" sceneMemberID="viewController">
+                <tableViewController id="7Sr-sB-4lF" userLabel="Gallery Table View Controller" customClass="GalleryViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="PSs-iN-3th">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -591,12 +591,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="na8-Qt-6IS">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Uxc-N3-I2E"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Uxc-N3-I2E">
+                            <connections>
+                                <action selector="takeVideo:" destination="7Sr-sB-4lF" id="Nty-bx-U1X"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VYD-r1-DTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2255" y="-279"/>
+            <point key="canvasLocation" x="-630" y="211"/>
         </scene>
         <!--Home-->
         <scene sceneID="EaF-96-4jy">
@@ -633,7 +637,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VXp-s4-JGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2002" y="-1015"/>
+            <point key="canvasLocation" x="2974" y="-766"/>
         </scene>
     </scenes>
     <resources>

@@ -46,7 +46,7 @@ var sut: VideoRepository!
         let videoDuration = CMTime(seconds: (timeInterval), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7")
+        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", thumbnail: nil)
         
         let videoAddedID = sut.addVideo(videoToAdd: testVideo1)
         XCTAssertNotNil(videoAddedID)
