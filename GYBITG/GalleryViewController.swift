@@ -30,13 +30,14 @@ protocol VideoRepositoryProtocol{
 
 class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    var videoRepository: VideoRepositoryProtocol!
+    var videoRepository = MockVideoRepository()
     
     let videoFileName = "/video.mp4"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        videoRepository = MockVideoRepository()
+        
+        
           tableView.reloadData()
         //Sets the title of the page in the UINavigationController
        // navigationItem.title = "Gallery"
@@ -54,7 +55,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     }
     
     //setting camera button to take a video
-    //will first chect to see if a camera is available
+    //will first check to see if a camera is available
     //will set the array to contain movies as the mediaTypes
     //Purpose: To take a video for the Gallery if the camera is available
     //Precondition: needs the privacy - camera usage in the info.plist
@@ -133,6 +134,9 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         picker.dismiss(animated: true)
     }
     
+    //Purpose: To add a thumbnail of the video to the tableView
+    //Precondtion: a valid URL
+    //Postcondtion: a thumbnail will be created from the video URL and a Video will be created and added to the repository
     func addVideoToTableView(selectedVideo: URL){
     //Create a new item and add it to the store
          let videoThumbnail = turnVideoToThumbnail(selectedVideo)
