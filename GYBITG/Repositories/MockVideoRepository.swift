@@ -27,7 +27,8 @@ class MockVideoRepository: VideoRepositoryProtocol{
         let asset = getAVAsset(videoUrl: videoURL)
         let date: Date =  asset.creationDate?.dateValue ?? Date()
         
-        let video = Video(videoID: "\(date)", dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: getIPAddressForCellOrWireless()!, thumbnail: nil)
+        let videoDescription = "Description of Video"
+        let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: getIPAddressForCellOrWireless()!, thumbnail: nil)
         
         print("THE IPAdDress FOR USER IS:  \(getIPAddressForCellOrWireless()!)")
         //10.0.0.105
