@@ -60,6 +60,18 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         //let ac = UIAlertController(title: "Edit", message: "Choose Option", preferredStyle: .actionSheet)
         let ac = UIAlertController(title: "Choose Option", message: "", preferredStyle: .actionSheet)
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            
+            if let currentPopoverpresentioncontroller = ac.popoverPresentationController{
+                currentPopoverpresentioncontroller.permittedArrowDirections = []
+                currentPopoverpresentioncontroller.sourceRect = CGRect(x: (self.view.bounds.midX), y: (self.view.bounds.midY), width: 0, height: 0)
+                currentPopoverpresentioncontroller.sourceView = self.view
+                //self.present(ac, animated: true, completion: nil)
+            }
+        }/**else{
+         self.present(ac, animated: true, completion: nil)
+         }*/
+        
         let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (action) -> Void in
             self.takeVideos()
             
@@ -87,6 +99,16 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         present(ac, animated: true, completion: nil)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //Purpose: To take a video for the Gallery if the camera is available
     //Precondition: needs the privacy - camera usage in the info.plist, the user clicked the camera icon in the UINavigationController
