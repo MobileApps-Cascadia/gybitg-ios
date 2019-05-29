@@ -1,8 +1,8 @@
-//This class will take a video for the Gallery if the camera is available. Will have the app access the Photo Library if the camera is not available.
+//This class will take a video for the Gallery if the camera is available. Will have the app access the Photo Library if the camera is not available or if user selects video library from the actionsheet choices.
 //Will get the selected video and Save video to the main photo album.
 //Will conform to the UINavigationControllerDelegate, UIImagePickerControllerDelegate.
 //Will have a UIImageView to store a thumbnail of the video, a videoFileName,
-
+//Will convert the Date in the specified format "MMM dd,yyyy" - May 29,2019. Will convert the time to CMTime print the duration. Will Return an int for the number of rows in the table a row for each item. Will fill the tableView with the items in the repository array of Videos.
 //  GalleryViewController.swift
 //  GYBITG
 //
