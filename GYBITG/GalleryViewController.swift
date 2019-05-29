@@ -42,7 +42,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
        // navigationItem.title = "Gallery"
        // navigationItem.rightBarButtonItem?.image =
         //sets the right button of the camera to the camera system and calls the takeVideos method
-      // let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAttachmentActionSheet))//#selector(takeVideos))
+     // let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAttachmentActionSheet))//#selector(takeVideos))
         //sets the rightBarButtonItem on the UINavigationController to the camera
        // self.navigationItem.rightBarButtonItem? = add
 
