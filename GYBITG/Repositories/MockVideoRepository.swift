@@ -1,5 +1,5 @@
 
-// This class will conform to the VideoRepositoryProtocol and implement the methods. It will have an array of videos. WIll get the all of the videos in the array of videos. Will return the video with the videoID passed in. Will insert the video passed in to the array. Will update the video with the videoID with the description, longerVideoURL image passed in. Will delete the video passed in. Will delete all of the videos in the videos array.
+// This class will conform to the VideoRepositoryProtocol and implement the methods. It will have an array of videos. WIll get the all of the videos in the array of videos. Will create a Video object from the URL of the parameter Will return the video with the videoID passed in. Will insert the video passed in to the array. Will update the video with the videoID with the description, longerVideoURL image passed in. Will delete the video passed in. Will delete all of the videos in the videos array.
 //  VideoRepository.swift
 //  GYBITG
 //
@@ -19,9 +19,9 @@ class MockVideoRepository: VideoRepositoryProtocol{
         return videos
     }
     
-    //Purpose: to Create a Video object from the URL of the parameter
-    //Precondition:
-    //Postcondition:
+    //Purpose: To create a Video object from the URL of the parameter
+    //Precondition: a URL of a video exists,
+    //Postcondition: A Video will be created and returned and properties set. Will check if there is a date for the asset and if not, the date will be set to now
     func createVideo(userID: String, videoURL: URL) -> Video {
         
         let asset = getAVAsset(videoUrl: videoURL)
@@ -29,6 +29,12 @@ class MockVideoRepository: VideoRepositoryProtocol{
         
         let video = Video(videoID: "\(date)", dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: getIPAddressForCellOrWireless()!, thumbnail: nil)
         
+        print("THE IPAdDress FOR USER IS:  \(getIPAddressForCellOrWireless()!)")
+        //10.0.0.105
+        //2601:600:9b7f:ecc8::21d3
+        //2601:600:9b7f:ecc8::21d3
+        //2601:600:9b7f:ecc8::36db
+       // 2601:600:9b7f:ecc8::36db
         return video
     }
     
@@ -41,7 +47,7 @@ class MockVideoRepository: VideoRepositoryProtocol{
             return asset
    }
     
-    
+    //Purpose: To get the IPAddress for the user
     func getIPAddressForCellOrWireless()-> String? {
         
         let WIFI_IF : [String] = ["en0"]

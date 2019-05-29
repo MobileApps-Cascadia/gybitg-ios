@@ -1,4 +1,4 @@
-// This class will conform to the VideoRepositoryProtocol and implement the methods. It will have an array of videos. WIll get the all of the videos in the array of videos. Will return the video with the videoID passed in. Will insert the video passed in to the array. Will update the video with the videoID with the description, longerVideoURL or image passed in. Will delete the video passed in. Will delete all of the videos in the videos array.
+// This class will conform to the VideoRepositoryProtocol and implement the methods. It will have an array of videos. WIll get the all of the videos in the array of videos. Will create a Video object from the URL of the parameter. Will return the video with the videoID passed in. Will insert the video passed in to the array. Will update the video with the videoID with the description, longerVideoURL or image passed in. Will delete the video passed in. Will delete all of the videos in the videos array.
 //  VideoRepository.swift
 //  GYBITG
 //
@@ -19,9 +19,9 @@ class VideoRepository: VideoRepositoryProtocol{
     }
     
     
-    //Purpose: to Create a Video object from the URL of the parameter
-    //Precondition:
-    //Postcondition:
+    //Purpose: To create a Video object from the URL of the parameter and properties set
+    //Precondition: a URL of a video exists, a valid userID is passed
+    //Postcondition: A Video will be created and returned
     func createVideo(userID: String, videoURL: URL) -> Video{
         
         let asset = AVURLAsset(url: videoURL, options: nil)

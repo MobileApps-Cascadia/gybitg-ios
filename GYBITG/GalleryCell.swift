@@ -17,7 +17,7 @@ class GalleryCell: UITableViewCell {
     @IBOutlet var Description: UILabel!
     @IBOutlet var videoDuration: UILabel!
     @IBOutlet var thumbnail: UIButton!
-    
+    @IBOutlet var Date: UILabel!
     
     
     //to make the labels know about the changed prefferred text size the user chooses via the Settings
@@ -27,7 +27,7 @@ class GalleryCell: UITableViewCell {
         
         //Description.adjustsFontForContentSizeCategory = true
       //  videoDuration.adjustsFontForContentSizeCategory = true
-       // thumbnail.adjustsImageSizeForAccessibilityContentSizeCategory = true
+       //thumbnail.adjustsImageSizeForAccessibilityContentSizeCategory = true
     }
     
 }

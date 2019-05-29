@@ -37,7 +37,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
           tableView.reloadData()
         //Sets the title of the page in the UINavigationController
        // navigationItem.title = "Gallery"
@@ -94,7 +93,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     
     //Purpose: To get the selected video andf Save video to the main photo album and puts that image on the screen in the image view
     //Precondtion: Needs the privacy - photo libraryadditon in the info.plist
-    //Postcondtion: The select/Users/juanitaaguilar/Documents/gybitg-ios/GYBITG/Info.plisted video will be added to the photos directory, turned into a thumbnail and put on screen in the Gallery
+    //Postcondtion: The video will be added to the photos directory, turned into a thumbnail and put on screen in the Gallery
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let selectedVideo:URL = (info[UIImagePickerController.InfoKey.mediaURL] as? URL) {
@@ -112,7 +111,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             let dataPath = documentsDirectory.appendingPathComponent(videoFileName)
             try! videoData?.write(to: dataPath, options: [])
             
-            addVideoToTableView(selectedVideo: selectedVideo)
+            addVideoThumbnailToTableView(selectedVideo: selectedVideo)
             
            // let video =  videoRepository.createVideo(userID: " ", videoURL: selectedVideo)
           //  let videoID = videoRepository.addVideo(videoToAdd: video)
@@ -134,10 +133,10 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         picker.dismiss(animated: true)
     }
     
-    //Purpose: To add a thumbnail of the video to the tableView
+    //Purpose: To create a Video object, and add a thumbnail of the video to the tableView
     //Precondtion: a valid URL
-    //Postcondtion: a thumbnail will be created from the video URL and a Video will be created and added to the repository
-    func addVideoToTableView(selectedVideo: URL){
+    //Postcondtion: A thumbnail will be created from the video URL, presented in the tableView, a Video object will be created and added to the repository's array of Videos
+    func addVideoThumbnailToTableView(selectedVideo: URL){
     //Create a new item and add it to the store
          let videoThumbnail = turnVideoToThumbnail(selectedVideo)
         
@@ -145,8 +144,8 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             newVideo.thumbnail = videoThumbnail
         let videoID = videoRepository.addVideo(videoToAdd: newVideo)
    // let newVideo = itemStore.createItem()
-     print(videoID)
-       
+     print("This IS the Video ID \(videoID)")
+        // print("This IS the User ID \(userID)")
         
         //let updatevideoID = videoRepository.updateVideo(videoToUpdateID: videoID, description: nil, longerVideoURL: nil, thumbnail: videoThumbnail)
         
@@ -160,8 +159,10 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         }
     }
         
-    //Saves a video to the photos library
-    //also needs the privacy - photo libraryadditon
+    //Purpose: To Save a video to the photos library
+    //Precondition: Needs the privacy - photo libraryadditon
+    //Postcondition:
+    //This method takes four parameters: the video to write, who to tell when writing has finished, what method to call, and any context
     @objc func videoSaved(_ video: String, didFinishSavingWithError error: NSError!, context: UnsafeMutableRawPointer){
         if let theError = error {
             print("error saving the video = \(theError)")
@@ -193,12 +194,16 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
     }
     
-    //required func of the UITableViewDataSource Protocol this returns an int for the number of rows in the table a row for each item
+    //Purpose: A required func of the UITableViewDataSource Protocol this returns an int for the number of rows in the table a row for each item
+    //Precondition:
+    //Postcondition: Returns an int for the number of rows in the table a row for each item
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)-> Int{
       return videoRepository.videos.count
     }
     
-    //second required fx the UITableViewDataSource Protocol This is the nth row displays the nth entry in the allItems array. Asks the datasource for a cell to insert in a particular location of the table view.
+    //Purpose: A second required fx the UITableViewDataSource Protocol This is the nth row displays the nth entry in the allItems array. Asks the datasource for a cell to insert in a particular location of the table view.
+    //Precondition:
+    //Postcondition: Returns a cell in the tableView to display at a particular location in the tableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
      
      // Create an istance of UITableViewCell, with default appearance
@@ -211,7 +216,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
      // let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
      
      //if using custom ItemCell do this instead of line above to deque a cell
-     let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryCell", for: indexPath) as! GalleryCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryCell", for: indexPath) as! GalleryCell
      
      //set the text on the cell with the description of this item
      //that is at the nth index of items, where n = row
@@ -222,27 +227,65 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
      cell.detailTextLabel?.text = "$\(item.valueInDollars)"*/
      
      //configure the custom cell with the Item
-     cell.Description.text = video.description
-     cell.videoDuration.text = "\(video.videoDuration)"
+        
+        cell.Description.text = video.description
+        cell.videoDuration.text = convertTimeIntervalToCMTime(video: video)
+        cell.Date.text = convertDateMMMddyyyy(dateToConvert: video.dateTaken)
+        
         if video.thumbnail != nil{
-            
         cell.thumbnail.setImage(video.thumbnail, for: .normal)
             cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
-            
         }
         //cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
         //cell.thumbnail.imageView?.sizeThatFits((video.thumbnail?.size/10.00))
      
-     return cell
+        return cell
      }
     
+    //****get the TimeInterval(TimeInterval is a double)and convert it to a CMTime
+    //Purpose: To convert the time to CMTime print the duration
+    //Precodition: there is a video passed in
+    //Postcondition: A sting will be returned with the formatted videoDuration
+    func convertTimeIntervalToCMTime(video: Video) -> String{
+        var formatTime: String
+    //UPDATED Used .seconds of the CMTime
+        let convertToTimeInterval: TimeInterval = video.videoDuration.seconds
+        
+    //print the duration so it looks like min:sec
+    //have to get the remainer and format
+    //cast minutes into an Int to truncate
+        let minutes: Int = Int(convertToTimeInterval/60)
+        let seconds: Int = Int(convertToTimeInterval.truncatingRemainder(dividingBy: 60))
+        
+        if(seconds < 10){
+            formatTime =  "\(minutes):0\(seconds)"
+        print("\(minutes):0\(seconds)")
+        } else{
+            formatTime = "\(minutes):\(seconds)"
+        print("\(minutes):\(seconds)")
+        }
+        return formatTime
+    }
+    
+    //Purpose: To convert the Date in the specified format "MMM dd,yyyy" - May 29,2019
+    //Preconditon: a Date object is passed
+    //PostCondition: the Date will be converted in to the string in format, MMM dd,yyyy and returned
+    func convertDateMMMddyyyy(dateToConvert: Date) -> String{
+        //---------Prints the Date in the specified format "yyyy-MM-dd hh:mm:ss" - 2019-05-29 12:37:53 or "MMM dd,yyyy" - May 29,2019
+        let dateFormatter = DateFormatter()
+       // dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.dateFormat = "MMM dd,yyyy"
+        let convertedDate = dateFormatter.string(from: dateToConvert)
+        print("THIS is date: \(convertedDate)")
+        
+        return convertedDate
+
+    }
+   // func addActionsheetForIpad(actionSheet UIAlertController)
     
     
     
-   // func addVideotoRepo(videoURL: URL){
-     //   var video = Video(videoID: "", dateTaken: <#T##Date#>, fileName: <#T##String#>, videoDuration: <#T##CMTime#>, videoURL: <#T##URL#>, userID: //<#T##String#>)
-   // }
-    
+    //---------------Will Need for the Next SCREEN that is navigated to after this------------------------
     //Purpose: To set the text of the text fields to the corresponding item properties when the view is loaded
     //Precondition: Needs a UINavigationController to call this function when its about to swap views
     //Postcondition: The text of the text fields to the corresponding item properties will be set to the values in the function
@@ -287,5 +330,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         
     }
+    
     
 }
