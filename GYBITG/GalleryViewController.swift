@@ -42,9 +42,9 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
        // navigationItem.title = "Gallery"
        // navigationItem.rightBarButtonItem?.image =
         //sets the right button of the camera to the camera system and calls the takeVideos method
-     // let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAttachmentActionSheet))//#selector(takeVideos))
+    let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAttachmentActionSheet))//#selector(takeVideos))
         //sets the rightBarButtonItem on the UINavigationController to the camera
-       // self.navigationItem.rightBarButtonItem? = add
+        self.navigationItem.rightBarButtonItem? = add
 
         //Dynamic cell height pg 216
         tableView.rowHeight = 150//UITableView.automaticDimension
@@ -53,6 +53,62 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
     }
     
+    //Purpose: To show the user an actionsheet with options to choose from
+    //Precondition: The User clicks the icon
+    //Postcondtion: Will present the user with an alertController with options to choose from
+    @objc func showAttachmentActionSheet() {
+        
+        //let ac = UIAlertController(title: "Edit", message: "Choose Option", preferredStyle: .actionSheet)
+        let ac = UIAlertController(title: "Choose Option", message: "", preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (action) -> Void in
+            self.takeVideos()
+            
+            //pg 206
+            // .self.itemStore.removeItem(item)
+            //self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        })
+        let controller = UIImagePickerController()
+        let libraryAction = UIAlertAction(title: "Video Library", style: .default, handler: { (action) -> Void in
+            self.viewLibrary(controller)
+        })
+        
+        ac.addAction(cameraAction)
+        ac.addAction(libraryAction)
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        ac.addAction(cancelAction)
+        
+        /** let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) -> Void in
+         //pg 206
+         // .self.itemStore.removeItem(item)
+         //self.tableView.deleteRows(at: [indexPath], with: .automatic)
+         })
+         
+         ac.addAction(deleteAction)*/
+        
+        present(ac, animated: true, completion: nil)
+    }
+    
+    //Purpose: To take a video for the Gallery if the camera is available
+    //Precondition: needs the privacy - camera usage in the info.plist, the user clicked the camera icon in the UINavigationController
+    //Postcondition: A video will be taken or selected from the photos library
+    @objc func takeVideos(){
+        let controller = UIImagePickerController()
+        
+        //Check if project runs on a device with camera available
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            
+            //Present UIImagePickerController to take video
+            controller.sourceType = .camera
+            controller.mediaTypes = [kUTTypeMovie as String]
+            controller.delegate = self
+            
+            present(controller, animated: true, completion: nil)
+        }
+        else {
+            
+            viewLibrary(controller)
+        }
+    }
     //setting camera button to take a video
     //will first check to see if a camera is available
     //will set the array to contain movies as the mediaTypes
@@ -60,6 +116,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Precondition: needs the privacy - camera usage in the info.plist
     //Postcondition: A video will be taken or selected from the photos library
     @IBAction func takeVideo(_ sender: UIBarButtonItem) {
+        
         let controller = UIImagePickerController()
         
         //Check if project runs on a device with camera available
