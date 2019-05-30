@@ -25,9 +25,6 @@ class GalleryCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        //Description.adjustsFontForContentSizeCategory = true
-      //  videoDuration.adjustsFontForContentSizeCategory = true
-       //thumbnail.adjustsImageSizeForAccessibilityContentSizeCategory = true
     }
     
 }

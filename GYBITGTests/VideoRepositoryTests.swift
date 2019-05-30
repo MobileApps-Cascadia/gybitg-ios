@@ -64,7 +64,14 @@ var sut: VideoRepository!
         let videoDuration = CMTime(seconds: (timeInterval), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7")
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", thumbnail: image)
         
         let videoAddedID = sut.addVideo(videoToAdd: testVideo1)
         XCTAssertNotNil(videoAddedID)
@@ -83,7 +90,14 @@ var sut: VideoRepository!
         let videoDuration = CMTime(seconds: (timeInterval), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-       let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7")
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", thumbnail: image)
         
         let testVideoID = sut.getVideo(videoID: testVideo1.videoID)
        
@@ -98,7 +112,14 @@ var sut: VideoRepository!
         let videoDuration = CMTime(seconds: (timeInterval), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7")
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", thumbnail: image)
         
        let videoAdded1 = sut.addVideo(videoToAdd: testVideo1)
         XCTAssertEqual(sut.videos.count, 1)
@@ -120,9 +141,16 @@ var sut: VideoRepository!
         let videoDuration = CMTime(seconds: (timeInterval), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7")
-        let testVideo2 = Video(videoID: "8", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7")
-        let testVideo3 = Video(videoID: "9", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7")
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", thumbnail: image)
+        let testVideo2 = Video(videoID: "8", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", thumbnail: image)
+        let testVideo3 = Video(videoID: "9", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", thumbnail: image)
         
         let videoAdded1 = sut.addVideo(videoToAdd: testVideo1)
         let videoAdded2 =  sut.addVideo(videoToAdd: testVideo2)
@@ -136,7 +164,7 @@ var sut: VideoRepository!
         
         let videoToDelete = sut.deleteVideo(videoToDeleteID: testVideo1.videoID)
         XCTAssertNil(videoToDelete)
-        let videoToUpdate = sut.updateVideo(videoToUpdateID: testVideo2.videoID, description: "Update", longerVideoURL: nil)
+        let videoToUpdate = sut.updateVideo(videoToUpdateID: testVideo2.videoID, description: "Update", longerVideoURL: nil, thumbnail: image )
         XCTAssertNil(videoToUpdate)
         
     }
@@ -148,19 +176,29 @@ var sut: VideoRepository!
         let timeInterval: TimeInterval = 600
         let videoDuration = CMTime(seconds: (timeInterval), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
+    
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
         
-        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7")
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+
+        
+        
+        let testVideo1 = Video(videoID: "7", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", thumbnail: image)
         
         let videoAdded1 = sut.addVideo(videoToAdd: testVideo1)
         
         let longerComponents = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-        let updatedVideoID = sut.updateVideo(videoToUpdateID: testVideo1.videoID, description: nil, longerVideoURL: longerComponents.url!)
+        let updatedVideoID = sut.updateVideo(videoToUpdateID: testVideo1.videoID, description: nil, longerVideoURL: longerComponents.url!, thumbnail: image)
         XCTAssertEqual(updatedVideoID, videoAdded1)
 
         
         let description = "New Description"
-        let updatedVideoID1 = sut.updateVideo(videoToUpdateID: testVideo1.videoID, description: description, longerVideoURL: longerComponents.url!)
+        let updatedVideoID1 = sut.updateVideo(videoToUpdateID: testVideo1.videoID, description: description, longerVideoURL: longerComponents.url!, thumbnail: image)
         
         XCTAssertEqual(videoAdded1, updatedVideoID1)
         XCTAssertEqual(sut.videos[0].description, description)
@@ -168,7 +206,6 @@ var sut: VideoRepository!
         XCTAssertEqual(sut.videos[0].longerVideoURL, longerComponents.url!)
         
     }
-    
     
     
     func testPerformanceExample() {

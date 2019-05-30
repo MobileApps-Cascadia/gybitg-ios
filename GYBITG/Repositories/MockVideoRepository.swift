@@ -28,85 +28,16 @@ class MockVideoRepository: VideoRepositoryProtocol{
         let date: Date =  asset.creationDate?.dateValue ?? Date()
         
         let videoDescription = "Description of Video"
-        let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: getIPAddressForCellOrWireless()!, thumbnail: nil)
+        let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: userID, thumbnail: nil)
         
-        print("THE IPAdDress FOR USER IS:  \(getIPAddressForCellOrWireless()!)")
-        //10.0.0.105
-        //2601:600:9b7f:ecc8::21d3
-        //2601:600:9b7f:ecc8::21d3
-        //2601:600:9b7f:ecc8::36db
-       // 2601:600:9b7f:ecc8::36db
         return video
     }
     
-    //converts the url into a AvAsset
+    //Purpose: converts the url into a AvAsset
     func getAVAsset(videoUrl: URL)-> AVAsset{
-        
         let asset = AVURLAsset(url: videoUrl, options: nil)
-            print("THis is the duration of the video: \(asset.duration)")
-            
             return asset
    }
-    
-    //Purpose: To get the IPAddress for the user
-    func getIPAddressForCellOrWireless()-> String? {
-        
-        let WIFI_IF : [String] = ["en0"]
-        let KNOWN_WIRED_IFS : [String] = ["en2", "en3", "en4"]
-        let KNOWN_CELL_IFS : [String] = ["pdp_ip0","pdp_ip1","pdp_ip2","pdp_ip3"]
-        
-        var addresses : [String : String] = ["wireless":"",
-                                             "wired":"",
-                                             "cell":""]
-        
-        var address: String?
-        var ifaddr: UnsafeMutablePointer<ifaddrs>? = nil
-        if getifaddrs(&ifaddr) == 0 {
-            
-            var ptr = ifaddr
-            while ptr != nil {
-                defer { ptr = ptr?.pointee.ifa_next } // memory has been renamed to pointee in swift 3 so changed memory to pointee
-                
-                let interface = ptr?.pointee
-                let addrFamily = interface?.ifa_addr.pointee.sa_family
-                if addrFamily == UInt8(AF_INET) || addrFamily == UInt8(AF_INET6) {
-                    
-                    if let name: String = String(cString: (interface?.ifa_name)!), (WIFI_IF.contains(name) || KNOWN_WIRED_IFS.contains(name) || KNOWN_CELL_IFS.contains(name)) {
-                        
-                        // String.fromCString() is deprecated in Swift 3. So use the following code inorder to get the exact IP Address.
-                        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
-                        getnameinfo(interface?.ifa_addr, socklen_t((interface?.ifa_addr.pointee.sa_len)!), &hostname, socklen_t(hostname.count), nil, socklen_t(0), NI_NUMERICHOST)
-                        address = String(cString: hostname)
-                        if WIFI_IF.contains(name){
-                            addresses["wireless"] =  address
-                        }else if KNOWN_WIRED_IFS.contains(name){
-                            addresses["wired"] =  address
-                        }else if KNOWN_CELL_IFS.contains(name){
-                            addresses["cell"] =  address
-                        }
-                    }
-                    
-                }
-            }
-        }
-        freeifaddrs(ifaddr)
-        
-        var ipAddressString : String?
-        let wirelessString = addresses["wireless"]
-        let wiredString = addresses["wired"]
-        let cellString = addresses["cell"]
-        if let wirelessString = wirelessString, wirelessString.count > 0{
-            ipAddressString = wirelessString
-        }else if let wiredString = wiredString, wiredString.count > 0{
-            ipAddressString = wiredString
-        }else if let cellString = cellString, cellString.count > 0{
-            ipAddressString = cellString
-        }
-        return ipAddressString
-    }
-
-                    
-        
     
     //purpose: Will return the video with the videoID passed in
     //precondition: the video is in the array
