@@ -8,7 +8,7 @@
 import XCTest
 @testable import GYBITG
 
-class GameStatStructTests: XCTestCase {
+class GameStatClassTests: XCTestCase {
     let testDate: Date = Date()
     let testUserId: String = "ksmith@gmail.com"
     let testStatId: Int = 1

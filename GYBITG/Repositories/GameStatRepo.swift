@@ -1,5 +1,5 @@
-//  This is the GameStatRepo that will store the functions for add, removing, and editing a GameStat
-//  The repo conforms to the protocol which is located in GameStatHistoryViewController
+//  This is the GameStatRepo that stores the methods for storing, adding, removing, and editing a GameStat
+//  The repository conforms to the protocol which is located in GameStatHistoryViewController
 //
 //  GameStatRepo.swift
 //  GYBITG
@@ -11,6 +11,36 @@ import UIKit
 
 class GameStatRepo: GameStatProtocol {
     
+    // This is an array that can store GameStat entities
+    var allGameStats: [GameStat] = []
+    
+    // This function is used in the NewGameStatViewController for adding GameStat entity through the form
+    func addGameStat(gameStat: GameStat) {
+        gameStat.statId = allGameStats.count + 1
+        allGameStats.append(gameStat)
+    }
+    
+    // Remove a game stat by the statId parameter
+    func removeGameStatByStatId(statId: Int) {
+        var _gameStat: GameStat
+        for stat in allGameStats {
+            if stat.statId == statId{
+                _gameStat = stat
+                if let index = allGameStats.firstIndex(of: _gameStat) {
+                    allGameStats.remove(at: index)
+                }
+            }
+        }
+    }
+    
+    // This function can remove the provided GameStat entity from the array
+    func removeGameStat(gameStat: GameStat) {
+        if let index = allGameStats.firstIndex(of: gameStat) {
+            allGameStats.remove(at: index)
+        }
+    }
+    
+    // Retrieve all the game stat entities by the userId parameter
     func getAllGameStatsByUserId(userId: String) -> [GameStat] {
         var mGameStatArray: [GameStat] = []
         for stat in allGameStats {
@@ -21,8 +51,7 @@ class GameStatRepo: GameStatProtocol {
         return mGameStatArray
     }
     
-    
-    // This function returns a specific GameStat object based on the statId
+    // This function returns a specific GameStat entity based on the statId parameter
     func getGameStatByStatId(statId: Int) -> GameStat {
         for stat in allGameStats {
             if stat.statId == statId {
@@ -32,28 +61,10 @@ class GameStatRepo: GameStatProtocol {
         return GameStat(random: true)
     }
     
-    // This is mainly for testing and creating random GameStat objects
+    // This method is used for testing and initializing and adding a random GameStat entity to the data array
     @discardableResult func createRandomGameStat() -> GameStat {
         let newGameStat = GameStat(random: true)
         allGameStats.append(newGameStat)
         return newGameStat
     }
-    
-    // This is an array that can store GameStat objects
-    var allGameStats: [GameStat] = []
-    
-    // This function can remove GameStat objects from the array
-    func removeGameStat(gameStat: GameStat) {
-        if let index = allGameStats.firstIndex(of: gameStat) {
-            allGameStats.remove(at: index)
-        }
-    }
-    
-    // This function will be used in the NewGameStatViewController for adding GameStat objects through the form
-    func addGameStat(gameStat: GameStat) {
-        gameStat.statId = allGameStats.count + 1
-        allGameStats.append(gameStat)
-    }
-    
-    
 }

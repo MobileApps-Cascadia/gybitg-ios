@@ -1,3 +1,4 @@
+// This is the view controller that handles all the logic for the game stat form view
 //
 //  NewGameStatViewController.swift
 //  GYBITG
@@ -9,7 +10,7 @@ import UIKit
 
 class NewGameStatViewController: UIViewController {
     
-    // All the outlets for the textfields in the game stat form
+    // All the outlets for the elements in the game stat form view
     @IBOutlet weak var gameDatePicker: UIDatePicker!
     @IBOutlet weak var pointsField: UITextField!
     @IBOutlet weak var reboundsField: UITextField!
@@ -49,6 +50,9 @@ class NewGameStatViewController: UIViewController {
                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightText])
     }
     
+    
+    // A method that is triggered when the background view is tapped
+    // This method will call resignFirstResponder() on the text field outlets to hide the keyboard
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         pointsField.resignFirstResponder()
         reboundsField.resignFirstResponder()
@@ -73,7 +77,8 @@ class NewGameStatViewController: UIViewController {
         }
     }
     
-    
+    // This action method is connected to the 'Save' button the game stat form view
+    // It triggers the process for adding a new game stat to the repository data array
     @IBAction func saveGameStat(_ sender: Any) {
         
         // The variables that are used to create the GameStat object
@@ -96,7 +101,7 @@ class NewGameStatViewController: UIViewController {
         // Add the new GameStat to the repo
         gameRepo.addGameStat(gameStat: mGameStat)
         
-        print("game stat count: \(gameRepo.allGameStats.count)")
+        //print("game stat count: \(gameRepo.allGameStats.count)")
     }
 }
 

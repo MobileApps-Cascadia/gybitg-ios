@@ -2,7 +2,7 @@
 //  GameStat.swift
 //  GYBITG
 //
-//  Created by Student Account on 4/26/19.
+//  Created by James Hayes on 4/26/19.
 //
 
 import UIKit

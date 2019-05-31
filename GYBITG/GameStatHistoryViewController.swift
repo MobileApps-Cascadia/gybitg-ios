@@ -1,8 +1,8 @@
+// This is the view controller that handles all the logic for the game stat table view
 //
 //  GameStatHistoryViewController.swift
 //  GYBITG
-//
-//  Created by Student Account on 5/9/19.
+//  Created by James Hayes on 5/9/19.
 //
 
 import UIKit
@@ -12,6 +12,7 @@ protocol GameStatProtocol {
     @discardableResult func createRandomGameStat() -> GameStat
     var allGameStats: [GameStat] { get set }
     func removeGameStat(gameStat: GameStat)
+    func removeGameStatByStatId(statId: Int)
     func addGameStat(gameStat: GameStat)
     func getGameStatByStatId(statId: Int) -> GameStat
     func getAllGameStatsByUserId(userId: String) -> [GameStat]
@@ -37,6 +38,8 @@ class GameStatHistoryViewController: UITableViewController {
     }
     
     /*
+    // This required method by the UITableViewController class
+    // It returns the number of cells that should be inserted in to the table view
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return gameRepo.allGameStats.count
     }
