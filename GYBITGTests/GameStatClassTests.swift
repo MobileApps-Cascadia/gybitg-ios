@@ -32,11 +32,13 @@ class GameStatStructTests: XCTestCase {
     * required "steals" int property
     * required "blocks" int property
     * required "minutesPlayed" int property
+    * required "opposingTeamName" string property
+    * required "homeOrAway" string property
     */
     
-    // Test a GameStat with required userId, statId, & gameDate property
+    // Test a GameStat with all required property
     func testInit_GameStatWithUserId() {
-        let testGameStat = GameStat(statId: testStatId, userId: testUserId, gameDate: testDate, points: 23, rebounds: 7, assists: 11, steals: 6, blocks: 3, minutesPlayed: 33)
+        let testGameStat = GameStat(statId: testStatId, userId: testUserId, gameDate: testDate, points: 23, rebounds: 7, assists: 11, steals: 6, blocks: 3, minutesPlayed: 33, opposingTeamName: "Huskies", homeOrAway: "Home")
         
         XCTAssertNotNil(testGameStat)
         
@@ -50,6 +52,8 @@ class GameStatStructTests: XCTestCase {
         XCTAssertEqual(testGameStat.steals, 6)
         XCTAssertEqual(testGameStat.blocks, 3)
         XCTAssertEqual(testGameStat.minutesPlayed, 33)
+        XCTAssertEqual(testGameStat.opposingTeamName, "Huskies")
+        XCTAssertEqual(testGameStat.homeOrAway, "Home")
         
     }
 }
