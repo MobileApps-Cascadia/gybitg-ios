@@ -9,7 +9,8 @@
 
 import UIKit
 
-class GameStatRepo: GameStatRepoProtocol {
+class GameStatRepo: GameStatProtocol {
+    
     func getAllGameStatsByUserId(userId: String) -> [GameStat] {
         var mGameStatArray: [GameStat] = []
         for stat in allGameStats {
@@ -22,7 +23,7 @@ class GameStatRepo: GameStatRepoProtocol {
     
     
     // This function returns a specific GameStat object based on the statId
-    func getGameStat(statId: Int) -> GameStat {
+    func getGameStatByStatId(statId: Int) -> GameStat {
         for stat in allGameStats {
             if stat.statId == statId {
                 return stat
@@ -32,7 +33,7 @@ class GameStatRepo: GameStatRepoProtocol {
     }
     
     // This is mainly for testing and creating random GameStat objects
-    @discardableResult func createGameStat() -> GameStat {
+    @discardableResult func createRandomGameStat() -> GameStat {
         let newGameStat = GameStat(random: true)
         allGameStats.append(newGameStat)
         return newGameStat
@@ -42,19 +43,16 @@ class GameStatRepo: GameStatRepoProtocol {
     var allGameStats: [GameStat] = []
     
     // This function can remove GameStat objects from the array
-    func removeItem(gameStat: GameStat) {
+    func removeGameStat(gameStat: GameStat) {
         if let index = allGameStats.firstIndex(of: gameStat) {
             allGameStats.remove(at: index)
         }
     }
     
-    // This function will be used in the GameStatViewController for adding GameStat objects through the form
+    // This function will be used in the NewGameStatViewController for adding GameStat objects through the form
     func addGameStat(gameStat: GameStat) {
-        let statId = allGameStats.count + 1
-        
-        let newGameStat = GameStat(statId: statId, userId: "ksmith@gmail.com", gameDate: gameStat.gameDate, points: gameStat.points, rebounds: gameStat.rebounds, assists: gameStat.assists, steals: gameStat.steals, blocks: gameStat.blocks, minutesPlayed: gameStat.minutesPlayed)
-        
-        allGameStats.append(newGameStat)
+        gameStat.statId = allGameStats.count + 1
+        allGameStats.append(gameStat)
     }
     
     
