@@ -17,20 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //UINavigationBar.appearance().titleTextAttributes
-        
-        //let GameStatStoryboard = UIStoryboard(name: "GameStat", bundle: nil)
-        
-        
-        /*if let navController = GameStatStoryboard.instantiateViewController(withIdentifier: "GameStatNav") as? UINavigationController {
-            if let GSHVC = navController.viewControllers[0] as? GameStatHistoryViewController {
-                print("found game stat history vc")
-                GSHVC.gameRepo = GameStatRepo()
-            }
-        }
-        */
-
-
-        
+    
         return true
     }
 

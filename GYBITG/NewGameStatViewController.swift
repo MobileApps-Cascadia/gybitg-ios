@@ -2,7 +2,7 @@
 //  NewGameStatViewController.swift
 //  GYBITG
 //
-//  Created by Student Account on 5/28/19.
+//  Created by James Hayes on 5/28/19.
 //
 
 import UIKit
