@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--All Game Stats-->
+        <!--Game Stat History View Controller-->
         <scene sceneID="XTz-hQ-Cqc">
             <objects>
                 <tableViewController storyboardIdentifier="GameStatView" id="UAx-7c-djU" customClass="GameStatHistoryViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
@@ -51,10 +51,11 @@
                             <outlet property="delegate" destination="UAx-7c-djU" id="GTV-Pz-GL8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="All Game Stats" id="3GC-JL-RUo">
+                    <navigationItem key="navigationItem" id="3GC-JL-RUo">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="pUu-CT-3dS">
+                            <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="jas-Ev-8U8" kind="show" identifier="sequeShowStatForm" id="l91-3Y-nAP"/>
+                                <segue destination="0RN-xY-Jj0" kind="presentation" id="g9t-md-I1G"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -163,7 +164,7 @@
                                     <!--2019-04-30 03:45:28 +0000-->
                                 </date>
                             </datePicker>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cxy-Lz-8WR">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cxy-Lz-8WR">
                                 <rect key="frame" x="181" y="719" width="52" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Save">
@@ -251,6 +252,20 @@
                             <outletCollection property="gestureRecognizers" destination="tqm-Tp-GKY" appends="YES" id="pJB-Mf-Y1j"/>
                         </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="KbV-sb-pFq">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Zz9-rd-iMh">
+                            <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="OgV-iM-4uT" kind="unwind" unwindAction="cancel:" id="2FU-Rm-nXP"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Kwq-bd-qea">
+                            <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="OgV-iM-4uT" kind="unwind" unwindAction="save:" id="Es3-hN-zI9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="assistsField" destination="3i8-tk-kII" id="qV4-sh-h3Y"/>
                         <outlet property="blocksField" destination="L2w-wQ-RyT" id="vq8-S8-ohv"/>
@@ -264,13 +279,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6YG-YS-Uaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="OgV-iM-4uT" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="tqm-Tp-GKY">
                     <connections>
                         <action selector="dismissKeyboard:" destination="jas-Ev-8U8" id="4TR-38-hxH"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5753.6231884057979" y="-854.46428571428567"/>
+            <point key="canvasLocation" x="6663.7681159420299" y="-854.46428571428567"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lmI-fd-Cfl">
@@ -289,6 +305,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RiX-AV-cna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3825" y="-854"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GCG-AB-Dq2">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0RN-xY-Jj0" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ov1-Q0-Loh">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jas-Ev-8U8" kind="relationship" relationship="rootViewController" id="wbb-69-6Eo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hl8-zv-wRD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5753.6231884057979" y="-854.46428571428567"/>
         </scene>
     </scenes>
 </document>

@@ -23,11 +23,15 @@ class GameStatHistoryViewController: UITableViewController {
     // reference to the gamestat protocol
     var gameRepo: GameStatProtocol!
     
+    
+    var allGameStats: [GameStat] {
+        return gameRepo?.allGameStats ?? []
+    }
+    
     override func viewDidLoad() {        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 65
         
-        //print("game stat count: \(gameRepo.allGameStats.count)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +45,7 @@ class GameStatHistoryViewController: UITableViewController {
     // This required method by the UITableViewController class
     // It returns the number of cells that should be inserted in to the table view
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameRepo.allGameStats.count
+        return allGameStats.count
     }
 
     // This function is required by the UITableViewController class
@@ -53,7 +57,7 @@ class GameStatHistoryViewController: UITableViewController {
         // Set the text on the cell with the description of the item
         // that is at the nth index of items, where n = row this cell
         // will appear in on the tableview
-        let item = gameRepo.allGameStats[indexPath.row]
+        let item = allGameStats[indexPath.row]
         
         // Date formatter for converting "yyyy-MM-dd HH:mm:ss +0000" to "MM/dd/yyyy"
         let dateFormatterGet = DateFormatter()
@@ -76,7 +80,7 @@ class GameStatHistoryViewController: UITableViewController {
                             commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let gameStat = gameRepo.allGameStats[indexPath.row]
+            let gameStat = allGameStats[indexPath.row]
             
             // remove the gamestat from the repo
             gameRepo.removeGameStat(gameStat: gameStat)
@@ -86,5 +90,12 @@ class GameStatHistoryViewController: UITableViewController {
         }
     }
     */
+
+    @IBAction func cancel(_ unwindSegue: UIStoryboardSegue) { }
     
+    @IBAction func save(_ unwindSegue: UIStoryboardSegue) {
+        if let newGameStatViewController = unwindSegue.source as? NewGameStatViewController {
+            print("saving new game stat")
+        }
+    }
 }

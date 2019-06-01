@@ -9,6 +9,8 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
+    var gameRepo: GameStatProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

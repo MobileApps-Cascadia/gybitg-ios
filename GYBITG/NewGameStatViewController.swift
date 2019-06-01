@@ -25,7 +25,8 @@ class NewGameStatViewController: UIViewController {
     var homeOrAway: String = ""
     
     // referencing the protocol
-    var gameRepo: GameStatProtocol!
+    var gameRepo: GameStatProtocol?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,13 +94,13 @@ class NewGameStatViewController: UIViewController {
         let mHomeOrAway: String! = homeOrAway
         
         // Increment the StatId property
-        let mGameStatId = (gameRepo.allGameStats.count) + 1
+        let mGameStatId = (gameRepo!.allGameStats.count) + 1
         
         // Initialize the new GameStat
         let mGameStat = GameStat(statId: mGameStatId, userId: "ksmith@gmail.com", gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
         
         // Add the new GameStat to the repo
-        gameRepo.addGameStat(gameStat: mGameStat)
+        gameRepo!.addGameStat(gameStat: mGameStat)
         
         //print("game stat count: \(gameRepo.allGameStats.count)")
     }

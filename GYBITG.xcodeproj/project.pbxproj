@@ -21,6 +21,8 @@
 		3F7982F4229E064D00AC802F /* NewGameStatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7982F3229E064D00AC802F /* NewGameStatViewController.swift */; };
 		3F7982F6229E078E00AC802F /* GameStat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F7982F5229E078E00AC802F /* GameStat.storyboard */; };
 		3F7982FA22A1A67400AC802F /* GameStatRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7982F922A1A67400AC802F /* GameStatRepositoryTests.swift */; };
+		3F7982FC22A1FB9D00AC802F /* UIStoryboardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7982FB22A1FB9D00AC802F /* UIStoryboardSegue.swift */; };
+		3F7982FE22A2059B00AC802F /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7982FD22A2059B00AC802F /* ThirdViewController.swift */; };
 		3F7DEC3D2282437D0027ECAA /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7DEC3C2282437C0027ECAA /* GalleryViewController.swift */; };
 		3FA615C62273715C00A059FC /* GameStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615C52273715C00A059FC /* GameStat.swift */; };
 		3FA615F62273D7FB00A059FC /* GameStatClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */; };
@@ -59,6 +61,8 @@
 		3F7982F3229E064D00AC802F /* NewGameStatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameStatViewController.swift; sourceTree = "<group>"; };
 		3F7982F5229E078E00AC802F /* GameStat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GameStat.storyboard; sourceTree = "<group>"; };
 		3F7982F922A1A67400AC802F /* GameStatRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatRepositoryTests.swift; sourceTree = "<group>"; };
+		3F7982FB22A1FB9D00AC802F /* UIStoryboardSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboardSegue.swift; sourceTree = "<group>"; };
+		3F7982FD22A2059B00AC802F /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		3F7DEC3C2282437C0027ECAA /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		3FA615C52273715C00A059FC /* GameStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStat.swift; sourceTree = "<group>"; };
 		3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatClassTests.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 				3F1BE0F02284F0FF0077F076 /* GameStatCell.swift */,
 				3F7982F3229E064D00AC802F /* NewGameStatViewController.swift */,
 				3F7982F5229E078E00AC802F /* GameStat.storyboard */,
+				3F7982FB22A1FB9D00AC802F /* UIStoryboardSegue.swift */,
+				3F7982FD22A2059B00AC802F /* ThirdViewController.swift */,
 			);
 			path = GYBITG;
 			sourceTree = "<group>";
@@ -276,6 +282,8 @@
 				3F5C0E19227275A600307F74 /* AppDelegate.swift in Sources */,
 				3F446DA3227BB2B700A99061 /* Users.swift in Sources */,
 				3F7982F4229E064D00AC802F /* NewGameStatViewController.swift in Sources */,
+				3F7982FE22A2059B00AC802F /* ThirdViewController.swift in Sources */,
+				3F7982FC22A1FB9D00AC802F /* UIStoryboardSegue.swift in Sources */,
 				3F1BE0E522792E7F0077F076 /* FirstViewController.swift in Sources */,
 				3F1BE0ED2284EEA60077F076 /* GameStatHistoryViewController.swift in Sources */,
 			);

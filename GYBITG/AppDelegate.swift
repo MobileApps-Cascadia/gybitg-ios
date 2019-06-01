@@ -11,13 +11,35 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
     let gameStatRepo = GameStatRepo()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //UINavigationBar.appearance().titleTextAttributes
-    
+        
+        guard let tabController = window?.rootViewController as? UITabBarController, let viewControllers = tabController.viewControllers else {
+                return true
+        }
+        
+        for viewController in viewControllers {
+            if let navController = viewController as? UINavigationController, let firstViewController = navController.viewControllers.first as? FirstViewController{
+                firstViewController.gameRepo = gameStatRepo
+            }
+        }
+        
+        /*let gameStatStoryboard = UIStoryboard(name: "GameStat", bundle: nil)
+        
+        if let navController = gameStatStoryboard.instantiateInitialViewController() as? UINavigationController {
+            let viewControllers = navController.viewControllers
+            for _ in viewControllers {
+                if let GSHViewController = navController.viewControllers.first as? GameStatHistoryViewController {
+                    GSHViewController.gameRepo = gameStatRepo
+                }
+            }
+        }
+        */
+        
+        
         return true
     }
 
