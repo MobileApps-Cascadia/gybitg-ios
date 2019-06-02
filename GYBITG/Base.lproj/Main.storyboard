@@ -32,7 +32,7 @@
                                     <color key="titleShadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Q1s-0e-UjF" kind="show" id="0TJ-hc-DTS"/>
+                                    <segue destination="Q1s-0e-UjF" kind="show" identifier="segueShowGameStatHistory" id="0TJ-hc-DTS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjJ-yV-ijD">

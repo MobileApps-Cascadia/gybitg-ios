@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GameStatCellReuseId" id="MPr-os-Y9R" customClass="GameStatCell" customModule="GYBITG" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GameStatCellReuseID" id="MPr-os-Y9R" customClass="GameStatCell" customModule="GYBITG" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MPr-os-Y9R" id="8Jt-Y0-pVH">
@@ -55,7 +55,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="pUu-CT-3dS">
                             <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="0RN-xY-Jj0" kind="presentation" id="g9t-md-I1G"/>
+                                <segue destination="0RN-xY-Jj0" kind="presentation" identifier="segueModalGameStatForm" id="g9t-md-I1G"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -170,9 +170,6 @@
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="0.94901960784313721" green="0.55294117647058827" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="saveGameStat:" destination="jas-Ev-8U8" eventType="touchUpInside" id="1LS-4R-zlv"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opponent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9NR-Ea-Dwe">
                                 <rect key="frame" x="8" y="556" width="96" height="26"/>

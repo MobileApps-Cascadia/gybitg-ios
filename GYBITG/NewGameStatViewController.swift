@@ -21,18 +21,18 @@ class NewGameStatViewController: UIViewController {
     @IBOutlet weak var opposingTeamField: UITextField!
     @IBOutlet weak var homeOrAwaySegmentedControl: UISegmentedControl!
     
-    // initialize the home/away variable for use in the gamestat entity later on when adding to repo
-    var homeOrAway: String = ""
+    // initialize the home/away variable for use in the GameStat entity later on when adding to repo data array
+    var homeOrAway: String! = ""
     
     // referencing the protocol
     var gameRepo: GameStatProtocol?
     
+    // Reference a new game stat entity that will be initialized on the 'Save' segue
+    var mGameStat: GameStat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //print("game stat count: \(gameRepo.allGameStats.count)")
-
         // These are for changing the placeholder text color progromatically
         gameDatePicker.setValue(UIColor.lightText, forKey: "textColor")
         pointsField.attributedPlaceholder = NSAttributedString(string: "Points",
@@ -78,31 +78,22 @@ class NewGameStatViewController: UIViewController {
         }
     }
     
-    // This action method is connected to the 'Save' button the game stat form view
-    // It triggers the process for adding a new game stat to the repository data array
-    @IBAction func saveGameStat(_ sender: Any) {
-        
-        // The variables that are used to create the GameStat object
-        let mGameDate: Date = gameDatePicker.date
-        let mPoints: Int! = Int(pointsField.text!)
-        let mRebounds: Int! = Int(reboundsField.text!)
-        let mAssists: Int! = Int(assistsField.text!)
-        let mSteals: Int! = Int(stealsField.text!)
-        let mBlocks: Int! = Int(blocksField.text!)
-        let mMinutesPlayed: Double! = Double(minutesPlayedField.text!)
-        let mOpposingTeam: String! = opposingTeamField.text!
-        let mHomeOrAway: String! = homeOrAway
-        
-        // Increment the StatId property
-        let mGameStatId = (gameRepo!.allGameStats.count) + 1
-        
-        // Initialize the new GameStat
-        let mGameStat = GameStat(statId: mGameStatId, userId: "ksmith@gmail.com", gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
-        
-        // Add the new GameStat to the repo
-        gameRepo!.addGameStat(gameStat: mGameStat)
-        
-        //print("game stat count: \(gameRepo.allGameStats.count)")
+    // This segue is connected to the 'Save' button, unwind segue, it initializes a game stat entity with the filled in form data then passes it to the unwind segue in the GameStatHistoryViewController to add it to the data array
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let mGameDate = gameDatePicker?.date,
+        let mPoints = Int(pointsField.text!),
+        let mRebounds = Int(reboundsField.text!),
+        let mAssists = Int(assistsField.text!),
+        let mSteals = Int(stealsField.text!),
+        let mBlocks = Int(blocksField.text!),
+        let mMinutesPlayed = Double(minutesPlayedField.text!),
+        let mOpposingTeam = opposingTeamField?.text!,
+        let mHomeOrAway: String = homeOrAway {
+            let mGameStatId = ((gameRepo?.allGameStats.count)!) + 1
+            let mGameStatUserId = "ksmith@gmail.com"
+            mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
+        }
     }
+    
 }
 
