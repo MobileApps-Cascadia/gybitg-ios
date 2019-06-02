@@ -29,19 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        /*let gameStatStoryboard = UIStoryboard(name: "GameStat", bundle: nil)
-        
-        if let navController = gameStatStoryboard.instantiateInitialViewController() as? UINavigationController {
-            let viewControllers = navController.viewControllers
-            for _ in viewControllers {
-                if let GSHViewController = navController.viewControllers.first as? GameStatHistoryViewController {
-                    GSHViewController.gameRepo = gameStatRepo
-                }
-            }
-        }
-        */
-        
-        
         return true
     }
 
