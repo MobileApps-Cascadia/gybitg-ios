@@ -20,7 +20,8 @@ class FirstViewController: UIViewController {
     // Handle the segues to the GameStatHistoryViewController and GalleryViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // The 'forward' method is located in the UIStoryboardSegue file
-        if(segue.identifier == "segueShowGameStatHistory") {
+        // Use the enum in the UIStoryboard file to grab the segue identifier; segueShowGameStatHistory
+        if(segue.identifier == UIStoryboardSegue.AppSegue.segueShowGameStatHistory.rawValue) {
             segue.forward(gameRepo, to: segue.destination)
         }
     }

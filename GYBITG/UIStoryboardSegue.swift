@@ -25,4 +25,11 @@ extension UIStoryboardSegue {
             newGameStatViewController.gameRepo = gameRepo
         }
     }
+    
+    // This enumeration will return the segue identifiers so we're not using the string literals
+    // in the prepare functions when segueing to different views
+    enum AppSegue : String {
+        case segueShowGameStatHistory
+        case segueModalGameStatForm
+    }
 }

@@ -23,6 +23,7 @@ class GameStatHistoryViewController: UITableViewController {
     // Reference to the gamestat protocol that is instanitated in the appdelegate file
     var gameRepo: GameStatProtocol!
     
+    
     // This function is ran only once when the view is initially loaded
     override func viewDidLoad() {        
         tableView.rowHeight = UITableView.automaticDimension
@@ -87,7 +88,8 @@ class GameStatHistoryViewController: UITableViewController {
  
     // Segue forward to the NewGameStatViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "segueModalGameStatForm") {
+        // Use the enum in the UIStoryboard file to grab the segue identifier; segueModalGameStatForm
+        if(segue.identifier == UIStoryboardSegue.AppSegue.segueModalGameStatForm.rawValue) {
             // The 'forward' method is located in the UIStoryboardSegue file
             segue.forward(gameRepo, to: segue.destination)
         }
@@ -99,7 +101,6 @@ class GameStatHistoryViewController: UITableViewController {
     // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table iew and saves (adds) the new game stat to the repository data array
     @IBAction func save(_ unwindSegue: UIStoryboardSegue) {
         if let newGameStatViewController = unwindSegue.source as? NewGameStatViewController {
-            print("added new game stat")
             gameRepo.addGameStat(gameStat: newGameStatViewController.mGameStat!)
             tableView.reloadData()
         }
