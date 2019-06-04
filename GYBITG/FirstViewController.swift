@@ -11,6 +11,7 @@ class FirstViewController: UIViewController {
 
     // This is the GameStatRepo that is instanitated in the AppDelegate file
     var gameRepo: GameStatProtocol?
+    var galleryRepo: VideoRepositoryProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,9 @@ class FirstViewController: UIViewController {
         // Use the enum in the UIStoryboard file to grab the segue identifier; segueShowGameStatHistory
         if(segue.identifier == UIStoryboardSegue.AppSegue.segueShowGameStatHistory.rawValue) {
             segue.forward(gameRepo, to: segue.destination)
+        }
+        if(segue.identifier == UIStoryboardSegue.AppSegue.FirstViewToGallerySegue.rawValue) {
+            segue.forward(galleryRepo, to: segue.destination)
         }
     }
     

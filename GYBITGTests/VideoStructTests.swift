@@ -28,13 +28,21 @@ class VideoStructTests: XCTestCase {
         let videoDuration = CMTime(seconds:(timeInterval3), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-        let testVideo = Video(videoID: "1", dateTaken: Date(), fileName: "video file 1", videoDuration: videoDuration, videoURL: components.url!, userID: "1")
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo = Video(videoID: "1", dateTaken: Date(), fileName: "video file 1", videoDuration: videoDuration, videoURL: components.url!, userID: "1", thumbnail: image)
         
         XCTAssertNotNil(testVideo)
         XCTAssertNotNil(testVideo.videoID)
         XCTAssertEqual(testVideo.videoID, "1")
         
         XCTAssertNil(testVideo.description)
+        XCTAssertNil(testVideo.longerVideoURL)
         
     }
     
@@ -45,7 +53,14 @@ class VideoStructTests: XCTestCase {
         let videoDuration = CMTime(seconds:(timeInterval3), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-        let testVideo = Video(videoID: "2", description: "me shooting a 3 pointer", dateTaken: Date(), fileName: "video file 2", videoDuration: videoDuration, videoURL: components.url!, userID: "2")
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo = Video(videoID: "2", description: "me shooting a 3 pointer", dateTaken: Date(), fileName: "video file 2", videoDuration: videoDuration, videoURL: components.url!, userID: "2", thumbnail: image)
         
         XCTAssertNotNil(testVideo)
         XCTAssertNotNil(testVideo.description)
@@ -60,7 +75,14 @@ class VideoStructTests: XCTestCase {
         let videoDuration = CMTime(seconds:(timeInterval3), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-        let testVideo = Video(videoID: "3", description: "Me doing drills", dateTaken: Date(), fileName: "video file 3", videoDuration: videoDuration, videoURL: components.url!, userID: "3")
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo = Video(videoID: "3", description: "Me doing drills", dateTaken: Date(), fileName: "video file 3", videoDuration: videoDuration, videoURL: components.url!, userID: "3", thumbnail: image)
         let  testDate = testVideo.dateTaken
         
         XCTAssertNotNil(testVideo)
@@ -77,7 +99,14 @@ class VideoStructTests: XCTestCase {
         let videoDuration = CMTime(seconds:(timeInterval3), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-        let testVideo = Video(videoID: "4", description: "me doing sprints", dateTaken: date, fileName:"video file 4", videoDuration: videoDuration, videoURL: components.url!, userID: "4")
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo = Video(videoID: "4", description: "me doing sprints", dateTaken: date, fileName:"video file 4", videoDuration: videoDuration, videoURL: components.url!, userID: "4", thumbnail: image)
         
         XCTAssertNotNil(testVideo)
         XCTAssertNotNil(testVideo.fileName)
@@ -94,7 +123,14 @@ class VideoStructTests: XCTestCase {
         let videoDuration = CMTime(seconds:(timeInterval3), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
         
-        let testVideo = Video(videoID: "5", description: "Highlights of championships", dateTaken: date, fileName: "video file 5", videoDuration: videoDuration, videoURL: components.url!, userID: "5")
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo = Video(videoID: "5", description: "Highlights of championships", dateTaken: date, fileName: "video file 5", videoDuration: videoDuration, videoURL: components.url!, userID: "5", thumbnail: image)
         
         XCTAssertNotNil(testVideo)
         XCTAssertNotNil(testVideo.videoDuration)
@@ -110,8 +146,14 @@ class VideoStructTests: XCTestCase {
         let timeInterval3: TimeInterval = 119
         let videoDuration = CMTime(seconds:(timeInterval3), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
         
-        let testVideo = Video(videoID: "6", description: "Highlights of championships", dateTaken: date, fileName: "video file 6", videoDuration: videoDuration, videoURL: components.url!, userID: "6")
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo = Video(videoID: "6", description: "Highlights of championships", dateTaken: date, fileName: "video file 6", videoDuration: videoDuration, videoURL: components.url!, userID: "6", thumbnail: image)
         
         XCTAssertNotNil(testVideo)
         XCTAssertNotNil(testVideo.videoURL)
@@ -119,15 +161,21 @@ class VideoStructTests: XCTestCase {
         
     }
     
-    //Testing for the initializer for the video model with expected videoId, a description, a dateTaken, a fileName, a videoDuration and a userID
+    //Testing for the initializer for the video model with expected videoId, a description, a dateTaken, a fileName, a videoDuration a videoURL and a userID
     func testInit_VideoWithVideoIDAndDescriptionAndDateTakenAndFileNameAndVideoDurationAndURLAndUserID(){
         
         let date = Date()
         let timeInterval: TimeInterval = 600
         let videoDuration = CMTime(seconds: (timeInterval), preferredTimescale: 1)
         let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
         
-        let testVideo = Video(videoID: "7", description: "Highlights of championships", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7")
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo = Video(videoID: "7", description: "Highlights of championships", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", thumbnail: image)
         
         XCTAssertNotNil(testVideo)
         XCTAssertNotNil(testVideo.userID)
@@ -143,6 +191,54 @@ class VideoStructTests: XCTestCase {
         XCTAssertEqual(testVideo.videoDuration, videoDuration)
         XCTAssertNotNil(testVideo.videoURL)
         XCTAssertEqual(testVideo.videoURL, components.url!)
+        
+        
+    }
+    
+    //Testing for the initializer with videoID, a description, a dateTaken, a fileName a VideoDuration, a videoURL a userID and a longerVideoURL
+    func testInit_VideoWithVideoIDAndDescriptionAndDateTakenAndFileNameAndVideoDurationAndURLAndUserIDAndLongerVideoURL(){
+    
+        let date = Date()
+        let timeInterval: TimeInterval = 600
+        let videoDuration = CMTime(seconds: (timeInterval), preferredTimescale: 1)
+        let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
+        
+        let longerComponents = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo = Video(videoID: "7", description: "Highlights of championships", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", longerVideoURL: longerComponents.url!, thumbnail: image) //need to unwrap the optional url of the components
+        
+        XCTAssertNotNil(testVideo.longerVideoURL)
+        XCTAssertEqual(testVideo.longerVideoURL!, longerComponents.url!)
+        
+    }
+    
+    //Testing if the video on the left-handside is equal to the video on the right-hand side
+    func testEquatable_ReturnTrueLhsEqualRhs(){
+        let date = Date()
+        let timeInterval: TimeInterval = 600
+        let videoDuration = CMTime(seconds: (timeInterval), preferredTimescale: 1)
+        let components = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
+        
+        let longerComponents = URLComponents(string: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i)")!
+        
+        let imageUrlString = "http://cdn.playbuzz.com/cdn/38402fff-32a3-4e78-a532-41f3a54d04b9/cc513a85-8765-48a5-8481-98740cc6ccdc.jpg"
+        
+        let imageUrl = URL(string: imageUrlString)!
+        
+        let imageData = try! Data(contentsOf: imageUrl)
+        
+        let image = UIImage(data: imageData)
+        let testVideo = Video(videoID: "7", description: "Highlights of championships", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", longerVideoURL: longerComponents.url!, thumbnail: image) //need to unwrap the optional url of the components
+        let testVideo2 = Video(videoID: "7", description: "Highlights of championships", dateTaken: date, fileName: "video file 7", videoDuration: videoDuration, videoURL: components.url!, userID: "7", longerVideoURL: longerComponents.url!, thumbnail: image) //need to unwrap the optional url of the components
+        
+        XCTAssertEqual(testVideo, testVideo2)
+        
         
         
     }
