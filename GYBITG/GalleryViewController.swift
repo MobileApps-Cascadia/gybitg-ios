@@ -30,7 +30,7 @@ protocol VideoRepositoryProtocol{
 
 class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    var videoRepository = MockVideoRepository()
+    var videoRepository: VideoRepositoryProtocol?
     
     let videoFileName = "/video.mp4"
     
@@ -150,12 +150,12 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         let videoThumbnail = turnVideoToThumbnail(selectedVideo)
         
-        let newVideo =  videoRepository.createVideo(userID: " ", videoURL: selectedVideo)
+        let newVideo =  videoRepository!.createVideo(userID: " ", videoURL: selectedVideo)
             newVideo.thumbnail = videoThumbnail
-        _ = videoRepository.addVideo(videoToAdd: newVideo)
+        _ = videoRepository!.addVideo(videoToAdd: newVideo)
         
     //Figure out where that last item is in the array
-        if let index = videoRepository.videos.firstIndex(of: newVideo){
+        if let index = videoRepository!.videos.firstIndex(of: newVideo){
              let indexPath = IndexPath(row: index, section: 0)
         
            //insert this new row into the table
@@ -203,7 +203,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Precondition:
     //Postcondition: Returns an int for the number of rows in the table a row for each item
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)-> Int{
-      return videoRepository.videos.count
+        return videoRepository!.videos.count
     }
     
     //Purpose: A second required fx the UITableViewDataSource Protocol This is the nth row displays the nth entry in the allItems array. Asks the datasource for a cell to insert in a particular location of the table view.
@@ -212,7 +212,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
      
         let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryCell", for: indexPath) as! GalleryCell
-        let video = videoRepository.videos[indexPath.row]
+        let video = videoRepository!.videos[indexPath.row]
 
      //configure the custom cell with the Item
         cell.Description.text = video.description
