@@ -25,7 +25,7 @@ class FirstViewController: UIViewController {
         if(segue.identifier == UIStoryboardSegue.AppSegue.segueShowGameStatHistory.rawValue) {
             segue.forward(gameRepo, to: segue.destination)
         }
-        if(segue.identifier == UIStoryboardSegue.AppSegue.FirstViewToGallerySegue.rawValue) {//"FirstViewToGallerySegue") {
+        if(segue.identifier == UIStoryboardSegue.AppSegue.FirstViewToGallerySegue.rawValue) {
             segue.forward(galleryRepo, to: segue.destination)
         }
     }
