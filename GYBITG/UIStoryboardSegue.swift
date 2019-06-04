@@ -26,6 +26,7 @@ extension UIStoryboardSegue {
         }
     
     }
+    
     // This forward function will handle 'forward' segues
     func forward(_ galleryRepo: VideoRepositoryProtocol?, to destination: UIViewController){
         // Check to see if the destination view controller is a navigation controller, eg: using a modal segue there will be a navigation controller before the destination view controller.
@@ -34,7 +35,7 @@ extension UIStoryboardSegue {
             // Recursivley call itself to check the next destination view controller
             forward(galleryRepo, to: root)
         }
-        // Check the destination view controller; GameStatHistoryViewController or NewGameStatViewController, and pass the gameRepo to it
+        // Check the destination view controller;  GalleryViewController and pass the gallertRepo to it
         if let GalleryViewController = destination as? GalleryViewController {
             GalleryViewController.videoRepository = galleryRepo
         }
