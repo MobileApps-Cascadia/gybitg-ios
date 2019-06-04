@@ -18,6 +18,11 @@
 		3F5C0E22227275A900307F74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E21227275A900307F74 /* Assets.xcassets */; };
 		3F5C0E25227275A900307F74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C0E23227275A900307F74 /* LaunchScreen.storyboard */; };
 		3F5C0E30227275A900307F74 /* GYBITGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C0E2F227275A900307F74 /* GYBITGTests.swift */; };
+		3F7982F4229E064D00AC802F /* NewGameStatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7982F3229E064D00AC802F /* NewGameStatViewController.swift */; };
+		3F7982F6229E078E00AC802F /* GameStat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F7982F5229E078E00AC802F /* GameStat.storyboard */; };
+		3F7982FA22A1A67400AC802F /* GameStatRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7982F922A1A67400AC802F /* GameStatRepositoryTests.swift */; };
+		3F7982FC22A1FB9D00AC802F /* UIStoryboardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7982FB22A1FB9D00AC802F /* UIStoryboardSegue.swift */; };
+		3F7982FE22A2059B00AC802F /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7982FD22A2059B00AC802F /* ThirdViewController.swift */; };
 		3F7DEC3D2282437D0027ECAA /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7DEC3C2282437C0027ECAA /* GalleryViewController.swift */; };
 		3FA615C62273715C00A059FC /* GameStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615C52273715C00A059FC /* GameStat.swift */; };
 		3FA615F62273D7FB00A059FC /* GameStatClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */; };
@@ -55,6 +60,11 @@
 		3F5C0E2B227275A900307F74 /* GYBITGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GYBITGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5C0E2F227275A900307F74 /* GYBITGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYBITGTests.swift; sourceTree = "<group>"; };
 		3F5C0E31227275A900307F74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F7982F3229E064D00AC802F /* NewGameStatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameStatViewController.swift; sourceTree = "<group>"; };
+		3F7982F5229E078E00AC802F /* GameStat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GameStat.storyboard; sourceTree = "<group>"; };
+		3F7982F922A1A67400AC802F /* GameStatRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatRepositoryTests.swift; sourceTree = "<group>"; };
+		3F7982FB22A1FB9D00AC802F /* UIStoryboardSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboardSegue.swift; sourceTree = "<group>"; };
+		3F7982FD22A2059B00AC802F /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		3F7DEC3C2282437C0027ECAA /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		3FA615C52273715C00A059FC /* GameStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStat.swift; sourceTree = "<group>"; };
 		3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatClassTests.swift; sourceTree = "<group>"; };
@@ -124,9 +134,12 @@
 				3F5C0E23227275A900307F74 /* LaunchScreen.storyboard */,
 				3F5C0E26227275A900307F74 /* Info.plist */,
 				3F7DEC3C2282437C0027ECAA /* GalleryViewController.swift */,
-				3F1BE0EE2284EF600077F076 /* GameStatRepo.swift */,
 				3F1BE0F02284F0FF0077F076 /* GameStatCell.swift */,
 				A8079A4D2297CC070078E117 /* GalleryCell.swift */,
+				3F7982F3229E064D00AC802F /* NewGameStatViewController.swift */,
+				3F7982F5229E078E00AC802F /* GameStat.storyboard */,
+				3F7982FB22A1FB9D00AC802F /* UIStoryboardSegue.swift */,
+				3F7982FD22A2059B00AC802F /* ThirdViewController.swift */,
 			);
 			path = GYBITG;
 			sourceTree = "<group>";
@@ -139,6 +152,7 @@
 				3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */,
 				A8EE23FE2273B16300B9CEBF /* VideoStructTests.swift */,
 				A823ECAC2284EFA3003EC330 /* VideoRepositoryTests.swift */,
+				3F7982F922A1A67400AC802F /* GameStatRepositoryTests.swift */,
 			);
 			path = GYBITGTests;
 			sourceTree = "<group>";
@@ -148,6 +162,7 @@
 			children = (
 				A823ECAF2284F1FA003EC330 /* VideoRepository.swift */,
 				A8F6C9862295AD7D00D5DC8D /* MockVideoRepository.swift */,
+				3F1BE0EE2284EF600077F076 /* GameStatRepo.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -242,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F7982F6229E078E00AC802F /* GameStat.storyboard in Resources */,
 				3F5C0E25227275A900307F74 /* LaunchScreen.storyboard in Resources */,
 				3F5C0E22227275A900307F74 /* Assets.xcassets in Resources */,
 				3F5C0E20227275A600307F74 /* Main.storyboard in Resources */,
@@ -273,6 +289,9 @@
 				3F5C0E19227275A600307F74 /* AppDelegate.swift in Sources */,
 				3F446DA3227BB2B700A99061 /* Users.swift in Sources */,
 				A8F6C9872295AD7D00D5DC8D /* MockVideoRepository.swift in Sources */,
+				3F7982F4229E064D00AC802F /* NewGameStatViewController.swift in Sources */,
+				3F7982FE22A2059B00AC802F /* ThirdViewController.swift in Sources */,
+				3F7982FC22A1FB9D00AC802F /* UIStoryboardSegue.swift in Sources */,
 				3F1BE0E522792E7F0077F076 /* FirstViewController.swift in Sources */,
 				3F1BE0ED2284EEA60077F076 /* GameStatHistoryViewController.swift in Sources */,
 			);
@@ -282,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F7982FA22A1A67400AC802F /* GameStatRepositoryTests.swift in Sources */,
 				3FA615F62273D7FB00A059FC /* GameStatClassTests.swift in Sources */,
 				A8EE23FF2273B16300B9CEBF /* VideoStructTests.swift in Sources */,
 				3F5C0E30227275A900307F74 /* GYBITGTests.swift in Sources */,
@@ -441,12 +461,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B2A4XXAMQ8;
+				DEVELOPMENT_TEAM = UWV6C7RFG6;
 				INFOPLIST_FILE = GYBITG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.cascadia.mobas.GYBITG;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.cascadia.mobas.g.y.b.i.t.g;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -459,12 +480,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B2A4XXAMQ8;
+				DEVELOPMENT_TEAM = UWV6C7RFG6;
 				INFOPLIST_FILE = GYBITG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.cascadia.mobas.GYBITG;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.cascadia.mobas.g.y.b.i.t.g;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -31,6 +31,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 </state>
+                                <connections>
+                                    <segue destination="Q1s-0e-UjF" kind="show" identifier="segueShowGameStatHistory" id="0TJ-hc-DTS"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjJ-yV-ijD">
                                 <rect key="frame" x="0.0" y="472" width="375" height="255"/>
@@ -50,7 +53,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="orangegybitgiconfromweb" translatesAutoresizingMaskIntoConstraints="NO" id="9sU-F5-e15">
-                                <rect key="frame" x="37" y="109" width="300" height="100"/>
+                                <rect key="frame" x="37.666666666666657" y="109" width="300" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="PlF-PX-y8V"/>
                                 </constraints>
@@ -60,6 +63,7 @@
                         <constraints>
                             <constraint firstItem="arc-GR-tQ0" firstAttribute="leading" secondItem="PjJ-yV-ijD" secondAttribute="leading" id="6kI-7A-cqR"/>
                             <constraint firstItem="arc-GR-tQ0" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="Ooh-37-7zB"/>
+                            <constraint firstItem="9sU-F5-e15" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="RDQ-Pm-U9e"/>
                             <constraint firstAttribute="trailing" secondItem="arc-GR-tQ0" secondAttribute="trailing" id="Ve5-W5-5wD"/>
                             <constraint firstItem="arc-GR-tQ0" firstAttribute="trailing" secondItem="PjJ-yV-ijD" secondAttribute="trailing" id="cxs-Hc-YhG"/>
                             <constraint firstItem="arc-GR-tQ0" firstAttribute="top" secondItem="9sU-F5-e15" secondAttribute="bottom" constant="22" id="dWw-sy-CxZ">
@@ -67,9 +71,6 @@
                             </constraint>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="PjJ-yV-ijD" secondAttribute="bottom" constant="36" id="gpr-em-zew">
                                 <variation key="heightClass=regular-widthClass=compact" constant="2"/>
-                            </constraint>
-                            <constraint firstItem="9sU-F5-e15" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="57" id="s0b-w9-Nia">
-                                <variation key="heightClass=regular-widthClass=compact" constant="37"/>
                             </constraint>
                             <constraint firstItem="arc-GR-tQ0" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="231" id="xXJ-cc-Vvh">
                                 <variation key="heightClass=regular-widthClass=compact" constant="217"/>
@@ -122,7 +123,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKK-Yi-t2O">
-                                <rect key="frame" x="100" y="472" width="215" height="30"/>
+                                <rect key="frame" x="100" y="473" width="215" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.29769214459999999" green="0.48117658639999999" blue="0.84190819299999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Forgot Password">
@@ -157,7 +158,7 @@
         <!--Notifications-->
         <scene sceneID="Rv2-ZK-Blk">
             <objects>
-                <viewController id="CfE-JP-cxW" sceneMemberID="viewController">
+                <viewController id="CfE-JP-cxW" customClass="ThirdViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cXE-xg-hrE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -176,12 +177,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0RP-a0-nNl"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Notifications" image="first" id="Pv7-sM-azg"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" id="Pv7-sM-azg"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2U-AL-oAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2423.1884057971015" y="0.0"/>
         </scene>
+<<<<<<< HEAD
         <!--Game Stat History View Controller-->
         <scene sceneID="W6g-ZZ-yiZ">
             <objects>
@@ -373,6 +375,8 @@
             </objects>
             <point key="canvasLocation" x="1713" y="422"/>
         </scene>
+=======
+>>>>>>> develop
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
@@ -609,11 +613,20 @@
             </objects>
             <point key="canvasLocation" x="20" y="230.54187192118226"/>
         </scene>
+        <!--GameStatView-->
+        <scene sceneID="47j-aU-0f1">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="GameStat" storyboardName="GameStat" referencedIdentifier="GameStatView" id="Q1s-0e-UjF" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tfd-4x-mUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2422" y="-450"/>
+        </scene>
         <!--Home-->
         <scene sceneID="EaF-96-4jy">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SHp-Tc-jLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wB9-No-Rxy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="first" id="acW-dT-cKf" userLabel="Home"/>
+                    <tabBarItem key="tabBarItem" title="Home" id="acW-dT-cKf" userLabel="Home"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="o1U-hC-vdo">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -624,7 +637,6 @@
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="rootViewController" id="Nxy-Et-D0e"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SHp-Tc-jLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="749.27536231884062" y="-320.08928571428572"/>
         </scene>
@@ -650,7 +662,6 @@
     <resources>
         <image name="action-athletes-ball-934083" width="4928" height="3264"/>
         <image name="ball-basketball-basketball-court-1752757(1)" width="5650" height="3685"/>
-        <image name="first" width="30" height="30"/>
         <image name="orangegybitgiconfromweb" width="300" height="201"/>
         <image name="second" width="30" height="30"/>
     </resources>
