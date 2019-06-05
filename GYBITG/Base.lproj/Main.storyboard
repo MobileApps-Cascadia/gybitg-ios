@@ -415,6 +415,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="na8-Qt-6IS">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Uxc-N3-I2E">
+                            <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="takeVideo:" destination="7Sr-sB-4lF" id="Nty-bx-U1X"/>
                             </connections>
@@ -443,6 +444,9 @@
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -461,6 +465,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5Gi-Ec-3Go">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -481,6 +489,7 @@
         <image name="orangegybitgiconfromweb" width="300" height="201"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qEm-w4-R2I"/>
+        <segue reference="FOC-tq-duv"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>

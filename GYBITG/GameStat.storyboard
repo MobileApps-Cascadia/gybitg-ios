@@ -294,6 +294,14 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uGQ-Fv-AuO">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textShadowColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -312,6 +320,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ov1-Q0-Loh">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -323,4 +335,5 @@
             <point key="canvasLocation" x="5753.6231884057979" y="-854.46428571428567"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>
