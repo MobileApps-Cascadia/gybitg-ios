@@ -12,6 +12,9 @@ import MobileCoreServices
 import CoreMedia
 class VideoRepository: VideoRepositoryProtocol{
    
+    func type() -> Character {
+    return "V"
+    }
     internal var videos = [Video]()
     
      func getAllVideos() -> [Video] {
