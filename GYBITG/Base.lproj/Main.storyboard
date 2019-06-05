@@ -84,7 +84,7 @@
             </objects>
             <point key="canvasLocation" x="1658.4000000000001" y="-320.68965517241378"/>
         </scene>
-        <!--Account-->
+        <!--Second View Controller-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
@@ -149,13 +149,13 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" image="icons-female-profile-50" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="" image="icons-female-profile-50" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="774" y="460"/>
         </scene>
-        <!--Notifications-->
+        <!--Third View Controller-->
         <scene sceneID="Rv2-ZK-Blk">
             <objects>
                 <viewController id="CfE-JP-cxW" customClass="ThirdViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
@@ -177,7 +177,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0RP-a0-nNl"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Notifications" image="icon-bell-50" badgeValue="2" id="Pv7-sM-azg">
+                    <tabBarItem key="tabBarItem" title="" image="icon-bell-50" badgeValue="2" id="Pv7-sM-azg">
                         <color key="badgeColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBarItem>
                 </viewController>
@@ -436,11 +436,11 @@
             </objects>
             <point key="canvasLocation" x="2422" y="-450"/>
         </scene>
-        <!--Home-->
+        <!--Navigation Controller-->
         <scene sceneID="EaF-96-4jy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wB9-No-Rxy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="icons-home-page-50" id="acW-dT-cKf" userLabel="Home"/>
+                    <tabBarItem key="tabBarItem" title="" image="icons-home-page-50" id="acW-dT-cKf" userLabel="Home"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="o1U-hC-vdo">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
