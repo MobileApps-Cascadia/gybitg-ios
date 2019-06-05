@@ -177,7 +177,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0RP-a0-nNl"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Notifications" image="icon-bell-50" badgeValue="2" id="Pv7-sM-azg"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" image="icon-bell-50" badgeValue="2" id="Pv7-sM-azg">
+                        <color key="badgeColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2U-AL-oAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
