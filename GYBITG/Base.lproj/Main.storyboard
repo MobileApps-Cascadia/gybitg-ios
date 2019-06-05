@@ -149,7 +149,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Account" image="icons-female-profile-50" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -177,7 +177,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0RP-a0-nNl"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Notifications" id="Pv7-sM-azg"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" image="icon-bell-50" id="Pv7-sM-azg"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2U-AL-oAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -431,7 +431,7 @@
         <scene sceneID="EaF-96-4jy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wB9-No-Rxy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" id="acW-dT-cKf" userLabel="Home"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="icons-home-page-50" id="acW-dT-cKf" userLabel="Home"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="o1U-hC-vdo">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -468,8 +468,10 @@
     <resources>
         <image name="action-athletes-ball-934083" width="4928" height="3264"/>
         <image name="ball-basketball-basketball-court-1752757(1)" width="5650" height="3685"/>
+        <image name="icon-bell-50" width="25" height="25"/>
+        <image name="icons-female-profile-50" width="25" height="25"/>
+        <image name="icons-home-page-50" width="25" height="25"/>
         <image name="orangegybitgiconfromweb" width="300" height="201"/>
-        <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qEm-w4-R2I"/>
