@@ -14,11 +14,6 @@ import UIKit
 import MobileCoreServices
 import CoreMedia
 
-//protocol for all repos to inherit from so polymorphism can be used for the UIStoryboardSegue
-//Each  Repository will define and return which type of Repo they are
-protocol Repo{
-    func type()-> Character
-}
 
 //The protocol for the VideoView
 protocol VideoRepositoryProtocol: Repo{

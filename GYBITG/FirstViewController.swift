@@ -26,7 +26,7 @@ class FirstViewController: UIViewController {
             segue.forward(gameRepo, to: segue.destination)
         }
         if(segue.identifier == UIStoryboardSegue.AppSegue.FirstViewToGallerySegue.rawValue) {
-            segue.forward(galleryRepo!, to: segue.destination)
+                segue.forward(galleryRepo!, to: segue.destination)
         }
     }
     
