@@ -38,12 +38,6 @@ extension UIStoryboardSegue {
         // Check to see if the destination view controller is a navigation controller, eg: using a modal segue there will be a navigation controller before the destination view controller.
         //The Generic repo is the parameter so all repositories that inherit from protocol Repo can be passed
         if(repo.type() == "videoRepo"){
-            if let navigationController = destination as? UINavigationController {
-                let root = navigationController.viewControllers[0]
-                // Recursivley call itself to check the next destination view controller
-                //forward(galleryRepo, to: root)
-                forward(repo, to: root)
-            }
             // Check the destination view controller; GalleryViewController, and pass the repo to it
             if let GalleryViewController = destination as? GalleryViewController {
                 GalleryViewController.videoRepository = (repo as! VideoRepositoryProtocol)
