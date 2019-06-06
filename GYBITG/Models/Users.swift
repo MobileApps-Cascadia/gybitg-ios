@@ -2,12 +2,12 @@
 //  Users.swift
 //  GYBITG
 //
-//  Created by Student Account on 5/2/19.
+//  Created by Sharief Youssef on 5/2/19.
 //
 
 import Foundation
 
-struct Users {
+struct User : Equatable {
     
     let userId: String // unique id for the user and must be their email address
     let password: String // hash of the password entered by the user
