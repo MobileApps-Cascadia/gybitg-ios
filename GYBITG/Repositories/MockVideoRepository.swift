@@ -1,4 +1,5 @@
-// This class will conform to the VideoRepositoryProtocol and implement the methods. It will have an array of videos. WIll get the all of the videos in the array of videos. Will create a Video object from the URL of the parameter. Will return the video with the videoID passed in. Will insert the video passed in to the array. Will update the video with the videoID with the description, longerVideoURL or image passed in. Will delete the video passed in. Will delete all of the videos in the videos array.
+
+// This class will conform to the VideoRepositoryProtocol and implement the methods. It will have an array of videos. WIll get the all of the videos in the array of videos. Will create a Video object from the URL of the parameter Will return the video with the videoID passed in. Will insert the video passed in to the array. Will update the video with the videoID with the description, longerVideoURL image passed in. Will delete the video passed in. Will delete all of the videos in the videos array.
 //  VideoRepository.swift
 //  GYBITG
 //
@@ -6,36 +7,41 @@
 //
 
 import AVFoundation
-import Photos
+import CoreMedia
 import UIKit
 import MobileCoreServices
-import CoreMedia
-class VideoRepository: VideoRepositoryProtocol{
-   
+
+class MockVideoRepository: VideoRepositoryProtocol{
+    
     func type() -> String {
     return "videoRepo"
     }
     
     internal var videos = [Video]()
     
-     func getAllVideos() -> [Video] {
+    func getAllVideos() -> [Video] {
         return videos
     }
     
-    
-    //Purpose: To create a Video object from the URL of the parameter and properties set
-    //Precondition: a URL of a video exists, a valid userID is passed
-    //Postcondition: A Video will be created and returned
-    func createVideo(userID: String, videoURL: URL) -> Video{
+    //Purpose: To create a Video object from the URL of the parameter
+    //Precondition: a URL of a video exists,
+    //Postcondition: A Video will be created and returned and properties set. Will check if there is a date for the asset and if not, the date will be set to now
+    func createVideo(userID: String, videoURL: URL) -> Video {
         
-        let asset = AVURLAsset(url: videoURL, options: nil)
-        
+        let asset = getAVAsset(videoUrl: videoURL)
         let date: Date =  asset.creationDate?.dateValue ?? Date()
         
-        let video = Video(videoID: "\(date)", dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: userID, thumbnail: nil)
+        let videoDescription = "Description of Video"
+        let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: userID, thumbnail: nil)
+        
         return video
     }
     
+    //Purpose: converts the url into a AvAsset
+    func getAVAsset(videoUrl: URL)-> AVAsset{
+        let asset = AVURLAsset(url: videoUrl, options: nil)
+            return asset
+   }
     
     //purpose: Will return the video with the videoID passed in
     //precondition: the video is in the array
@@ -68,7 +74,7 @@ class VideoRepository: VideoRepositoryProtocol{
         let video = getVideo(videoID: videoToUpdateID)
         if video != nil{
             if description != nil{
-             video!.description = description!
+                video!.description = description!
             }
             if longerVideoURL != nil{
                 video!.longerVideoURL = longerVideoURL!
@@ -78,9 +84,9 @@ class VideoRepository: VideoRepositoryProtocol{
             }
             return video?.videoID
         }
-             return nil
+        return nil
     }
- 
+    
     //purpose: Will delete the video passed in
     //precondition: Video is not nil
     //postcondion: The Video passed in will be deleted in the videos array and its videoID returned or nill if nil
@@ -93,7 +99,7 @@ class VideoRepository: VideoRepositoryProtocol{
         
         return nil
     }
-   
+    
     //purpose: Will delete all of the videos in the videos array
     //precondition: none
     //postcondion: All of the videos in the videos array will be deleted

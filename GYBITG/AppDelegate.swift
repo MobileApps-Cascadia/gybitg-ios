@@ -11,11 +11,25 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    let gameStatRepo = GameStatRepo()
+    let galleryRepo = MockVideoRepository()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //UINavigationBar.appearance().titleTextAttributes
+        
+        // The rootViewController is the UITabController
+        guard let tabController = window?.rootViewController as? UITabBarController, let viewControllers = tabController.viewControllers else {
+                return true
+        }
+        
+        // We can instantiate the GameStatRepo and GalleryRepo in here
+        for viewController in viewControllers {
+            if let navController = viewController as? UINavigationController, let firstViewController = navController.viewControllers.first as? FirstViewController{
+                firstViewController.gameRepo = gameStatRepo
+                firstViewController.galleryRepo = galleryRepo
+            }
+        }
         
         return true
     }

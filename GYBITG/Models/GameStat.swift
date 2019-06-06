@@ -2,7 +2,7 @@
 //  GameStat.swift
 //  GYBITG
 //
-//  Created by Student Account on 4/26/19.
+//  Created by James Hayes on 4/26/19.
 //
 
 import UIKit
@@ -18,8 +18,10 @@ class GameStat: NSObject {
     var steals: Int
     var blocks: Int
     var minutesPlayed: Double
+    var opposingTeamName: String
+    var homeOrAway: String
     
-    init(statId: Int, userId: String, gameDate: Date, points: Int, rebounds: Int, assists: Int, steals: Int, blocks: Int, minutesPlayed: Double) {
+    init(statId: Int, userId: String, gameDate: Date, points: Int, rebounds: Int, assists: Int, steals: Int, blocks: Int, minutesPlayed: Double, opposingTeamName: String, homeOrAway: String) {
         self.statId = statId
         self.userId = userId
         self.gameDate = gameDate
@@ -29,6 +31,8 @@ class GameStat: NSObject {
         self.steals = steals
         self.blocks = blocks
         self.minutesPlayed = minutesPlayed
+        self.opposingTeamName = opposingTeamName
+        self.homeOrAway = homeOrAway
     }
     
     // use this random initializer for testing
@@ -38,9 +42,9 @@ class GameStat: NSObject {
             let idx = arc4random_uniform(UInt32(100))
             let randomStatId = Int(idx)
             let randomUserId = "ksmith@gmail.com"
-            self.init(statId: randomStatId, userId: randomUserId, gameDate: testDate, points: Int(arc4random_uniform(100)), rebounds: Int(arc4random_uniform(100)), assists: Int(arc4random_uniform(100)), steals: Int(arc4random_uniform(100)), blocks: Int(arc4random_uniform(100)), minutesPlayed: Double(arc4random_uniform(40)))
+            self.init(statId: randomStatId, userId: randomUserId, gameDate: testDate, points: Int(arc4random_uniform(100)), rebounds: Int(arc4random_uniform(100)), assists: Int(arc4random_uniform(100)), steals: Int(arc4random_uniform(100)), blocks: Int(arc4random_uniform(100)), minutesPlayed: Double(arc4random_uniform(40)), opposingTeamName: "Huskies", homeOrAway: "Home")
         } else {
-            self.init(statId: 1, userId: "ksmith11", gameDate: testDate, points: 0, rebounds: 0, assists: 0, steals: 0, blocks: 0, minutesPlayed: 0.0)
+            self.init(statId: 1, userId: "ksmith@gmail.com", gameDate: testDate, points: 0, rebounds: 0, assists: 0, steals: 0, blocks: 0, minutesPlayed: 0.0, opposingTeamName: "Huskies", homeOrAway: "Home")
         }
     }
 }
