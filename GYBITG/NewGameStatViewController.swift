@@ -103,6 +103,58 @@ class NewGameStatViewController: UIViewController {
         }
     }
     
+    // Check if the user left any fields blank
+    @IBAction func checkForEmptyFields(_ sender: UIBarButtonItem) {
+        // create the alert
+        if (pointsField.text == "" || reboundsField.text == "" || assistsField.text == "" || stealsField.text == "" || blocksField.text == "" || minutesPlayedField.text == "" || opposingTeamField.text == "" || homeOrAway != "Home" ||
+            homeOrAway != "Away") {
+            
+            let alert = UIAlertController(title: "Did you mean to leave the field blank?", message: "Blank fields are saved as zero", preferredStyle: UIAlertController.Style.alert)
+            
+            let SaveAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {
+                (_)in
+                if (self.pointsField.text == ""){
+                    self.pointsField.text = "0"
+                }
+                if (self.reboundsField.text == "") {
+                    self.reboundsField.text = "0"
+                }
+                if (self.assistsField.text == "") {
+                    self.assistsField.text = "0"
+                }
+                if (self.stealsField.text == "") {
+                    self.stealsField.text = "0"
+                }
+                if (self.blocksField.text == "") {
+                    self.blocksField.text = "0"
+                }
+                if (self.minutesPlayedField.text == "") {
+                    self.minutesPlayedField.text = "0"
+                }
+                if (self.opposingTeamField.text == "") {
+                    self.opposingTeamField.text = "Unknown"
+                }
+                if (self.homeOrAway != "Home" || self.homeOrAway != "Away") {
+                    self.homeOrAway = "Home"
+                    self.homeOrAwaySegmentedControl.selectedSegmentIndex = 1
+                }
+                self.performSegue(withIdentifier: "segueShowHistory", sender: self)
+            })
+    
+            let CancelAction = UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: {
+                (_)in
+                self.performSegue(withIdentifier: "segueShowHistory", sender: self)
+            })
+            
+            // show the alert
+            alert.addAction(SaveAction)
+            alert.addAction(CancelAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    }
+    
+    
     // This segue is connected to the 'Save' button, unwind segue, it initializes a game stat entity with the filled in form data then passes it to the unwind segue in the GameStatHistoryViewController to add it to the data array
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let mGameDate = gameDatePicker?.date,

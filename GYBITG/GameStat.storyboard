@@ -261,7 +261,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Kwq-bd-qea">
                             <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="OgV-iM-4uT" kind="unwind" unwindAction="save:" id="Es3-hN-zI9"/>
+                                <action selector="checkForEmptyFields:" destination="jas-Ev-8U8" id="ndl-zL-ZGU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -275,6 +275,8 @@
                         <outlet property="pointsField" destination="fDa-tJ-2gv" id="XYv-iU-YN5"/>
                         <outlet property="reboundsField" destination="8Pn-3c-vWW" id="Plp-nz-6dc"/>
                         <outlet property="stealsField" destination="N5X-Lf-cEY" id="Yu0-KA-xQX"/>
+                        <segue destination="OgV-iM-4uT" kind="unwind" identifier="segueShowHistory" unwindAction="save:" id="GjQ-0A-zGn"/>
+                        <segue destination="OgV-iM-4uT" kind="unwind" unwindAction="save:" id="Qia-C8-4Mi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6YG-YS-Uaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -337,7 +339,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wbb-69-6Eo"/>
+        <segue reference="pkQ-8R-Ea8"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>
