@@ -104,6 +104,8 @@ class NewGameStatViewController: UIViewController {
     }
     
     // Check if the user left any fields blank
+    // If a field is left blank it will be entered as a '0'.
+    // The user can go an edit the stat later on
     @IBAction func checkForEmptyFields(_ sender: UIBarButtonItem) {
         // create the alert
         if (homeOrAwaySegmentedControl.selectedSegmentIndex == -1 || pointsField.text == "" || reboundsField.text == "" || assistsField.text == "" || stealsField.text == "" || blocksField.text == "" || minutesPlayedField.text == "" || opposingTeamField.text == "") {
@@ -147,8 +149,8 @@ class NewGameStatViewController: UIViewController {
             alert.addAction(CancelAction)
             self.present(alert, animated: true, completion: nil)
         } else {
+            // If all the fields have been filled out then proceed to the unwind segue
             self.performSegue(withIdentifier: "segueShowHistory", sender: self)
-
         }
     }
     

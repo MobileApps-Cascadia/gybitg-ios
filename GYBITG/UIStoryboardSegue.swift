@@ -49,6 +49,7 @@ extension UIStoryboardSegue {
     enum AppSegue : String {
         case segueShowGameStatHistory
         case segueModalGameStatForm
+        case segueModalEditGameStat
         case FirstViewToGallerySegue
     }
 }

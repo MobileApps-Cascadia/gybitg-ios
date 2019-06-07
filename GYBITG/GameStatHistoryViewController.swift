@@ -27,8 +27,8 @@ class GameStatHistoryViewController: UITableViewController {
     
     // This function is ran only once when the view is initially loaded
     override func viewDidLoad() {        
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 65
+        tableView.rowHeight = 85
+        tableView.estimatedRowHeight = 85
     }
     
     // This function is called everytime the view is loaded
@@ -95,16 +95,19 @@ class GameStatHistoryViewController: UITableViewController {
             segue.forward(gameRepo!, to: segue.destination)
         }
         // This is triggered when the user clicks on a Game Stat cell in the table view
-        // it will take them to the Game Stat form with the selected Game Stat data filled in
-        // they are able to update the game stat from there
-        guard let newGameStatViewController = segue.destination as? NewGameStatViewController,
-            let index = tableView.indexPathForSelectedRow?.row
-            else {
-                return
+        // it will take them to the Game Stat form with the selected Game Stat data filled in.
+        // This allows the user to edit/update the game stat
+        if(segue.identifier == UIStoryboardSegue.AppSegue.segueModalEditGameStat.rawValue) {
+            if let navController = segue.destination as? UINavigationController {
+                if let newGameStatviewController = navController.topViewController as? NewGameStatViewController {
+                    let index = tableView.indexPathForSelectedRow?.row
+                    
+                    newGameStatviewController.mGameStat = gameRepo!.allGameStats[index!]
+                    newGameStatviewController.isUpdate = true
+                    segue.forward(gameRepo!, to: segue.destination)
+                }
+            }
         }
-        newGameStatViewController.mGameStat = gameRepo!.allGameStats[index]
-        newGameStatViewController.isUpdate = true
-        segue.forward(gameRepo!, to: segue.destination)
     }
 
     // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table view
