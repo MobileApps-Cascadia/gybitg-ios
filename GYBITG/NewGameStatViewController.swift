@@ -141,10 +141,7 @@ class NewGameStatViewController: UIViewController {
                 self.performSegue(withIdentifier: "segueShowHistory", sender: self)
             })
     
-            let CancelAction = UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: {
-                (_)in
-                self.performSegue(withIdentifier: "segueShowHistory", sender: self)
-            })
+            let CancelAction = UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil)
             
             // show the alert
             alert.addAction(SaveAction)
