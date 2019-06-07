@@ -608,7 +608,7 @@
         <scene sceneID="FUw-nP-ZdT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CT3-r8-xBi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Account" image="second" id="cPa-gy-q4n"/>
+                    <!-- <tabBarItem key="tabBarItem" title="Account" image="second" id="cPa-gy-q4n"/> -->
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7vg-9G-863">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
