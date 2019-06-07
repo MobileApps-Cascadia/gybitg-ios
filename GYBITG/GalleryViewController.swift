@@ -14,8 +14,10 @@ import UIKit
 import MobileCoreServices
 import CoreMedia
 
+
 //The protocol for the VideoView
-protocol VideoRepositoryProtocol{
+protocol VideoRepositoryProtocol: Repo{
+    
     //to store all videos
     var videos: [Video] {get}
     func createVideo(userID: String, videoURL: URL) -> Video

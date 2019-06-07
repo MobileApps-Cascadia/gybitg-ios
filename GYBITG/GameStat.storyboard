@@ -236,6 +236,7 @@
                             <constraint firstAttribute="trailing" secondItem="8k0-Vs-mkF" secondAttribute="trailing" id="jH7-xi-Zsx"/>
                             <constraint firstItem="3i8-tk-kII" firstAttribute="leading" secondItem="juT-4G-pSQ" secondAttribute="centerX" id="jzV-fs-ZN9"/>
                             <constraint firstItem="9NR-Ea-Dwe" firstAttribute="top" secondItem="kej-zP-svc" secondAttribute="bottom" constant="30" id="mex-Fw-7pz"/>
+                            <constraint firstItem="tGX-7n-J5I" firstAttribute="leading" secondItem="5Ll-23-W8s" secondAttribute="leading" constant="8" id="ncT-xP-Gkz"/>
                             <constraint firstItem="pQ9-55-1BW" firstAttribute="firstBaseline" secondItem="kej-zP-svc" secondAttribute="firstBaseline" id="rx6-Qk-sgP"/>
                             <constraint firstItem="tGX-7n-J5I" firstAttribute="top" secondItem="5Ll-23-W8s" secondAttribute="top" constant="35" id="sjO-Cr-uI4"/>
                             <constraint firstItem="kej-zP-svc" firstAttribute="top" secondItem="Xjn-y6-Evf" secondAttribute="bottom" constant="30" id="tiH-H7-AOP"/>
@@ -293,6 +294,14 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uGQ-Fv-AuO">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textShadowColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -311,6 +320,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ov1-Q0-Loh">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -322,4 +335,5 @@
             <point key="canvasLocation" x="5753.6231884057979" y="-854.46428571428567"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>

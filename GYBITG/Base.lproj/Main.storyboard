@@ -185,13 +185,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wkv-MV-TrX"/>
+                    <navigationItem key="navigationItem" id="wkv-MV-TrX"/>                    <tabBarItem key="tabBarItem" title="" image="icons-female-profile-50" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1716" y="459.60591133004925"/>
         </scene>
-        <!--Notifications-->
+        <!--Third View Controller-->
         <scene sceneID="Rv2-ZK-Blk">
             <objects>
                 <viewController id="CfE-JP-cxW" customClass="ThirdViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
@@ -199,21 +199,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Third View" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lbx-Dv-I2d">
-                                <rect key="frame" x="106" y="384.66666666666669" width="163" height="43"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lbx-Dv-I2d">
+                                <rect key="frame" x="90" y="384.66666666666669" width="195" height="43"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Lbx-Dv-I2d" firstAttribute="centerX" secondItem="cXE-xg-hrE" secondAttribute="centerX" id="6Lk-kT-5bZ"/>
                             <constraint firstItem="Lbx-Dv-I2d" firstAttribute="centerY" secondItem="cXE-xg-hrE" secondAttribute="centerY" id="yNS-ef-0Uw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0RP-a0-nNl"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Notifications" id="Pv7-sM-azg"/>
+                    <tabBarItem key="tabBarItem" title="" image="icon-bell-50" badgeValue="2" id="Pv7-sM-azg">
+                        <color key="badgeColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2U-AL-oAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -228,6 +230,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="wB9-No-Rxy" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
@@ -496,6 +504,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="na8-Qt-6IS">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Uxc-N3-I2E">
+                            <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="takeVideo:" destination="7Sr-sB-4lF" id="Nty-bx-U1X"/>
                             </connections>
@@ -514,15 +523,19 @@
             </objects>
             <point key="canvasLocation" x="2422" y="-450"/>
         </scene>
-        <!--Home-->
+        <!--Navigation Controller-->
         <scene sceneID="EaF-96-4jy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wB9-No-Rxy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" id="acW-dT-cKf" userLabel="Home"/>
+                    <tabBarItem key="tabBarItem" title="" image="icons-home-page-50" id="acW-dT-cKf" userLabel="Home"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="o1U-hC-vdo">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -541,6 +554,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5Gi-Ec-3Go">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -610,12 +627,15 @@
     <resources>
         <image name="action-athletes-ball-934083" width="4928" height="3264"/>
         <image name="ball-basketball-basketball-court-1752757(1)" width="5650" height="3685"/>
+        <image name="icon-bell-50" width="25" height="25"/>
+        <image name="icons-female-profile-50" width="25" height="25"/>
+        <image name="icons-home-page-50" width="25" height="25"/>
         <image name="orangegybitgiconfromweb" width="300" height="201"/>
-        <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qEm-w4-R2I"/>
         <segue reference="vmJ-ZG-f7x"/>
         <segue reference="Bf5-5O-QRL"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>

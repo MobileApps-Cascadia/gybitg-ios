@@ -13,6 +13,10 @@ import MobileCoreServices
 
 class MockVideoRepository: VideoRepositoryProtocol{
     
+    func type() -> String {
+    return "videoRepo"
+    }
+    
     internal var videos = [Video]()
     
     func getAllVideos() -> [Video] {
