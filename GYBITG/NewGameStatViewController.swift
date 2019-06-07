@@ -106,8 +106,7 @@ class NewGameStatViewController: UIViewController {
     // Check if the user left any fields blank
     @IBAction func checkForEmptyFields(_ sender: UIBarButtonItem) {
         // create the alert
-        if (pointsField.text == "" || reboundsField.text == "" || assistsField.text == "" || stealsField.text == "" || blocksField.text == "" || minutesPlayedField.text == "" || opposingTeamField.text == "" || homeOrAway != "Home" ||
-            homeOrAway != "Away") {
+        if (homeOrAwaySegmentedControl.selectedSegmentIndex == -1 || pointsField.text == "" || reboundsField.text == "" || assistsField.text == "" || stealsField.text == "" || blocksField.text == "" || minutesPlayedField.text == "" || opposingTeamField.text == "") {
             
             let alert = UIAlertController(title: "Did you mean to leave the field blank?", message: "Blank fields are saved as zero", preferredStyle: UIAlertController.Style.alert)
             
@@ -132,10 +131,10 @@ class NewGameStatViewController: UIViewController {
                     self.minutesPlayedField.text = "0"
                 }
                 if (self.opposingTeamField.text == "") {
-                    self.opposingTeamField.text = "Unknown"
+                    self.opposingTeamField.text = ""
                 }
-                if (self.homeOrAway != "Home" || self.homeOrAway != "Away") {
-                    self.homeOrAway = "Home"
+                if (self.homeOrAway != "Home" && self.homeOrAway != "Away") {
+                    self.homeOrAway = " "
                     self.homeOrAwaySegmentedControl.selectedSegmentIndex = 1
                 }
                 self.performSegue(withIdentifier: "segueShowHistory", sender: self)
@@ -147,8 +146,10 @@ class NewGameStatViewController: UIViewController {
             alert.addAction(SaveAction)
             alert.addAction(CancelAction)
             self.present(alert, animated: true, completion: nil)
+        } else {
+            self.performSegue(withIdentifier: "segueShowHistory", sender: self)
+
         }
-        
     }
     
     
