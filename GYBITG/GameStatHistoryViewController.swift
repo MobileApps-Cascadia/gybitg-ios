@@ -8,7 +8,7 @@
 import UIKit
 
 // These are the gamestat repo protocol methods that will be used to store, add, remove, and retrieve a gamestat entity
-protocol GameStatProtocol {
+protocol GameStatProtocol: Repo {
     @discardableResult func createRandomGameStat() -> GameStat
     var allGameStats: [GameStat] { get set }
     func removeGameStat(gameStat: GameStat)
@@ -16,12 +16,13 @@ protocol GameStatProtocol {
     func addGameStat(gameStat: GameStat)
     func getGameStatByStatId(statId: Int) -> GameStat
     func getAllGameStatsByUserId(userId: String) -> [GameStat]
+    func updateGameState(gamestat: GameStat)
 }
 
 class GameStatHistoryViewController: UITableViewController {
     
     // Reference to the gamestat protocol that is instanitated in the appdelegate file
-    var gameRepo: GameStatProtocol!
+    var gameRepo: GameStatProtocol?
     
     
     // This function is ran only once when the view is initially loaded
@@ -42,7 +43,7 @@ class GameStatHistoryViewController: UITableViewController {
     // This required method by the UITableViewController class
     // It returns the number of cells that should be inserted in to the table view
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameRepo.allGameStats.count
+        return (gameRepo?.allGameStats.count)!
     }
 
     // This function is required by the UITableViewController class
@@ -54,7 +55,7 @@ class GameStatHistoryViewController: UITableViewController {
         // Set the text on the cell with the description of the item
         // that is at the nth index of items, where n = row this cell
         // will appear in on the tableview
-        let item = gameRepo.allGameStats[indexPath.row]
+        let item = gameRepo!.allGameStats[indexPath.row]
         
         // Date formatter for converting "yyyy-MM-dd HH:mm:ss +0000" to "MM/dd/yyyy"
         let dateFormatterGet = DateFormatter()
@@ -76,10 +77,10 @@ class GameStatHistoryViewController: UITableViewController {
                             commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let gameStat = gameRepo.allGameStats[indexPath.row]
+            let gameStat = gameRepo!.allGameStats[indexPath.row]
             
             // remove the gamestat from the repo
-            gameRepo.removeGameStat(gameStat: gameStat)
+            gameRepo!.removeGameStat(gameStat: gameStat)
             
             // also remove that row from the table view
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -91,8 +92,19 @@ class GameStatHistoryViewController: UITableViewController {
         // Use the enum in the UIStoryboard file to grab the segue identifier; segueModalGameStatForm
         if(segue.identifier == UIStoryboardSegue.AppSegue.segueModalGameStatForm.rawValue) {
             // The 'forward' method is located in the UIStoryboardSegue file
-            segue.forward(gameRepo, to: segue.destination)
+            segue.forward(gameRepo!, to: segue.destination)
         }
+        // This is triggered when the user clicks on a Game Stat cell in the table view
+        // it will take them to the Game Stat form with the selected Game Stat data filled in
+        // they are able to update the game stat from there
+        guard let newGameStatViewController = segue.destination as? NewGameStatViewController,
+            let index = tableView.indexPathForSelectedRow?.row
+            else {
+                return
+        }
+        newGameStatViewController.mGameStat = gameRepo!.allGameStats[index]
+        newGameStatViewController.isUpdate = true
+        segue.forward(gameRepo!, to: segue.destination)
     }
 
     // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table view
@@ -101,7 +113,12 @@ class GameStatHistoryViewController: UITableViewController {
     // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table iew and saves (adds) the new game stat to the repository data array
     @IBAction func save(_ unwindSegue: UIStoryboardSegue) {
         if let newGameStatViewController = unwindSegue.source as? NewGameStatViewController {
-            gameRepo.addGameStat(gameStat: newGameStatViewController.mGameStat!)
+            // check whethere the user is updating or creating a new Game Stat
+            if (newGameStatViewController.isUpdate) {
+                gameRepo?.updateGameState(gamestat: newGameStatViewController.mGameStat!)
+            } else {
+                gameRepo!.addGameStat(gameStat: newGameStatViewController.mGameStat!)
+            }
             tableView.reloadData()
         }
     }

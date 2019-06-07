@@ -43,6 +43,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <connections>
                                     <outlet property="gameLabel" destination="6ur-6u-iZt" id="Jpk-CZ-nYn"/>
+                                    <segue destination="jas-Ev-8U8" kind="show" id="pkQ-8R-Ea8"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -335,5 +336,8 @@
             <point key="canvasLocation" x="5753.6231884057979" y="-854.46428571428567"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="wbb-69-6Eo"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>

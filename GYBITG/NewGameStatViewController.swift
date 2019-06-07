@@ -30,8 +30,33 @@ class NewGameStatViewController: UIViewController {
     // Reference a new game stat entity that will be initialized on the 'Save' segue
     var mGameStat: GameStat?
     
+    // Used to keep track of whether we're updating a current Game Stat or not
+    var isUpdate: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // If we're updating a current Game Stat then fill in the text fields with
+        // the current game stat's data
+        if (mGameStat != nil && isUpdate) {
+            gameDatePicker.date = mGameStat!.gameDate
+            pointsField.text = String(mGameStat!.points)
+            reboundsField.text = String(mGameStat!.rebounds)
+            assistsField.text = String(mGameStat!.assists)
+            blocksField.text = String(mGameStat!.blocks)
+            stealsField.text = String(mGameStat!.steals)
+            minutesPlayedField.text = String(mGameStat!.minutesPlayed)
+            opposingTeamField.text = String(mGameStat!.opposingTeamName)
+            
+            if(mGameStat?.homeOrAway == "Home") {
+                homeOrAwaySegmentedControl.selectedSegmentIndex = 0
+                homeOrAway = "Home"
+            } else if (mGameStat?.homeOrAway == "Away") {
+                homeOrAwaySegmentedControl.selectedSegmentIndex = 1
+                homeOrAway = "Away"
+            }
+            
+        }
         
         // These are for changing the placeholder text color progromatically
         gameDatePicker.setValue(UIColor.lightText, forKey: "textColor")
@@ -89,8 +114,16 @@ class NewGameStatViewController: UIViewController {
         let mMinutesPlayed = Double(minutesPlayedField.text!),
         let mOpposingTeam = opposingTeamField?.text!,
         let mHomeOrAway: String = homeOrAway {
-            let mGameStatId = ((gameRepo?.allGameStats.count)!) + 1
-            let mGameStatUserId = "ksmith@gmail.com"
+            let mGameStatId: Int
+            let mGameStatUserId: String
+            // check whether we should update a current game stat or create a new one
+            if (isUpdate) {
+                mGameStatId = mGameStat!.statId
+                mGameStatUserId = mGameStat!.userId
+            } else {
+                mGameStatId = ((gameRepo?.allGameStats.count)!) + 1
+                mGameStatUserId = "ksmith@gmail.com"
+            }
             mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
         }
     }
