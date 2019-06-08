@@ -22,7 +22,7 @@ class NewGameStatViewController: UIViewController {
     @IBOutlet weak var homeOrAwaySegmentedControl: UISegmentedControl!
     
     // initialize the home/away variable for use in the GameStat entity later on when adding to repo data array
-    var homeOrAway: String! = ""
+    var homeOrAway: String?
     
     // referencing the protocol
     var gameRepo: GameStatProtocol?
@@ -60,6 +60,7 @@ class NewGameStatViewController: UIViewController {
         
         // These are for changing the placeholder text color progromatically
         gameDatePicker.setValue(UIColor.lightText, forKey: "textColor")
+        
         pointsField.attributedPlaceholder = NSAttributedString(string: "Points",
                                                                attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightText])
         reboundsField.attributedPlaceholder = NSAttributedString(string: "Rebounds",
@@ -103,16 +104,17 @@ class NewGameStatViewController: UIViewController {
         }
     }
     
+    // IBAction func linked to the 'Save' button on the Game Stat form
     // Check if the user left any fields blank
-    // If a field is left blank it will be entered as a '0'.
+    // If a field is left blank, show an alert, warning user it will be entered as a '0'.
     // The user can go an edit the stat later on
     @IBAction func checkForEmptyFields(_ sender: UIBarButtonItem) {
         // create the alert
         if (homeOrAwaySegmentedControl.selectedSegmentIndex == -1 || pointsField.text == "" || reboundsField.text == "" || assistsField.text == "" || stealsField.text == "" || blocksField.text == "" || minutesPlayedField.text == "" || opposingTeamField.text == "") {
             
-            let alert = UIAlertController(title: "Did you mean to leave the field blank?", message: "Blank fields are saved as zero", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: "Did you mean to leave blank stat(s) fields?", message: "Blank stats are recorded as zero", preferredStyle: UIAlertController.Style.alert)
             
-            let SaveAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {
+            let YesAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: {
                 (_)in
                 if (self.pointsField.text == ""){
                     self.pointsField.text = "0"
@@ -136,21 +138,21 @@ class NewGameStatViewController: UIViewController {
                     self.opposingTeamField.text = ""
                 }
                 if (self.homeOrAway != "Home" && self.homeOrAway != "Away") {
-                    self.homeOrAway = " "
-                    self.homeOrAwaySegmentedControl.selectedSegmentIndex = 1
+                    self.homeOrAway = ""
+                    self.homeOrAwaySegmentedControl.selectedSegmentIndex = -1
                 }
-                self.performSegue(withIdentifier: "segueShowHistory", sender: self)
+                self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.unwindSegueShowGameStatHistory.rawValue, sender: self)
             })
     
-            let CancelAction = UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil)
+            let NoAction = UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil)
             
             // show the alert
-            alert.addAction(SaveAction)
-            alert.addAction(CancelAction)
+            alert.addAction(YesAction)
+            alert.addAction(NoAction)
             self.present(alert, animated: true, completion: nil)
         } else {
             // If all the fields have been filled out then proceed to the unwind segue
-            self.performSegue(withIdentifier: "segueShowHistory", sender: self)
+            self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.unwindSegueShowGameStatHistory.rawValue, sender: self)
         }
     }
     

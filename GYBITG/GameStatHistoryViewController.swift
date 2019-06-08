@@ -27,8 +27,8 @@ class GameStatHistoryViewController: UITableViewController {
     
     // This function is ran only once when the view is initially loaded
     override func viewDidLoad() {        
-        tableView.rowHeight = 85
-        tableView.estimatedRowHeight = 85
+        tableView.rowHeight = 75
+        tableView.estimatedRowHeight = 75
     }
     
     // This function is called everytime the view is loaded
@@ -61,7 +61,7 @@ class GameStatHistoryViewController: UITableViewController {
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
         let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "MM/dd/yyyy"
+        dateFormatterPrint.dateFormat = "MM/dd/YY"
         
         // fill in the cell with the format: "Vs. <opposing team name> @ <home/away> - <game date>"
         if let date = dateFormatterGet.date(from: String(describing: item.gameDate)) {
@@ -114,6 +114,8 @@ class GameStatHistoryViewController: UITableViewController {
     @IBAction func cancel(_ unwindSegue: UIStoryboardSegue) { tableView.reloadData() }
     
     // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table iew and saves (adds) the new game stat to the repository data array
+    // fix the dd
+    
     @IBAction func save(_ unwindSegue: UIStoryboardSegue) {
         if let newGameStatViewController = unwindSegue.source as? NewGameStatViewController {
             // check whethere the user is updating or creating a new Game Stat

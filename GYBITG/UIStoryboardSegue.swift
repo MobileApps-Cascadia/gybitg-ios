@@ -33,8 +33,8 @@ extension UIStoryboardSegue {
             }
         }
         // Check to see if the user is navigating to a view controller that requires the GameStat Repo
-        else if(repo.type() == "GameRepo") {
-            // Check the destination view controller; GameStatHistoryViewController or NewGameStatViewController, and pass the gameRepo to it
+        else if(repo.type() == RepoTypes.GameRepo.rawValue) {
+            // Check the destination view controller; GameStatHistoryViewController or NewGameStatViewController, and pass our repository forward
             if let gameStatHistViewController = destination as? GameStatHistoryViewController {
                 gameStatHistViewController.gameRepo = (repo as! GameStatProtocol)
             }
@@ -50,6 +50,12 @@ extension UIStoryboardSegue {
         case segueShowGameStatHistory
         case segueModalGameStatForm
         case segueModalEditGameStat
+        case unwindSegueShowGameStatHistory
         case FirstViewToGallerySegue
+    }
+    
+    // Enum for returning a Repo 'type', so we're not using string literals 
+    enum RepoTypes : String {
+        case GameRepo
     }
 }
