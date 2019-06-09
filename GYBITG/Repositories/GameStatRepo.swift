@@ -25,7 +25,7 @@ class GameStatRepo: GameStatProtocol {
     
     // Used for the UIStoryboardSegue to return the type of view controller we're forwarding to
     func type() -> String {
-        return "GameRepo"
+        return UIStoryboardSegue.RepoTypes.GameRepo.rawValue
     }
     
     // This is an array that can store GameStat entities
@@ -33,7 +33,6 @@ class GameStatRepo: GameStatProtocol {
     
     // This function is used in the NewGameStatViewController for adding GameStat entity through the form
     func addGameStat(gameStat: GameStat) {
-        gameStat.statId = allGameStats.count + 1
         allGameStats.append(gameStat)
     }
     
