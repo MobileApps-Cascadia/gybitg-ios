@@ -114,6 +114,9 @@ class NewGameStatViewController: UIViewController {
             
             let alert = UIAlertController(title: "Did you mean to leave blank stat(s) fields?", message: "Blank stats are recorded as zero", preferredStyle: UIAlertController.Style.alert)
             
+            
+            // If the user decides to save the game stat w/ out filling all the fields, we sill need to
+            // save the game stat properties with a value of '0', because they are required parameters
             let YesAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: {
                 (_)in
                 if (self.pointsField.text == ""){
@@ -141,9 +144,12 @@ class NewGameStatViewController: UIViewController {
                     self.homeOrAway = ""
                     self.homeOrAwaySegmentedControl.selectedSegmentIndex = -1
                 }
+                
+                // Perform the unwind segue, to save the stat
                 self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.unwindSegueShowGameStatHistory.rawValue, sender: self)
             })
     
+            // Close the alert dialog and stay on the game stat form
             let NoAction = UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil)
             
             // show the alert
@@ -157,7 +163,9 @@ class NewGameStatViewController: UIViewController {
     }
     
     
-    // This segue is connected to the 'Save' button, unwind segue, it initializes a game stat entity with the filled in form data then passes it to the unwind segue in the GameStatHistoryViewController to add it to the data array
+    // This segue is connected to the 'Save' button, unwind segue,
+    // it initializes a game stat entity with the filled in form data.
+    // Then passes it to the unwind segue in the GameStatHistoryViewController to add it to the data array
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let mGameDate = gameDatePicker?.date,
         let mPoints = Int(pointsField.text!),
