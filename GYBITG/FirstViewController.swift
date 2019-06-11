@@ -23,7 +23,7 @@ class FirstViewController: UIViewController {
         // The 'forward' method is located in the UIStoryboardSegue file
         // Use the enum in the UIStoryboard file to grab the segue identifier; segueShowGameStatHistory
         if(segue.identifier == UIStoryboardSegue.AppSegue.segueShowGameStatHistory.rawValue) {
-            segue.forward(gameRepo, to: segue.destination)
+            segue.forward(gameRepo!, to: segue.destination)
         }
         if(segue.identifier == UIStoryboardSegue.AppSegue.FirstViewToGallerySegue.rawValue) {
                 segue.forward(galleryRepo!, to: segue.destination)
