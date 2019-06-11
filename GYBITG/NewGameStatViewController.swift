@@ -22,7 +22,7 @@ class NewGameStatViewController: UIViewController {
     @IBOutlet weak var homeOrAwaySegmentedControl: UISegmentedControl!
     
     // initialize the home/away variable for use in the GameStat entity later on when adding to repo data array
-    var homeOrAway: String! = ""
+    var homeOrAway: String?
     
     // referencing the protocol
     var gameRepo: GameStatProtocol?
@@ -30,11 +30,37 @@ class NewGameStatViewController: UIViewController {
     // Reference a new game stat entity that will be initialized on the 'Save' segue
     var mGameStat: GameStat?
     
+    // Used to keep track of whether we're updating a current Game Stat or not
+    var isUpdate: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // If we're updating a current Game Stat then fill in the text fields with
+        // the current game stat's data
+        if (mGameStat != nil && isUpdate) {
+            gameDatePicker.date = mGameStat!.gameDate
+            pointsField.text = String(mGameStat!.points)
+            reboundsField.text = String(mGameStat!.rebounds)
+            assistsField.text = String(mGameStat!.assists)
+            blocksField.text = String(mGameStat!.blocks)
+            stealsField.text = String(mGameStat!.steals)
+            minutesPlayedField.text = String(mGameStat!.minutesPlayed)
+            opposingTeamField.text = String(mGameStat!.opposingTeamName)
+            
+            if(mGameStat?.homeOrAway == "Home") {
+                homeOrAwaySegmentedControl.selectedSegmentIndex = 0
+                homeOrAway = "Home"
+            } else if (mGameStat?.homeOrAway == "Away") {
+                homeOrAwaySegmentedControl.selectedSegmentIndex = 1
+                homeOrAway = "Away"
+            }
+            
+        }
+        
         // These are for changing the placeholder text color progromatically
         gameDatePicker.setValue(UIColor.lightText, forKey: "textColor")
+        
         pointsField.attributedPlaceholder = NSAttributedString(string: "Points",
                                                                attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightText])
         reboundsField.attributedPlaceholder = NSAttributedString(string: "Rebounds",
@@ -78,7 +104,68 @@ class NewGameStatViewController: UIViewController {
         }
     }
     
-    // This segue is connected to the 'Save' button, unwind segue, it initializes a game stat entity with the filled in form data then passes it to the unwind segue in the GameStatHistoryViewController to add it to the data array
+    // IBAction func linked to the 'Save' button on the Game Stat form
+    // Check if the user left any fields blank
+    // If a field is left blank, show an alert, warning user it will be entered as a '0'.
+    // The user can go an edit the stat later on
+    @IBAction func checkForEmptyFields(_ sender: UIBarButtonItem) {
+        // create the alert
+        if (homeOrAwaySegmentedControl.selectedSegmentIndex == -1 || pointsField.text == "" || reboundsField.text == "" || assistsField.text == "" || stealsField.text == "" || blocksField.text == "" || minutesPlayedField.text == "" || opposingTeamField.text == "") {
+            
+            let alert = UIAlertController(title: "Did you mean to leave blank stat(s) fields?", message: "Blank stats are recorded as zero", preferredStyle: UIAlertController.Style.alert)
+            
+            
+            // If the user decides to save the game stat w/ out filling all the fields, we sill need to
+            // save the game stat properties with a value of '0', because they are required parameters
+            let YesAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: {
+                (_)in
+                if (self.pointsField.text == ""){
+                    self.pointsField.text = "0"
+                }
+                if (self.reboundsField.text == "") {
+                    self.reboundsField.text = "0"
+                }
+                if (self.assistsField.text == "") {
+                    self.assistsField.text = "0"
+                }
+                if (self.stealsField.text == "") {
+                    self.stealsField.text = "0"
+                }
+                if (self.blocksField.text == "") {
+                    self.blocksField.text = "0"
+                }
+                if (self.minutesPlayedField.text == "") {
+                    self.minutesPlayedField.text = "0"
+                }
+                if (self.opposingTeamField.text == "") {
+                    self.opposingTeamField.text = ""
+                }
+                if (self.homeOrAway != "Home" && self.homeOrAway != "Away") {
+                    self.homeOrAway = ""
+                    self.homeOrAwaySegmentedControl.selectedSegmentIndex = -1
+                }
+                
+                // Perform the unwind segue, to save the stat
+                self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.unwindSegueShowGameStatHistory.rawValue, sender: self)
+            })
+    
+            // Close the alert dialog and stay on the game stat form
+            let NoAction = UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil)
+            
+            // show the alert
+            alert.addAction(YesAction)
+            alert.addAction(NoAction)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            // If all the fields have been filled out then proceed to the unwind segue
+            self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.unwindSegueShowGameStatHistory.rawValue, sender: self)
+        }
+    }
+    
+    
+    // This segue is connected to the 'Save' button, unwind segue,
+    // it initializes a game stat entity with the filled in form data.
+    // Then passes it to the unwind segue in the GameStatHistoryViewController to add it to the data array
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let mGameDate = gameDatePicker?.date,
         let mPoints = Int(pointsField.text!),
@@ -89,8 +176,16 @@ class NewGameStatViewController: UIViewController {
         let mMinutesPlayed = Double(minutesPlayedField.text!),
         let mOpposingTeam = opposingTeamField?.text!,
         let mHomeOrAway: String = homeOrAway {
-            let mGameStatId = ((gameRepo?.allGameStats.count)!) + 1
-            let mGameStatUserId = "ksmith@gmail.com"
+            let mGameStatId: Int
+            let mGameStatUserId: String
+            // check whether we should update a current game stat or create a new one
+            if (isUpdate) {
+                mGameStatId = mGameStat!.statId
+                mGameStatUserId = mGameStat!.userId
+            } else {
+                mGameStatId = ((gameRepo?.allGameStats.count)!) + 1
+                mGameStatUserId = "ksmith@gmail.com"
+            }
             mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
         }
     }
