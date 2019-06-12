@@ -114,7 +114,7 @@ class NewAccountViewController: UIViewController, UIPickerViewDelegate, UIPicker
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            _ = usersRepository.addUser(userToAdd: User(userId: emailAddress.text!, password: password.text!, createDate: Date(), lastLoginDate: Date()))
+            _ = usersRepository.addUser(userToAdd: User(userId: emailAddress.text!, password: password.text!, createDate: Date(), lastLoginDate: Date(), firstName: firstName.text!, lastName: lastName.text!, highSchoolName: highSchoolName.text!, clubTeam: clubTeam.text!, graduationYear: graduationYearData[graduationYear.selectedRow(inComponent: 0)], state: stateData[state.selectedRow(inComponent: 0)]))
             self.dismiss(animated: true, completion: nil)
         }
     }
