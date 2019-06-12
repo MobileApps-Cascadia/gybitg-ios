@@ -2,7 +2,14 @@
 
 GYBITG
 
-This application was created to help players succeed, on and off the court. 
+This application was created to help players succeed, on and off the court. Some of the current features include recording and save a video, creating an account, and adding a new game stat entry.
+
+Record and Save a Video - The user is able to either take a video and it will be saved to their video library or select an existing video from their library. A thumbnail of the videos will be created and added to the gallery tableview.
+
+Account Creation - The user can begin creating an account by filling out the New Account form. Supported input parameters include Email, Password, First and Last name, High School Name, Club Team/AAU Team, Graduation Year, and State. These fields are verified when submitted.
+
+Game Stat Entry - The user is able to view all their stats, save and edit a stat entry with the properties: game date, points, rebounds, assists, steals, blocks, minutes played, opposing team name, and home/away game. 
+
 
 WHO WE ARE
 GYBITG is an organization dedicated to helping players to become stronger and better-disciplined versions of themselves. Since we began, every one of our kids has gone on to receive an athletic scholarship. With our fee-for-service basketball training programs, your child can achieve greatness as well. Our basketball training programs are led by former and aspiring NCAA coaches and player who have what it takes to push your child to succeed.
