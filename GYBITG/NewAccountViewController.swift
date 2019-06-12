@@ -30,10 +30,10 @@ class NewAccountViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         // Do any additional setup after loading the view.
         
-        self.graduationYear.delegate = self
-        self.graduationYear.dataSource = self
-        self.state.delegate = self
-        self.state.dataSource = self
+        //self.graduationYear.delegate = self
+        //self.graduationYear.dataSource = self
+        //self.state.delegate = self
+        //self.state.dataSource = self
         
         graduationYearData = ["2019", "2020", "2021", "2022", "2023", "2024"];
         stateData = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND","OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
@@ -79,8 +79,8 @@ class NewAccountViewController: UIViewController, UIPickerViewDelegate, UIPicker
      }
      */
     
-    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-                self.dismiss(animated: true, completion: nil)
+    @IBAction func cancelButtonTapped(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func createAccountTapped(_ sender: UIButton) {
@@ -101,20 +101,8 @@ class NewAccountViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let alert = UIAlertController(title: "Alert", message: "Please enter your first name", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-        } else if (lastName.text == "") {
-            let alert = UIAlertController(title: "Alert", message: "Please enter your last name", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        } else if (highSchoolName.text == "") {
-            let alert = UIAlertController(title: "Alert", message: "Please enter your high school name", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        } else if (clubTeam.text == "") {
-            let alert = UIAlertController(title: "Alert", message: "Please enter your club team", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
         } else {
-            _ = usersRepository.addUser(userToAdd: User(userId: emailAddress.text!, password: password.text!, createDate: Date(), lastLoginDate: Date(), firstName: firstName.text!, lastName: lastName.text!, highSchoolName: highSchoolName.text!, clubTeam: clubTeam.text!, graduationYear: graduationYearData[graduationYear.selectedRow(inComponent: 0)], state: stateData[state.selectedRow(inComponent: 0)]))
+            _ = usersRepository.addUser(userToAdd: User(userId: emailAddress.text!, password: password.text!, createDate: Date(), lastLoginDate: Date(), firstName: firstName.text!, lastName: "", highSchoolName: "", clubTeam: "", graduationYear: "", state: ""))
             self.dismiss(animated: true, completion: nil)
         }
     }

@@ -11,12 +11,28 @@ import UIKit
 
 class GameStatRepo: GameStatProtocol {
     
+    
+    // Used to update a current Game Stat
+    // Parameter: Game Stat
+    func updateGameState(gamestat: GameStat) {
+        for (index, old) in allGameStats.enumerated() {
+            if old.statId == gamestat.statId {
+                allGameStats[index] = gamestat
+                break
+            }
+        }
+    }
+    
+    // Used for the UIStoryboardSegue to return the type of view controller we're forwarding to
+    func type() -> String {
+        return UIStoryboardSegue.RepoTypes.GameRepo.rawValue
+    }
+    
     // This is an array that can store GameStat entities
     var allGameStats: [GameStat] = []
     
     // This function is used in the NewGameStatViewController for adding GameStat entity through the form
     func addGameStat(gameStat: GameStat) {
-        gameStat.statId = allGameStats.count + 1
         allGameStats.append(gameStat)
     }
     
