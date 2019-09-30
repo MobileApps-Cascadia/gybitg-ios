@@ -80,9 +80,9 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         present(ac, animated: true, completion: nil)
     }
     
-    //Purpose: To take a video for the Gallery if the camera is available
+    //Purpose: To take a three minute max video for the Gallery if the camera is available
     //Precondition: needs the privacy - camera usage in the info.plist, the user clicked the camera icon in the UINavigationController
-    //Postcondition: A video will be taken or selected from the photos library
+    //Postcondition: A video will be taken or selected from the photos library or an alert will popup to let the user know the video has stopped because of 3 minutes have been reached
     @objc func takeVideos(){
         let controller = UIImagePickerController()
         
@@ -93,6 +93,9 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             controller.sourceType = .camera
             controller.mediaTypes = [kUTTypeMovie as String]
             controller.delegate = self
+            
+            //limit video to 3 minutes
+            controller.videoMaximumDuration = TimeInterval(180.0)
             
             present(controller, animated: true, completion: nil)
         }
