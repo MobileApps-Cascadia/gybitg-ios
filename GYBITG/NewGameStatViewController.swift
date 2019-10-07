@@ -117,7 +117,7 @@ class NewGameStatViewController: UIViewController {
             
             // If the user decides to save the game stat w/ out filling all the fields, we sill need to
             // save the game stat properties with a value of '0', because they are required parameters
-            let YesAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: {
+            let YesAction = UIAlertAction(title: "Save Anyways", style: UIAlertAction.Style.default, handler: {
                 (_)in
                 if (self.pointsField.text == ""){
                     self.pointsField.text = "0"
@@ -150,11 +150,18 @@ class NewGameStatViewController: UIViewController {
             })
     
             // Close the alert dialog and stay on the game stat form
-            let NoAction = UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil)
+            let NoAction = UIAlertAction(title: "Finish Filling Out", style: UIAlertAction.Style.cancel, handler: nil)
+            
+            // Save the GameStat as a draft to fill out later
+            let SaveDraftAction = UIAlertAction(title: "Save Draft", style: UIAlertAction.Style.default, handler: { (
+                _) in
+                print("Draft Saved!")
+            })
             
             // show the alert
             alert.addAction(YesAction)
             alert.addAction(NoAction)
+            alert.addAction(SaveDraftAction)
             self.present(alert, animated: true, completion: nil)
         } else {
             // If all the fields have been filled out then proceed to the unwind segue
