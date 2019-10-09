@@ -31,7 +31,12 @@ class NewGameStatViewController: UIViewController {
     var mGameStat: GameStat?
     
     // Used to keep track of whether we're updating a current Game Stat or not
+    // initial value of 'false'
     var isUpdate: Bool = false
+    
+    // Purpose: track whether the user wants to save the gamestat as a draft or not
+    // initial value of 'false'
+    var saveAsDraft: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,20 +45,35 @@ class NewGameStatViewController: UIViewController {
         // the current game stat's data
         if (mGameStat != nil && isUpdate) {
             gameDatePicker.date = mGameStat!.gameDate
-            pointsField.text = String(mGameStat!.points)
-            reboundsField.text = String(mGameStat!.rebounds)
-            assistsField.text = String(mGameStat!.assists)
-            blocksField.text = String(mGameStat!.blocks)
-            stealsField.text = String(mGameStat!.steals)
-            minutesPlayedField.text = String(mGameStat!.minutesPlayed)
-            opposingTeamField.text = String(mGameStat!.opposingTeamName)
-            
-            if(mGameStat?.homeOrAway == "Home") {
+            if let points = mGameStat?.points {
+                pointsField.text = String(points)
+            }
+            if let rebounds = mGameStat?.rebounds {
+                reboundsField.text = String(rebounds)
+            }
+            if let assists = mGameStat?.assists {
+                assistsField.text = String(assists)
+            }
+            if let steals = mGameStat?.steals {
+                stealsField.text = String(steals)
+            }
+            if let blocks = mGameStat?.blocks {
+                blocksField.text = String(blocks)
+            }
+            if let minutesPlayed = mGameStat?.minutesPlayed {
+                minutesPlayedField.text = String(minutesPlayed)
+            }
+            if let opposingTeam = mGameStat?.opposingTeamName {
+                opposingTeamField.text = String(opposingTeam)
+            }
+            if (mGameStat?.homeOrAway == "Home") {
                 homeOrAwaySegmentedControl.selectedSegmentIndex = 0
                 homeOrAway = "Home"
             } else if (mGameStat?.homeOrAway == "Away") {
                 homeOrAwaySegmentedControl.selectedSegmentIndex = 1
                 homeOrAway = "Away"
+            } else {
+                homeOrAwaySegmentedControl.selectedSegmentIndex = -1
             }
             
         }
@@ -107,7 +127,7 @@ class NewGameStatViewController: UIViewController {
     // IBAction func linked to the 'Save' button on the Game Stat form
     // Check if the user left any fields blank
     // If a field is left blank, show an alert, warning user it will be entered as a '0'.
-    // The user can go an edit the stat later on
+    // The user can save the gamestat as a draft then go and finish filling out later
     @IBAction func checkForEmptyFields(_ sender: UIBarButtonItem) {
         // create the alert
         if (homeOrAwaySegmentedControl.selectedSegmentIndex == -1 || pointsField.text == "" || reboundsField.text == "" || assistsField.text == "" || stealsField.text == "" || blocksField.text == "" || minutesPlayedField.text == "" || opposingTeamField.text == "") {
@@ -117,7 +137,7 @@ class NewGameStatViewController: UIViewController {
             
             // If the user decides to save the game stat w/ out filling all the fields, we sill need to
             // save the game stat properties with a value of '0', because they are required parameters
-            let YesAction = UIAlertAction(title: "Save Anyways", style: UIAlertAction.Style.default, handler: {
+            let YesAction = UIAlertAction(title: "Yes, Save", style: UIAlertAction.Style.default, handler: {
                 (_)in
                 if (self.pointsField.text == ""){
                     self.pointsField.text = "0"
@@ -150,12 +170,12 @@ class NewGameStatViewController: UIViewController {
             })
     
             // Close the alert dialog and stay on the game stat form
-            let NoAction = UIAlertAction(title: "Finish Filling Out", style: UIAlertAction.Style.cancel, handler: nil)
+            let NoAction = UIAlertAction(title: "No, Finish Filling Out", style: UIAlertAction.Style.cancel, handler: nil)
             
             // Save the GameStat as a draft to fill out later
-            let SaveDraftAction = UIAlertAction(title: "Save Draft", style: UIAlertAction.Style.default, handler: { (
-                _) in
-                print("Draft Saved!")
+            let SaveDraftAction = UIAlertAction(title: "Save as Draft", style: UIAlertAction.Style.default, handler: { (_) in
+                self.saveAsDraft = true
+                self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.unwindSegueShowGameStatHistory.rawValue, sender: self)
             })
             
             // show the alert
@@ -174,6 +194,8 @@ class NewGameStatViewController: UIViewController {
     // it initializes a game stat entity with the filled in form data.
     // Then passes it to the unwind segue in the GameStatHistoryViewController to add it to the data array
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // check to see if all the form fields have been filled out
         if let mGameDate = gameDatePicker?.date,
         let mPoints = Int(pointsField.text!),
         let mRebounds = Int(reboundsField.text!),
@@ -194,6 +216,9 @@ class NewGameStatViewController: UIViewController {
                 mGameStatUserId = "ksmith@gmail.com"
             }
             mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
+        }
+        else {
+            print("not all fields have been filled out")
         }
     }
     

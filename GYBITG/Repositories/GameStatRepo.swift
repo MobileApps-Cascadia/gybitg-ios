@@ -1,5 +1,5 @@
-//  This is the GameStatRepo that stores the methods for storing, adding, removing, and editing a GameStat
-//  The repository conforms to the protocol which is located in GameStatHistoryViewController
+//  Purpose: To store the methods for retrieving, creating, deleting, and updating a GameStat from storage
+//  The repository conforms to the protocols which is located in GameStatHistoryViewController
 //
 //  GameStatRepo.swift
 //  GYBITG
@@ -10,8 +10,24 @@
 import UIKit
 
 class GameStatRepo: GameStatProtocol {
+    // This is an array that can store GameStat entities
+    var allGameStats: [GameStat] = []
     
+    // Purpose: store saved gamestat drafts
+    var allGameStatDrafts: [GameStat] = []
     
+    // Purpose: return all the saved gamestat drafts by userId
+    // Parameters: a userId
+    func getAllGameStatDraftsByUserId(userId: String) -> [GameStat] {
+        return allGameStatDrafts
+    }
+    
+    // Purpose: to save a gamestat in the gamestat draft array
+    // Parameter: a incomplete gamestat object
+    func saveGameStatDraft(gameStat: GameStat) {
+        allGameStatDrafts.append(gameStat)
+    }
+
     // Used to update a current Game Stat
     // Parameter: Game Stat
     func updateGameState(gamestat: GameStat) {
@@ -27,9 +43,6 @@ class GameStatRepo: GameStatProtocol {
     func type() -> String {
         return UIStoryboardSegue.RepoTypes.GameRepo.rawValue
     }
-    
-    // This is an array that can store GameStat entities
-    var allGameStats: [GameStat] = []
     
     // This function is used in the NewGameStatViewController for adding GameStat entity through the form
     func addGameStat(gameStat: GameStat) {

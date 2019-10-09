@@ -7,19 +7,19 @@
 
 import UIKit
 
-class GameStat: NSObject {
+class GameStat: NSObject, Codable {
     
     var statId: Int
     var userId: String
     var gameDate: Date
-    var points: Int
-    var rebounds: Int
-    var assists: Int
-    var steals: Int
-    var blocks: Int
-    var minutesPlayed: Double
-    var opposingTeamName: String
-    var homeOrAway: String
+    var points: Int?
+    var rebounds: Int?
+    var assists: Int?
+    var steals: Int?
+    var blocks: Int?
+    var minutesPlayed: Double?
+    var opposingTeamName: String?
+    var homeOrAway: String?
     
     init(statId: Int, userId: String, gameDate: Date, points: Int, rebounds: Int, assists: Int, steals: Int, blocks: Int, minutesPlayed: Double, opposingTeamName: String, homeOrAway: String) {
         self.statId = statId

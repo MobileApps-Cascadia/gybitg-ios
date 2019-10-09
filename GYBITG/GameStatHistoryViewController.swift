@@ -14,8 +14,10 @@ protocol GameStatProtocol: Repo {
     func removeGameStat(gameStat: GameStat)
     func removeGameStatByStatId(statId: Int)
     func addGameStat(gameStat: GameStat)
+    func saveGameStatDraft(gameStat: GameStat)
     func getGameStatByStatId(statId: Int) -> GameStat
     func getAllGameStatsByUserId(userId: String) -> [GameStat]
+    func getAllGameStatDraftsByUserId(userId: String) -> [GameStat]
     func updateGameState(gamestat: GameStat)
 }
 
@@ -65,7 +67,7 @@ class GameStatHistoryViewController: UITableViewController {
         
         // fill in the cell with the format: "Vs. <opposing team name> @ <home/away> - <game date>"
         if let date = dateFormatterGet.date(from: String(describing: item.gameDate)) {
-            cell.gameLabel.text = "Vs. \(item.opposingTeamName) @ \(item.homeOrAway) - \(dateFormatterPrint.string(from:date))"
+            cell.gameLabel.text = "Vs. \(item.opposingTeamName!) @ \(item.homeOrAway!) - \(dateFormatterPrint.string(from:date))"
         } else {
             print("There was an error decoding the string")
         }
@@ -122,7 +124,12 @@ class GameStatHistoryViewController: UITableViewController {
             if (newGameStatViewController.isUpdate) {
                 gameRepo?.updateGameState(gamestat: newGameStatViewController.mGameStat!)
             } else {
-                gameRepo!.addGameStat(gameStat: newGameStatViewController.mGameStat!)
+                if (newGameStatViewController.saveAsDraft) {
+                    gameRepo!.saveGameStatDraft(gameStat: newGameStatViewController.mGameStat!)
+                }
+                else {
+                    gameRepo!.addGameStat(gameStat: newGameStatViewController.mGameStat!)
+                }
             }
             tableView.reloadData()
         }
