@@ -195,6 +195,9 @@ class NewGameStatViewController: UIViewController {
     // Then passes it to the unwind segue in the GameStatHistoryViewController to add it to the data array
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        if (saveAsDraft) {
+            
+        }
         // check to see if all the form fields have been filled out
         if let mGameDate = gameDatePicker?.date,
         let mPoints = Int(pointsField.text!),
@@ -216,9 +219,6 @@ class NewGameStatViewController: UIViewController {
                 mGameStatUserId = "ksmith@gmail.com"
             }
             mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
-        }
-        else {
-            print("not all fields have been filled out")
         }
     }
     
