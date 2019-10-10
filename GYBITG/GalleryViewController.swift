@@ -234,12 +234,11 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         return cell
      }
     
-    func tableView(_ tableView: UITableView, didSelectRowAtPath indexPath: NSIndexPath){
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let indexPath = tableView.indexPathForSelectedRow
         let video = videoRepository!.videos[indexPath!.row]
-        //let cell = tableView.cellForRow(at: indexPath!)
+        let cell = tableView.cellForRow(at: indexPath!) as! GalleryCell
         self.playThumbnailVideo(videoURL: video.longerVideoURL)
-        
     }
     
     //Purpose: To convert the time to CMTime show the duration so it looks like min:sec
