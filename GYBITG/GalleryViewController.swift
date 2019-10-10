@@ -237,7 +237,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let indexPath = tableView.indexPathForSelectedRow
         let video = videoRepository!.videos[indexPath!.row]
-        let cell = tableView.cellForRow(at: indexPath!) as! GalleryCell
         self.playThumbnailVideo(videoURL: video.videoURL)
     }
     
