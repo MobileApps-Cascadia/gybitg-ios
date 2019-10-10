@@ -114,13 +114,16 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             controller.mediaTypes = [kUTTypeMovie as String]
             controller.delegate = self
             
+            
             present(controller, animated: true, completion: nil)
         }
     
-    //Purpose: To get the selected video andf Save video to the main photo album and puts that image on the screen in the image view
+    //Purpose: To get the selected video and Save video to the main photo album and puts that image on the screen in the image view
     //Precondtion: Needs the privacy - photo libraryadditon in the info.plist
-    //Postcondtion: The video will be added to the photos directory, turned into a thumbnail and put on screen in the Gallery
+    //Postcondtion: The video will be added to the photos directory, turned into a thumbnail and put on screen in the Gallery or if the video is over the 3 minute limit, will alert the user to choose another or cancel
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var isOverThreeMin = false;
         
         if let selectedVideo:URL = (info[UIImagePickerController.InfoKey.mediaURL] as? URL) {
             // Save video to the main photo album
@@ -132,6 +135,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             
             
             UISaveVideoAtPathToSavedPhotosAlbum(selectedVideo.relativePath, self, selectorToCall, nil)
+                
             // Save the video to the app directory
             let videoData = try? Data(contentsOf: selectedVideo)
             let paths = NSSearchPathForDirectoriesInDomains(
@@ -141,11 +145,50 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             let dataPath = documentsDirectory.appendingPathComponent(videoFileName)
             try! videoData?.write(to: dataPath, options: [])
             }
+            //if the selected video is from the photoLibrary
+            else if( picker.sourceType == UIImagePickerController.SourceType.photoLibrary){
+            //check if the selected video is over the limit
+                //turn the selected video into an asset to get the duration
+                let asset = AVURLAsset(url: selectedVideo, options: nil)
+                 //let convertToTimeInterval: TimeInterval = asset.videoDuration.seconds
+                if( asset.duration.seconds > 180.0){
+                    isOverThreeMin = true
+                   picker.dismiss(animated: true)
+                     let ac = UIAlertController(title: "Video Selected Is Over the 3 Minute Limit", message: "Select another video or cancel action", preferredStyle: .actionSheet)
+                           let controller = UIImagePickerController()
+                           let libraryAction = UIAlertAction(title: "Video Library", style: .default, handler: { (action) -> Void in
+                               self.viewLibrary(controller)
+                           })
+                           
+                           ac.addAction(libraryAction)
+                           let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+                           ac.addAction(cancelAction)
+                           
+                    self.present(ac, animated: true, completion: nil)
+                   // self.viewLibrary(controller)
+                       
+                   /* let videoLimitAlert = UIAlertController(title: "Selected Video Too Long", message: "The video selected is over the 3 minute limit", preferredStyle: .actionSheet)
+                    let libraryAction = UIAlertAction(title: "Video Library", style: .default, handler: { (action) -> Void in
+                               self.viewLibrary(picker)
+                           })
+                          videoLimitAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                       videoLimitAlert.addAction(libraryAction)
+                      //  self.present(videoLimitAlert, animated: true, completion: nil)
+                          print("OVER LIMIT")
+                    picker.present(videoLimitAlert, animated: true, completion: nil)
+                       // self.viewLibrary(picker)*/
+                    
+                      }
+                
+            }
+        
+            if(!isOverThreeMin){
             addVideoThumbnailToTableView(selectedVideo: selectedVideo)
+            }
             
         }
         
-        picker.dismiss(animated: true)
+    picker.dismiss(animated: true)
     }
     
     //Purpose: To create a Video object, and add a thumbnail of the video to the tableView
