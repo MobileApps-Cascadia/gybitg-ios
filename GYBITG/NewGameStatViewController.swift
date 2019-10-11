@@ -129,14 +129,16 @@ class NewGameStatViewController: UIViewController {
     // If a field is left blank, show an alert, warning user it will be entered as a '0'.
     // The user can save the gamestat as a draft then go and finish filling out later
     @IBAction func checkForEmptyFields(_ sender: UIBarButtonItem) {
-        // create the alert
+        // check if the alert should be displayed
         if (homeOrAwaySegmentedControl.selectedSegmentIndex == -1 || pointsField.text == "" || reboundsField.text == "" || assistsField.text == "" || stealsField.text == "" || blocksField.text == "" || minutesPlayedField.text == "" || opposingTeamField.text == "") {
             
+            // set the alert message and title
             let alert = UIAlertController(title: "Did you mean to leave blank stat(s) fields?", message: "Blank stats are recorded as zero", preferredStyle: UIAlertController.Style.alert)
             
             
+            // Purpose: The YesAction sets the GameStat with values of 0 for fields that are not filled out
             // If the user decides to save the game stat w/ out filling all the fields, we sill need to
-            // save the game stat properties with a value of '0', because they are required parameters
+            // save the game stat properties with a value of '0'.
             let YesAction = UIAlertAction(title: "Yes, Save", style: UIAlertAction.Style.default, handler: {
                 (_)in
                 if (self.pointsField.text == ""){
@@ -165,7 +167,8 @@ class NewGameStatViewController: UIViewController {
                     self.homeOrAwaySegmentedControl.selectedSegmentIndex = -1
                 }
                 
-                // Perform the unwind segue, to save the stat
+                // Perform the unwind segue ->
+                // return to the gamestathistoryviewcontroller and save the gamestat
                 self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.unwindSegueShowGameStatHistory.rawValue, sender: self)
             })
     
@@ -194,31 +197,59 @@ class NewGameStatViewController: UIViewController {
     // it initializes a game stat entity with the filled in form data.
     // Then passes it to the unwind segue in the GameStatHistoryViewController to add it to the data array
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if (saveAsDraft) {
-            
+        let mGameStatId: Int
+        let mGameStatUserId: String
+        // check whether we should update a current game stat or create a new one
+        if (isUpdate) {
+            mGameStatId = mGameStat!.statId
+            mGameStatUserId = mGameStat!.userId
+        } else {
+            mGameStatId = ((gameRepo?.allGameStats.count)!) + 1
+            mGameStatUserId = "ksmith@gmail.com"
         }
-        // check to see if all the form fields have been filled out
-        if let mGameDate = gameDatePicker?.date,
-        let mPoints = Int(pointsField.text!),
-        let mRebounds = Int(reboundsField.text!),
-        let mAssists = Int(assistsField.text!),
-        let mSteals = Int(stealsField.text!),
-        let mBlocks = Int(blocksField.text!),
-        let mMinutesPlayed = Double(minutesPlayedField.text!),
-        let mOpposingTeam = opposingTeamField?.text!,
-        let mHomeOrAway: String = homeOrAway {
-            let mGameStatId: Int
-            let mGameStatUserId: String
-            // check whether we should update a current game stat or create a new one
-            if (isUpdate) {
-                mGameStatId = mGameStat!.statId
-                mGameStatUserId = mGameStat!.userId
-            } else {
-                mGameStatId = ((gameRepo?.allGameStats.count)!) + 1
-                mGameStatUserId = "ksmith@gmail.com"
+        // the user has chosen to save as draft
+        if (saveAsDraft) {
+            mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: gameDatePicker.date)
+            
+            // build the rest of the GameStat
+            if (self.pointsField.text != ""){
+                mGameStat?.addPoints(points: Int(self.pointsField.text!)!)
             }
-            mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
+            if (self.reboundsField.text != "") {
+                mGameStat?.addRebounds(rebounds: Int(self.reboundsField.text!)!)
+            }
+            if (self.assistsField.text != "") {
+                mGameStat?.addAssists(assists: Int(self.assistsField.text!)!)
+            }
+            if (self.stealsField.text != "") {
+                mGameStat?.addSteals(steals: Int(self.stealsField.text!)!)
+            }
+            if (self.blocksField.text != "") {
+                mGameStat?.addBlocks(blocks: Int(self.blocksField.text!)!)
+            }
+            if (self.minutesPlayedField.text != "") {
+                mGameStat?.addMinPlayed(minPlayed: Double(minutesPlayedField.text!)!)
+            }
+            if (self.opposingTeamField.text != "") {
+            }
+            if (self.homeOrAway != "Home" && self.homeOrAway != "Away") {
+                self.homeOrAway = ""
+                self.homeOrAwaySegmentedControl.selectedSegmentIndex = -1
+            }
+            
+        } else {
+            // check to see if all the form fields have been filled out
+            if let mGameDate = gameDatePicker?.date,
+            let mPoints = Int(pointsField.text!),
+            let mRebounds = Int(reboundsField.text!),
+            let mAssists = Int(assistsField.text!),
+            let mSteals = Int(stealsField.text!),
+            let mBlocks = Int(blocksField.text!),
+            let mMinutesPlayed = Double(minutesPlayedField.text!),
+            let mOpposingTeam = opposingTeamField?.text!,
+            let mHomeOrAway: String = homeOrAway {
+                mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
+            }
         }
     }
     

@@ -17,6 +17,7 @@ protocol GameStatProtocol: Repo {
     func saveGameStatDraft(gameStat: GameStat)
     func getGameStatByStatId(statId: Int) -> GameStat
     func getAllGameStatsByUserId(userId: String) -> [GameStat]
+    func getAllDrafts() -> [GameStat]
     func getAllGameStatDraftsByUserId(userId: String) -> [GameStat]
     func updateGameState(gamestat: GameStat)
 }
@@ -115,9 +116,7 @@ class GameStatHistoryViewController: UITableViewController {
     // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table view
     @IBAction func cancel(_ unwindSegue: UIStoryboardSegue) { tableView.reloadData() }
     
-    // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table iew and saves (adds) the new game stat to the repository data array
-    // fix the dd
-    
+    // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table iew and saves (adds) the new game stat to the repository data array    
     @IBAction func save(_ unwindSegue: UIStoryboardSegue) {
         if let newGameStatViewController = unwindSegue.source as? NewGameStatViewController {
             // check whethere the user is updating or creating a new Game Stat

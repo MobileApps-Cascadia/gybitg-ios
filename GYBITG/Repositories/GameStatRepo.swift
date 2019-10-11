@@ -22,6 +22,11 @@ class GameStatRepo: GameStatProtocol {
         return allGameStatDrafts
     }
     
+    // Purpose: return all the saved drafts
+    func getAllDrafts() -> [GameStat] {
+        return allGameStatDrafts
+    }
+    
     // Purpose: to save a gamestat in the gamestat draft array
     // Parameter: a incomplete gamestat object
     func saveGameStatDraft(gameStat: GameStat) {
