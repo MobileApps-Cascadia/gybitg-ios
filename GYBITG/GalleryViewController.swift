@@ -150,7 +150,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             //check if the selected video is over the limit
                 //turn the selected video into an asset to get the duration
                 let asset = AVURLAsset(url: selectedVideo, options: nil)
-                 //let convertToTimeInterval: TimeInterval = asset.videoDuration.seconds
+                
                 if( asset.duration.seconds > 180.0){
                     isOverThreeMin = true
                    picker.dismiss(animated: true)
@@ -181,7 +181,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                       }
                 
             }
-        
+        //if the video is not over 3 minutes, the video will be turned into a thumbnail and added to the Gallery 
             if(!isOverThreeMin){
             addVideoThumbnailToTableView(selectedVideo: selectedVideo)
             }
