@@ -192,35 +192,15 @@
             </objects>
             <point key="canvasLocation" x="1716" y="459.60591133004925"/>
         </scene>
-        <!--Third View Controller-->
-        <scene sceneID="Rv2-ZK-Blk">
+        <!--NotificationsView-->
+        <scene sceneID="aiY-ze-3Lb">
             <objects>
-                <viewController id="CfE-JP-cxW" customClass="ThirdViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="cXE-xg-hrE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lbx-Dv-I2d">
-                                <rect key="frame" x="90" y="312" width="195" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Lbx-Dv-I2d" firstAttribute="centerX" secondItem="cXE-xg-hrE" secondAttribute="centerX" id="6Lk-kT-5bZ"/>
-                            <constraint firstItem="Lbx-Dv-I2d" firstAttribute="centerY" secondItem="cXE-xg-hrE" secondAttribute="centerY" id="yNS-ef-0Uw"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="0RP-a0-nNl"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="icon-bell-50" badgeValue="2" id="Pv7-sM-azg">
-                        <color key="badgeColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
-                    </tabBarItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="G2U-AL-oAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="Notifications" storyboardName="Notifications" referencedIdentifier="NotificationsView" id="St9-gE-jrz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Rld-kS-B6E"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bW5-oS-Rrt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3922" y="-275"/>
+            <point key="canvasLocation" x="782" y="-33"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -241,7 +221,7 @@
                     <connections>
                         <segue destination="wB9-No-Rxy" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="xYy-sv-RFw"/>
-                        <segue destination="CfE-JP-cxW" kind="relationship" relationship="viewControllers" id="aDG-kw-Oai"/>
+                        <segue destination="St9-gE-jrz" kind="relationship" relationship="viewControllers" id="YKh-0T-t5E"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -606,7 +586,6 @@
     <resources>
         <image name="action-athletes-ball-934083" width="4928" height="3264"/>
         <image name="ball-basketball-basketball-court-1752757(1)" width="5650" height="3685"/>
-        <image name="icon-bell-50" width="25" height="25"/>
         <image name="icons-female-profile-50" width="25" height="25"/>
         <image name="icons-home-page-50" width="25" height="25"/>
         <image name="orangegybitgiconfromweb" width="300" height="201"/>
