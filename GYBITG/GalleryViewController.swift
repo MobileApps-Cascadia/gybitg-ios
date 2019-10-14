@@ -9,6 +9,7 @@
 //  Created by Student Account on 5/7/19.
 //
 import AVFoundation
+import AVKit
 import Photos
 import UIKit
 import MobileCoreServices
@@ -30,15 +31,17 @@ protocol VideoRepositoryProtocol: Repo{
     
 }
 
-class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     
     var videoRepository: VideoRepositoryProtocol?
     
     let videoFileName = "/video.mp4"
+
+    let avvc = AVPlayerViewController()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.reloadData()
 
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAttachmentActionSheet))
@@ -46,6 +49,8 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         tableView.rowHeight = 150
         tableView.estimatedRowHeight = 150
+        
+        tableView.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -114,7 +119,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             present(controller, animated: true, completion: nil)
         }
     
-    //Purpose: To get the selected video andf Save video to the main photo album and puts that image on the screen in the image view
+    //Purpose: To get the selected video and Save video to the main photo album and puts that image on the screen in the image view
     //Precondtion: Needs the privacy - photo libraryadditon in the info.plist
     //Postcondtion: The video will be added to the photos directory, turned into a thumbnail and put on screen in the Gallery
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -225,8 +230,15 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         cell.thumbnail.setImage(video.thumbnail, for: .normal)
             cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
         }
+    
         return cell
      }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let indexPath = tableView.indexPathForSelectedRow
+        let video = videoRepository!.videos[indexPath!.row]
+        self.playThumbnailVideo(videoURL: video.videoURL)
+    }
     
     //Purpose: To convert the time to CMTime show the duration so it looks like min:sec
     //Precodition: there is a video passed in
@@ -255,6 +267,16 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         let convertedDate = dateFormatter.string(from: dateToConvert)
         
         return convertedDate
+    }
+    
+    //Purpose: Plays the video associated with the thumbnail in the listing
+    //Precondition: a videoURL is passed
+    //PostCondition: The AVPlayer will open and begin playing the video selected
+    @objc func playThumbnailVideo(videoURL: URL!){
+        avvc.player = AVPlayer(url: videoURL)
+        self.present(avvc, animated: true){
+            self.avvc.player?.play()
+        }
     }
     
 }
