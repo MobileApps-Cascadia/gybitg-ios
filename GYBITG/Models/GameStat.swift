@@ -7,20 +7,28 @@
 
 import UIKit
 
-class GameStat: NSObject {
+class GameStat: NSObject, Codable {
     
     var statId: Int
     var userId: String
     var gameDate: Date
-    var points: Int
-    var rebounds: Int
-    var assists: Int
-    var steals: Int
-    var blocks: Int
-    var minutesPlayed: Double
-    var opposingTeamName: String
-    var homeOrAway: String
+    var points: Int?
+    var rebounds: Int?
+    var assists: Int?
+    var steals: Int?
+    var blocks: Int?
+    var minutesPlayed: Double?
+    var opposingTeamName: String?
+    var homeOrAway: String?
     
+    // simple initializer
+    init(statId: Int, userId: String, gameDate: Date) {
+        self.statId = statId
+        self.userId = userId
+        self.gameDate = gameDate
+    }
+    
+    // full initializer
     init(statId: Int, userId: String, gameDate: Date, points: Int, rebounds: Int, assists: Int, steals: Int, blocks: Int, minutesPlayed: Double, opposingTeamName: String, homeOrAway: String) {
         self.statId = statId
         self.userId = userId
@@ -33,6 +41,32 @@ class GameStat: NSObject {
         self.minutesPlayed = minutesPlayed
         self.opposingTeamName = opposingTeamName
         self.homeOrAway = homeOrAway
+    }
+    
+    // builder functions
+    func addPoints(points: Int) {
+        self.points = points
+    }
+    func addRebounds(rebounds: Int) {
+        self.rebounds = rebounds
+    }
+    func addAssists(assists: Int) {
+        self.assists = assists
+    }
+    func addSteals(steals: Int) {
+        self.steals = steals
+    }
+    func addBlocks(blocks: Int) {
+        self.blocks = blocks
+    }
+    func addMinPlayed(minPlayed: Double) {
+        self.minutesPlayed = minPlayed
+    }
+    func addOppTeam(oppTeam: String) {
+        self.opposingTeamName = oppTeam
+    }
+    func addLocation(location: String) {
+        self.homeOrAway = location
     }
     
     // use this random initializer for testing
