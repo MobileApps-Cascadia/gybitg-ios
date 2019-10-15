@@ -14,8 +14,11 @@ protocol GameStatProtocol: Repo {
     func removeGameStat(gameStat: GameStat)
     func removeGameStatByStatId(statId: Int)
     func addGameStat(gameStat: GameStat)
+    func saveGameStatDraft(gameStat: GameStat)
     func getGameStatByStatId(statId: Int) -> GameStat
     func getAllGameStatsByUserId(userId: String) -> [GameStat]
+    func getAllDrafts() -> [GameStat]
+    func getAllGameStatDraftsByUserId(userId: String) -> [GameStat]
     func updateGameState(gamestat: GameStat)
 }
 
@@ -65,7 +68,7 @@ class GameStatHistoryViewController: UITableViewController {
         
         // fill in the cell with the format: "Vs. <opposing team name> @ <home/away> - <game date>"
         if let date = dateFormatterGet.date(from: String(describing: item.gameDate)) {
-            cell.gameLabel.text = "Vs. \(item.opposingTeamName) @ \(item.homeOrAway) - \(dateFormatterPrint.string(from:date))"
+            cell.gameLabel.text = "Vs. \(item.opposingTeamName!) @ \(item.homeOrAway!) - \(dateFormatterPrint.string(from:date))"
         } else {
             print("There was an error decoding the string")
         }
@@ -113,16 +116,19 @@ class GameStatHistoryViewController: UITableViewController {
     // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table view
     @IBAction func cancel(_ unwindSegue: UIStoryboardSegue) { tableView.reloadData() }
     
-    // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table iew and saves (adds) the new game stat to the repository data array
-    // fix the dd
-    
+    // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table iew and saves (adds) the new game stat to the repository data array    
     @IBAction func save(_ unwindSegue: UIStoryboardSegue) {
         if let newGameStatViewController = unwindSegue.source as? NewGameStatViewController {
             // check whethere the user is updating or creating a new Game Stat
             if (newGameStatViewController.isUpdate) {
                 gameRepo?.updateGameState(gamestat: newGameStatViewController.mGameStat!)
             } else {
-                gameRepo!.addGameStat(gameStat: newGameStatViewController.mGameStat!)
+                if (newGameStatViewController.saveAsDraft) {
+                    gameRepo!.saveGameStatDraft(gameStat: newGameStatViewController.mGameStat!)
+                }
+                else {
+                    gameRepo!.addGameStat(gameStat: newGameStatViewController.mGameStat!)
+                }
             }
             tableView.reloadData()
         }
