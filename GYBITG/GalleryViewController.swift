@@ -77,8 +77,19 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             self.viewLibrary(controller)
         })
         
+       //add an action for selecting video from YOUtube
+        let youTubeAction = UIAlertAction(title: "YouTube", style: .default, handler: { (action) -> Void in
+            //put up an alert with a text box for url input
+            //then call the function to get the viedeo
+            //self.theFxThatGetYouTubeVideo()
+            self.alertTextBoxForYouTubeUrl()
+        })
+        
         ac.addAction(cameraAction)
         ac.addAction(libraryAction)
+        ac.addAction(youTubeAction)
+        
+        
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
         ac.addAction(cancelAction)
         
@@ -325,4 +336,39 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         }
     }
     
+    //Purpose: To add an alert textbox so the user can enter a url to get a video from YouTube
+    //Precondition: The user selects the YouTube option from the attachment
+    //PostCondition: An an alert will pop up so the user can enter a url and the url will be used to get the video from youtube
+    func alertTextBoxForYouTubeUrl(){
+        //1. Create the alert controller.
+                let alert = UIAlertController(title: "Enter URL", message: "Add a video from YouTube", preferredStyle: .alert)
+        //2. Add the text field
+                alert.addTextField { (textField) in
+                    //test text
+                    textField.text = "Enter YouTube URL"
+                    textField.placeholder = "Enter Text Here"
+                }
+        // 3. Grab the value from the text field, and print it when the user clicks OK.
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+        let textField = alert?.textFields![0] // Force unwrapping because we know it exists. For Now
+                    print("Text field: \(textField?.text ?? "")")
+                }))
+        
+        //4. Add code to for cancel
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+          alert.addAction(cancelAction)
+        
+        // 5. Present the alert.
+                self.present(alert, animated: true, completion: nil)
+        
+       /* let alert = UIAlertController(title: "Enter URL", message: "Add a video from YouTube", preferredStyle: .alert)
+
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] action in
+
+          guard let textField = alert.textFields?.first,
+            let nameToSave = textField.text else {
+              return
+          }
+      }*/
+    }
 }
