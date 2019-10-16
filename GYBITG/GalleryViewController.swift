@@ -345,13 +345,19 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         //2. Add the text field
                 alert.addTextField { (textField) in
                     //test text
-                    textField.text = "Enter YouTube URL"
+                    //textField.text = "Enter YouTube URL"
                     textField.placeholder = "Enter Text Here"
+                     textField.text = ""
+                   
                 }
         // 3. Grab the value from the text field, and print it when the user clicks OK.
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
         let textField = alert?.textFields![0] // Force unwrapping because we know it exists. For Now
                     print("Text field: \(textField?.text ?? "")")
+                    
+                    if textField != nil{
+                        self.getVideoFromUrl(urlString: textField?.text ?? "Nothing Entered")
+                }
                 }))
         
         //4. Add code to for cancel
@@ -371,4 +377,26 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
           }
       }*/
     }
+    
+    
+    //Purpose: To add get the url passed
+    //Precondition: The user selects the YouTube option from the attachment
+    //PostCondition: The url passed
+    func getVideoFromUrl(urlString: String){
+        
+        //let str = url.relativePath
+       // let array = str.components(separatedBy: "/")
+        //separates the string by the / printing the 2 element in the array which contains the videoId
+        let array = urlString.components(separatedBy: "=")
+        print(array[1])
+
+        let videoId = array[1]
+        
+        let url = URL(string: "https://www.youtube.com/embed/\(videoId)")
+        
+    }
+    
+    
+    
+    
 }
