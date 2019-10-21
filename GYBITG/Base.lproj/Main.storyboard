@@ -535,7 +535,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="GameStat" storyboardName="GameStat" referencedIdentifier="GameStatView" id="Q1s-0e-UjF" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfd-4x-mUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2422" y="-450"/>
+            <point key="canvasLocation" x="2526" y="-279"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EaF-96-4jy">
