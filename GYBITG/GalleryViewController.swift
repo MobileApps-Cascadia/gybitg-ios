@@ -345,8 +345,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         let alert = UIAlertController(title: "Enter URL", message: "Add a video from YouTube", preferredStyle: .alert)
         //2. Add the text field
         alert.addTextField { (textField) in
-            //test text
-            //textField.text = "Enter YouTube URL"
             textField.placeholder = "Enter Text Here"
             textField.text = ""
                    
@@ -400,36 +398,13 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Precondition: The user selects the YouTube option from the attachment
     //PostCondition: The url passed
     func getVideoFromUrl(urlString: String){
-       // if(urlString.con)
-        //let str = url.relativePath
-       // let array = str.components(separatedBy: "/")
-        //separates the string by the / printing the 2 element in the array which contains the videoId
+       
         
         //Need to do more work to get the id
         //its differnt url  when coppied from Youtube https://youtu.be/RmHqOSrkZnk
-        
-      /*  let array = urlString.components(separatedBy: "v=")
-        let array = urlString.components(separatedBy: "v=")
-        print(array[1])
-
-        let videoId = array[1]
-        
-        let videoURL = URL(string: "https://www.youtube.com/embed/\(videoId)")!
        
-        //let url = URL(fileURLWithPath: "https://www.youtube.com/watch?v=RmHqOSrkZnk")
-        let url = URL(string: "https://www.youtube.com/watch?v=RmHqOSrkZnk")!
-        
-         let asset = AVURLAsset(url: url, options: nil)
-        print(asset.duration.seconds)
-            if( asset.duration.seconds > 180.0){
-            
-            print("Video OVer time")
-        
-        
-        }*/
-       
-          let array = urlString.components(separatedBy: ".be/")
-              print(array[1])
+         // let array = urlString.components(separatedBy: ".be/")
+            //  print(array[1])
         
     }
     
@@ -482,10 +457,9 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     {
         guard let url = URL(string: self ) else { return false }
         if !UIApplication.shared.canOpenURL(url) {
-            print("Cant open URL")
             return false }
 
-        let urlPattern = "https://youtu.be/[a-z0-9]+" //"(http|ftp|https):\\/\\/([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?"
+        let urlPattern = "https://youtu.be/[a-z0-9]+" 
         return self.matches(pattern: urlPattern)
     }
 }
