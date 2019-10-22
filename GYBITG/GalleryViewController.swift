@@ -79,10 +79,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
        //add an action for selecting video from YOUtube
         let youTubeAction = UIAlertAction(title: "YouTube", style: .default, handler: { (action) -> Void in
-            //put up an alert with a text box for url input
-            //then call the function to get the viedeo
-            //self.theFxThatGetYouTubeVideo()
-            
           
           //call the funciton to open youtube app
             self.YoutubeAction()
@@ -175,15 +171,15 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                 if( asset.duration.seconds > 180.0){
                     isOverThreeMin = true
                    picker.dismiss(animated: true)
-                     let ac = UIAlertController(title: "Video Selected Is Over the 3 Minute Limit", message: "Select another video or cancel action", preferredStyle: .actionSheet)
-                           let controller = UIImagePickerController()
-                           let libraryAction = UIAlertAction(title: "Video Library", style: .default, handler: { (action) -> Void in
+                   let ac = UIAlertController(title: "Video Selected Is Over the 3 Minute Limit", message: "Select another video or cancel action", preferredStyle: .actionSheet)
+                    let controller = UIImagePickerController()
+                    let libraryAction = UIAlertAction(title: "Video Library", style: .default, handler: { (action) -> Void in
                                self.viewLibrary(controller)
-                           })
+                      })
                            
-                           ac.addAction(libraryAction)
-                           let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-                           ac.addAction(cancelAction)
+                     ac.addAction(libraryAction)
+                     let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+                     ac.addAction(cancelAction)
                            
                     self.present(ac, animated: true, completion: nil)
                    // self.viewLibrary(controller)
@@ -346,31 +342,46 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //PostCondition: An an alert will pop up so the user can enter a url and the url will be used to get the video from youtube
     func alertTextBoxForYouTubeUrl(){
         //1. Create the alert controller.
-                let alert = UIAlertController(title: "Enter URL", message: "Add a video from YouTube", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Enter URL", message: "Add a video from YouTube", preferredStyle: .alert)
         //2. Add the text field
-                alert.addTextField { (textField) in
-                    //test text
-                    //textField.text = "Enter YouTube URL"
-                    textField.placeholder = "Enter Text Here"
-                     textField.text = ""
+        alert.addTextField { (textField) in
+            //test text
+            //textField.text = "Enter YouTube URL"
+            textField.placeholder = "Enter Text Here"
+            textField.text = ""
+                   
+        }
+    // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            //check if there is a non nil value
+            //NEED to check if there is a url not anything else
+            if let textField = alert?.textFields?[0]{
+                if textField.text != ""{
+                  print("Text field: \(textField.text ?? "NO TEXTFIELD")")
+                    self.getVideoFromUrl(urlString: textField.text!)
+               // self.getVideoFromUrl(urlString: textField.text ?? "Nothing Entered")
+                }
+            
+                else {//if the user did not enter a url display an alert and call the function again
+                   let emptyFieldAlert = UIAlertController(title: "Nothing Entered", message: "You Did not enter a URL", preferredStyle: .alert)
+                     emptyFieldAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                               print("NOTHING ENTERED" )
+                               self.alertTextBoxForYouTubeUrl()
+                    }))
+
+                   
+                   self.present(emptyFieldAlert, animated: true, completion: nil)
                    
                 }
-        // 3. Grab the value from the text field, and print it when the user clicks OK.
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-        let textField = alert?.textFields![0] // Force unwrapping because we know it exists. For Now
-                    print("Text field: \(textField?.text ?? "")")
-                    
-                    if textField != nil{
-                       self.getVideoFromUrl(urlString: textField?.text ?? "Nothing Entered")
-                }
-                }))
+            }
+        }))
         
         //4. Add code to for cancel
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
           alert.addAction(cancelAction)
         
         // 5. Present the alert.
-                self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
         
        /* let alert = UIAlertController(title: "Enter URL", message: "Add a video from YouTube", preferredStyle: .alert)
 
@@ -397,7 +408,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         //its differnt url  when coppied from Youtube https://youtu.be/RmHqOSrkZnk
         
       /*  let array = urlString.components(separatedBy: "v=")
-        
+        let array = urlString.components(separatedBy: "v=")
         print(array[1])
 
         let videoId = array[1]
@@ -415,11 +426,15 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         
         }*/
+       
+          let array = urlString.components(separatedBy: ".be/")
+              print(array[1])
+        
     }
     
-    //Purpose: to open the Youtube app from this app
-    //Precondtions: the user chooses the Youtube option and the user oks the alert to give permission to acces YOutube
-    //Postcondition: An alert will pop up for the user to give permissin and the Youtube app will open 
+    //Purpose: To open the Youtube app from this app
+    //Precondtions: The user chooses the Youtube option and the user oks the alert to give permission to acces Youtube
+    //Postcondition: An alert will pop up for the user to give permission and the Youtube app will open
     func YoutubeAction() {
 
         let YoutubeQuery =  "Your Query"
