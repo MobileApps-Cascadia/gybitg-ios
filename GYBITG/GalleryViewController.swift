@@ -356,27 +356,28 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             //check if there is a non nil value
             //NEED to check if there is a url not anything else
             if let textField = alert?.textFields?[0]{
-                if textField.text != ""{
-                  print("Text field: \(textField.text ?? "NO TEXTFIELD")")
-                    self.getVideoFromUrl(urlString: textField.text!)
-               // self.getVideoFromUrl(urlString: textField.text ?? "Nothing Entered")
-                }
-            
+                    
+                    if(textField.text!.isValidURL()){
+                    
+                      self.getVideoFromUrl(urlString: textField.text!)
+                        var isValid = textField.text!.isValidURL()
+                         print("Text field: \(isValid) \(textField.text ?? "NO TEXTFIELD")")
+           
+                    }
                 else {//if the user did not enter a url display an alert and call the function again
-                   let emptyFieldAlert = UIAlertController(title: "Nothing Entered", message: "You Did not enter a URL", preferredStyle: .alert)
+                   let emptyFieldAlert = UIAlertController(title: "Empty or invalid URL", message: "You Did not enter a valid Url", preferredStyle: .alert)
                      emptyFieldAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                print("NOTHING ENTERED" )
                                self.alertTextBoxForYouTubeUrl()
                     }))
-
-                   
+                    
                    self.present(emptyFieldAlert, animated: true, completion: nil)
                    
                 }
             }
         }))
         
-        //4. Add code to for cancel
+        //4. Add code to for canceling action
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
           alert.addAction(cancelAction)
         
@@ -449,9 +450,43 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             // if Youtube app is not installed, open URL inside Safari
             application.open(webURL as URL)
         }
-        //application.sendAction(<#T##action: Selector##Selector#>, to: <#T##Any?#>, from: <#T##Any?#>, for: <#T##UIEvent?#>)
+        
     }
 
-    
-    
 }
+
+//Purpose: To be able to chech the string to see if its a valid URL and matches the String passed in
+    extension String{
+        
+    //Purpose: To use regular expression to find occurrences of text in a string using a search pattern
+    //Precondtions: The string passed in exists
+    //Postcondition: The string will be checked for matches true if a match false if not
+    func matches(pattern: String?) -> Bool
+    {
+         guard let patternStr = pattern else {return false}
+        do
+        {
+            let regex = try NSRegularExpression(pattern: patternStr, options: [.caseInsensitive])
+            return regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: utf16.count)) != nil
+        }
+        catch
+        {
+            return false
+        }
+    }
+
+        //Purpose: To check if the url is valid and matches the pattern
+        //Precondtions:
+        //Postcondition: Will return true if the Url is valid and matches the pattern of the url
+    func isValidURL() -> Bool
+    {
+        guard let url = URL(string: self ) else { return false }
+        if !UIApplication.shared.canOpenURL(url) {
+            print("Cant open URL")
+            return false }
+
+        let urlPattern = "https://youtu.be/[a-z0-9]+" //"(http|ftp|https):\\/\\/([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?"
+        return self.matches(pattern: urlPattern)
+    }
+}
+
