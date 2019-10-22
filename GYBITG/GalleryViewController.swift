@@ -82,7 +82,12 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             //put up an alert with a text box for url input
             //then call the function to get the viedeo
             //self.theFxThatGetYouTubeVideo()
-            self.alertTextBoxForYouTubeUrl()
+            
+          
+          //call the funciton to open youtube app
+            self.YoutubeAction()
+            //call the function to display an alert with a textbox to enter url
+             self.alertTextBoxForYouTubeUrl()
         })
         
         ac.addAction(cameraAction)
@@ -356,7 +361,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                     print("Text field: \(textField?.text ?? "")")
                     
                     if textField != nil{
-                        self.getVideoFromUrl(urlString: textField?.text ?? "Nothing Entered")
+                       self.getVideoFromUrl(urlString: textField?.text ?? "Nothing Entered")
                 }
                 }))
         
@@ -383,20 +388,55 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Precondition: The user selects the YouTube option from the attachment
     //PostCondition: The url passed
     func getVideoFromUrl(urlString: String){
-        
+       // if(urlString.con)
         //let str = url.relativePath
        // let array = str.components(separatedBy: "/")
         //separates the string by the / printing the 2 element in the array which contains the videoId
-        let array = urlString.components(separatedBy: "=")
+        
+        //Need to do more work to get the id
+        //its differnt url  when coppied from Youtube https://youtu.be/RmHqOSrkZnk
+        
+      /*  let array = urlString.components(separatedBy: "v=")
+        
         print(array[1])
 
         let videoId = array[1]
         
-        let url = URL(string: "https://www.youtube.com/embed/\(videoId)")
+        let videoURL = URL(string: "https://www.youtube.com/embed/\(videoId)")!
+       
+        //let url = URL(fileURLWithPath: "https://www.youtube.com/watch?v=RmHqOSrkZnk")
+        let url = URL(string: "https://www.youtube.com/watch?v=RmHqOSrkZnk")!
         
+         let asset = AVURLAsset(url: url, options: nil)
+        print(asset.duration.seconds)
+            if( asset.duration.seconds > 180.0){
+            
+            print("Video OVer time")
+        
+        
+        }*/
     }
     
-    
+    //Purpose: to open the Youtube app from this app
+    //Precondtions: the user chooses the Youtube option and the user oks the alert to give permission to acces YOutube
+    //Postcondition: An alert will pop up for the user to give permissin and the Youtube app will open 
+    func YoutubeAction() {
+
+        let YoutubeQuery =  "Your Query"
+        let escapedYoutubeQuery = YoutubeQuery.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        let appURL = NSURL(string: "youtube://www.youtube.com/results?search_query=\(escapedYoutubeQuery!)")!
+        let webURL = NSURL(string: "https://www.youtube.com/results?search_query=\(escapedYoutubeQuery!)")!
+        let application = UIApplication.shared
+
+        if application.canOpenURL(appURL as URL) {
+            application.open(appURL as URL)
+        } else {
+            // if Youtube app is not installed, open URL inside Safari
+            application.open(webURL as URL)
+        }
+        //application.sendAction(<#T##action: Selector##Selector#>, to: <#T##Any?#>, from: <#T##Any?#>, for: <#T##UIEvent?#>)
+    }
+
     
     
 }
