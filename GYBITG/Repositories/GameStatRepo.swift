@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import Foundation
 
 class GameStatRepo: GameStatProtocol {
     // This is an array that can store GameStat entities
@@ -30,7 +31,12 @@ class GameStatRepo: GameStatProtocol {
     // Purpose: to save a gamestat in the gamestat draft array
     // Parameter: a incomplete gamestat object
     func saveGameStatDraft(gameStat: GameStat) {
+        
+        let _context = GameStatDbContext()
+        
         allGameStatDrafts.append(gameStat)
+        
+        _context.save(stat: gameStat)
     }
 
     // Used to update a current Game Stat

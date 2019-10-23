@@ -52,7 +52,7 @@ extension UIStoryboardSegue {
         case segueModalEditGameStat
         case unwindSegueShowGameStatHistory
         case FirstViewToGallerySegue
-        case segueShowNotifications
+        case segueModalEditStatDraft
     }
     
     // Enum for returning a Repo 'type', so we're not using string literals 

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 
 class NotificationsViewController: UIViewController {
     
@@ -16,8 +15,6 @@ class NotificationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        statDraftsTableView.rowHeight = 75
-//        statDraftsTableView.estimatedRowHeight = 75
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,20 +23,21 @@ class NotificationsViewController: UIViewController {
         statDraftsTableView.reloadData()
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == UIStoryboardSegue.AppSegue.segueModalEditStatDraft.rawValue) {
+            
+        }
     }
-    */
+    
 
 }
 
 // MARK: - UITableViewDataSource
-extension NotificationsViewController: UITableViewDataSource {
+extension NotificationsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (gameRepo?.allGameStatDrafts.count)!
     }
@@ -58,11 +56,16 @@ extension NotificationsViewController: UITableViewDataSource {
         
         // fill in the cell with the format: "Vs. <opposing team name> @ <home/away> - <game date>"
         if let date = dateFormatterGet.date(from: String(describing: item.gameDate)) {
-            cell.cellLabel.text = "Draft started on: \(dateFormatterPrint.string(from:date))"
+            cell.cellLabel.text = "\(dateFormatterPrint.string(from:date)) vs. \(item.opposingTeamName ?? "(no opposing team)")"
         } else {
             print("There was an error decoding the string")
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        NSLog("You selected cell number: \(indexPath.row)!")
+//        self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.segueModalEditStatDraft.rawValue, sender: self)
     }
 }
 

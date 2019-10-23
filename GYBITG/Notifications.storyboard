@@ -100,7 +100,7 @@
                         <color key="badgeColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="statDraftsTableView" destination="fdx-2U-NLY" id="5Oa-Ux-eGG"/>
+                        <outlet property="statDraftsTableView" destination="fdx-2U-NLY" id="yDA-7O-7bY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XTd-6K-0dw" userLabel="First Responder" sceneMemberID="firstResponder"/>
