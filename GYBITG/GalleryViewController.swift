@@ -77,8 +77,20 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             self.viewLibrary(controller)
         })
         
+       //add an action for selecting video from YOUtube
+        let youTubeAction = UIAlertAction(title: "YouTube", style: .default, handler: { (action) -> Void in
+          
+          //call the funciton to open youtube app
+            self.YoutubeAction()
+            //call the function to display an alert with a textbox to enter url
+             self.alertTextBoxForYouTubeUrl()
+        })
+        
         ac.addAction(cameraAction)
         ac.addAction(libraryAction)
+        ac.addAction(youTubeAction)
+        
+        
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
         ac.addAction(cancelAction)
         
@@ -159,15 +171,15 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                 if( asset.duration.seconds > 180.0){
                     isOverThreeMin = true
                    picker.dismiss(animated: true)
-                     let ac = UIAlertController(title: "Video Selected Is Over the 3 Minute Limit", message: "Select another video or cancel action", preferredStyle: .actionSheet)
-                           let controller = UIImagePickerController()
-                           let libraryAction = UIAlertAction(title: "Video Library", style: .default, handler: { (action) -> Void in
+                   let ac = UIAlertController(title: "Video Selected Is Over the 3 Minute Limit", message: "Select another video or cancel action", preferredStyle: .actionSheet)
+                    let controller = UIImagePickerController()
+                    let libraryAction = UIAlertAction(title: "Video Library", style: .default, handler: { (action) -> Void in
                                self.viewLibrary(controller)
-                           })
+                      })
                            
-                           ac.addAction(libraryAction)
-                           let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-                           ac.addAction(cancelAction)
+                     ac.addAction(libraryAction)
+                     let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+                     ac.addAction(cancelAction)
                            
                     self.present(ac, animated: true, completion: nil)
                    // self.viewLibrary(controller)
@@ -325,4 +337,131 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         }
     }
     
+    //Purpose: To add an alert textbox so the user can enter a url to get a video from YouTube
+    //Precondition: The user selects the YouTube option from the attachment
+    //PostCondition: An an alert will pop up so the user can enter a url and the url will be used to get the video from youtube
+    func alertTextBoxForYouTubeUrl(){
+        //1. Create the alert controller.
+        let alert = UIAlertController(title: "Enter URL", message: "Add a video from YouTube", preferredStyle: .alert)
+        //2. Add the text field
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter Text Here"
+          
+                   
+        }
+    // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+         
+            if let textField = alert?.textFields?[0]{
+                    
+                    if(textField.text!.isValidURL()){
+                    
+                        //Will then call the get video 
+                      //self.getVideoFromUrl(urlString: textField.text!)
+                        
+                        var isValid = textField.text!.isValidURL()
+                         print("Text field: \(isValid) \(textField.text ?? "NO TEXTFIELD")")
+           
+                    }
+                else {//if the user did not enter a url display an alert and call the function again
+                   let emptyFieldAlert = UIAlertController(title: "Empty or invalid URL", message: "You Did not enter a valid Url", preferredStyle: .alert)
+                     emptyFieldAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                               print("NOTHING ENTERED" )
+                               self.alertTextBoxForYouTubeUrl()
+                    }))
+                    
+                   self.present(emptyFieldAlert, animated: true, completion: nil)
+                   
+                }
+            }
+        }))
+        
+        //4. Add code to for canceling action
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+          alert.addAction(cancelAction)
+        
+        // 5. Present the alert.
+        self.present(alert, animated: true, completion: nil)
+        
+       /* let alert = UIAlertController(title: "Enter URL", message: "Add a video from YouTube", preferredStyle: .alert)
+
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] action in
+
+          guard let textField = alert.textFields?.first,
+            let nameToSave = textField.text else {
+              return
+          }
+      }*/
+    }
+    
+    
+    //Purpose: To add get the url passed
+    //Precondition: The user selects the YouTube option from the attachment
+    //PostCondition: The url passed
+    func getVideoFromUrl(urlString: String){
+       
+        
+        //Need to do more work to get the id
+        //its differnt url  when coppied from Youtube https://youtu.be/RmHqOSrkZnk
+       
+         // let array = urlString.components(separatedBy: ".be/")
+            //  print(array[1])
+        
+    }
+    
+    //Purpose: To open the Youtube app from this app
+    //Precondtions: The user chooses the Youtube option and the user oks the alert to give permission to acces Youtube
+    //Postcondition: An alert will pop up for the user to give permission and the Youtube app will open
+    func YoutubeAction() {
+
+        let YoutubeQuery =  "Your Query"
+        let escapedYoutubeQuery = YoutubeQuery.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        let appURL = NSURL(string: "youtube://www.youtube.com/results?search_query=\(escapedYoutubeQuery!)")!
+        let webURL = NSURL(string: "https://www.youtube.com/results?search_query=\(escapedYoutubeQuery!)")!
+        let application = UIApplication.shared
+
+        if application.canOpenURL(appURL as URL) {
+            application.open(appURL as URL)
+        } else {
+            // if Youtube app is not installed, open URL inside Safari
+            application.open(webURL as URL)
+        }
+        
+    }
+
 }
+
+//Purpose: To be able to chech the string to see if its a valid URL and matches the String passed in
+    extension String{
+        
+    //Purpose: To use regular expression to find occurrences of text in a string using a search pattern
+    //Precondtions: The string passed in exists
+    //Postcondition: The string will be checked for matches true if a match false if not
+    func matches(pattern: String?) -> Bool
+    {
+         guard let patternStr = pattern else {return false}
+        do
+        {
+            let regex = try NSRegularExpression(pattern: patternStr, options: [.caseInsensitive])
+            return regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: utf16.count)) != nil
+        }
+        catch
+        {
+            return false
+        }
+    }
+
+        //Purpose: To check if the url is valid and matches the pattern
+        //Precondtions:
+        //Postcondition: Will return true if the Url is valid and matches the pattern of the url
+    func isValidURL() -> Bool
+    {
+        guard let url = URL(string: self ) else { return false }
+        if !UIApplication.shared.canOpenURL(url) {
+            return false }
+
+        let urlPattern = "https://youtu.be/[a-z0-9]+"
+        return self.matches(pattern: urlPattern)
+    }
+}
+
