@@ -346,13 +346,12 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         //2. Add the text field
         alert.addTextField { (textField) in
             textField.placeholder = "Enter Text Here"
-            textField.text = ""
+          
                    
         }
     // 3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-            //check if there is a non nil value
-            //NEED to check if there is a url not anything else
+         
             if let textField = alert?.textFields?[0]{
                     
                     if(textField.text!.isValidURL()){
@@ -459,7 +458,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         if !UIApplication.shared.canOpenURL(url) {
             return false }
 
-        let urlPattern = "https://youtu.be/[a-z0-9]+" 
+        let urlPattern = "https://youtu.be/[a-z0-9]+"
         return self.matches(pattern: urlPattern)
     }
 }
