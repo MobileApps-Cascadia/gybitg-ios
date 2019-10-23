@@ -356,7 +356,9 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                     
                     if(textField.text!.isValidURL()){
                     
-                      self.getVideoFromUrl(urlString: textField.text!)
+                        //Will then call the get video 
+                      //self.getVideoFromUrl(urlString: textField.text!)
+                        
                         var isValid = textField.text!.isValidURL()
                          print("Text field: \(isValid) \(textField.text ?? "NO TEXTFIELD")")
            
