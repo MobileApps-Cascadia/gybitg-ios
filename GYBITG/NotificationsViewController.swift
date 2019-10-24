@@ -10,7 +10,7 @@ import UIKit
 class NotificationsViewController: UIViewController {
     
     @IBOutlet weak var statDraftsTableView: UITableView!
-    var gameRepo: GameStatRepo?
+    var gameRepo: GameStatProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +20,17 @@ class NotificationsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // update the badge number for the Notifications tab icon
+        if let tabItems = tabBarController?.tabBar.items {
+            let x : Int = (gameRepo?.allGameStatDrafts.count)!
+            let count = String(x)
+            
+            // In this case we want to modify the badge number of the third (Notifications) tab:
+            let tabItem = tabItems[2]
+            tabItem.badgeValue = (x > 0 ? count : nil)
+        }
         statDraftsTableView.reloadData()
     }
-    
     
     // MARK: - Navigation
 
@@ -64,8 +72,8 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        NSLog("You selected cell number: \(indexPath.row)!")
-//        self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.segueModalEditStatDraft.rawValue, sender: self)
+        print("row selected: \(indexPath.row)")
+        //self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.segueModalEditStatDraft.rawValue, sender: self)
     }
 }
 

@@ -11,6 +11,7 @@ import UIKit
 protocol GameStatProtocol: Repo {
     @discardableResult func createRandomGameStat() -> GameStat
     var allGameStats: [GameStat] { get set }
+    var allGameStatDrafts: [GameStat] { get set }
     func removeGameStat(gameStat: GameStat)
     func removeGameStatByStatId(statId: Int)
     func addGameStat(gameStat: GameStat)
@@ -37,6 +38,16 @@ class GameStatHistoryViewController: UITableViewController {
     // This function is called everytime the view is loaded
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // update the badge number for the Notifications tab icon
+        if let tabItems = tabBarController?.tabBar.items {
+            let x : Int = (gameRepo?.allGameStatDrafts.count)!
+            let count = String(x)
+            
+            // In this case we want to modify the badge number of the third (Notifications) tab:
+            let tabItem = tabItems[2]
+            tabItem.badgeValue = (x > 0 ? count : nil)
+        }
         
         // Reloads the gamestat data in the table each time the view is shown
         tableView.reloadData()

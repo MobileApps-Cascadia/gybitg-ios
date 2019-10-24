@@ -11,28 +11,43 @@ import CoreData
 
 public class GameStatDbContext {
     
-    var instance: GameStatDbContext?
-    
-    init() {
-        self.instance = GetInstance()
-    }
-    
-    private func GetInstance() -> GameStatDbContext {
-        if (self.instance == nil) {
-            self.instance = GameStatDbContext()
-        }
-        return instance!
-    }
     
     func save(stat: GameStat) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
         }
-        let managedContext = appDelegate.persistentContainer.viewContext
         
-        let entity = NSEntityDescription.entity(forEntityName: "GStat", in: managedContext)!
-        let newGameStat = NSManagedObject(entity: entity, insertInto: managedContext)
+        // 1
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
         
-    
+        // 2
+        let entity =
+            NSEntityDescription.entity(forEntityName: "GStat",
+                                       in: managedContext)!
+        
+        let newGameStat = NSManagedObject(entity: entity,
+                                        insertInto: managedContext)
+                
+        newGameStat.setValue(stat.statId, forKey: "statId")
+        newGameStat.setValue(stat.userId, forKey: "userId")
+        newGameStat.setValue(stat.gameDate, forKey: "gameDate")
+        newGameStat.setValue(stat.points, forKey: "points")
+        newGameStat.setValue(stat.rebounds, forKey: "rebounds")
+        newGameStat.setValue(stat.assists, forKey: "assists")
+        newGameStat.setValue(stat.blocks, forKey: "blocks")
+        newGameStat.setValue(stat.steals, forKey: "steals")
+        newGameStat.setValue(stat.minutesPlayed, forKey: "minutesPlayed")
+        newGameStat.setValue(stat.opposingTeamName, forKey: "opposingTeamName")
+        newGameStat.setValue(stat.homeOrAway, forKey: "homeOrAway")
+        
+        do {
+            try managedContext.save()
+            print("saved to db!")
+            
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
     }
 }
