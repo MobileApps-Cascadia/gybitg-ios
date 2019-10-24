@@ -28,6 +28,7 @@
 		3FD34C332355281F006079E0 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD34C322355281F006079E0 /* NotificationsViewController.swift */; };
 		3FD34C5923554CE6006079E0 /* GYBITG.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3FD34C5723554CE6006079E0 /* GYBITG.xcdatamodeld */; };
 		3FDCF60D2360EBF4000A3DFF /* GameStatDbContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDCF60C2360EBF4000A3DFF /* GameStatDbContext.swift */; };
+		3FDCF60F23617644000A3DFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDCF60E23617644000A3DFF /* Constants.swift */; };
 		3FDDBA4E22B0BA3300DC3327 /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDBA4D22B0BA3300DC3327 /* NewAccountViewController.swift */; };
 		3FDDBA4F22B0BA3300DC3327 /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDBA4D22B0BA3300DC3327 /* NewAccountViewController.swift */; };
 		3FDDBA5122B0BA5400DC3327 /* UsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDBA5022B0BA5400DC3327 /* UsersRepository.swift */; };
@@ -80,6 +81,7 @@
 		3FD34C322355281F006079E0 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		3FD34C5823554CE6006079E0 /* gybitg.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gybitg.xcdatamodel; sourceTree = "<group>"; };
 		3FDCF60C2360EBF4000A3DFF /* GameStatDbContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatDbContext.swift; sourceTree = "<group>"; };
+		3FDCF60E23617644000A3DFF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3FDDBA4D22B0BA3300DC3327 /* NewAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAccountViewController.swift; sourceTree = "<group>"; };
 		3FDDBA5022B0BA5400DC3327 /* UsersRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersRepository.swift; sourceTree = "<group>"; };
 		3FDDBA5322B0BA8000DC3327 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				3FD34C322355281F006079E0 /* NotificationsViewController.swift */,
 				3FD34C5723554CE6006079E0 /* GYBITG.xcdatamodeld */,
 				3FDCF60C2360EBF4000A3DFF /* GameStatDbContext.swift */,
+				3FDCF60E23617644000A3DFF /* Constants.swift */,
 			);
 			path = GYBITG;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F7DEC3D2282437D0027ECAA /* GalleryViewController.swift in Sources */,
+				3FDCF60F23617644000A3DFF /* Constants.swift in Sources */,
 				3F1BE0E322792E7B0077F076 /* SecondViewController.swift in Sources */,
 				3FA615C62273715C00A059FC /* GameStat.swift in Sources */,
 				A8079A4E2297CC070078E117 /* GalleryCell.swift in Sources */,

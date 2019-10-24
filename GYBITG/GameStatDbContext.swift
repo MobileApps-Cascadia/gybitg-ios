@@ -11,9 +11,8 @@ import CoreData
 
 public class GameStatDbContext {
     
-    var stats: [GameStat] = []
-    var drafts: [GameStat] = []
-    
+    var stats: [NSManagedObject] = []
+    var drafts: [NSManagedObject] = []
     
     // Purpose: Save a GameStat to our CoreData persistent data storage
     // Parameter: The GameStat object you want saved
@@ -53,7 +52,40 @@ public class GameStatDbContext {
         }
     }
     
-    // Purpose: Save a GameStat Draft to our CoreData persistent data Storage
-    
+    // Purpose: Fetch all the saved GameStats from CoreData
+    // PostCondition: Returns an array of GameStat objects
+    func fetchStatsbyUserId(UserId id: String, withCompletion completion: @escaping ([GameStat]?) -> Void) {
+        let tempStat = GameStat()
+        var tempArray = [GameStat]()
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Stat")
+        
+//        fetchRequest.predicate = NSPredicate(format: "userId = %@", id)
+//        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "gameDate", ascending: false)]
+        do{
+            stats = try managedContext.fetch(fetchRequest)
+            for stat in stats {
+                tempStat.userId = (stat.value(forKeyPath: "userId") as! String)
+                tempStat.statId = (stat.value(forKeyPath: "statId") as! Int)
+                tempStat.gameDate = (stat.value(forKeyPath: "gameDate") as! Date)
+                tempStat.points = (stat.value(forKeyPath: "points") as! Int)
+                tempStat.rebounds = (stat.value(forKeyPath: "rebounds") as! Int)
+                tempStat.assists = (stat.value(forKeyPath: "assists") as! Int)
+                tempStat.blocks = (stat.value(forKeyPath: "blocks") as! Int)
+                tempStat.steals = (stat.value(forKeyPath: "steals") as! Int)
+                tempStat.minutesPlayed = (stat.value(forKeyPath: "minutesPlayed") as! Double)
+                tempStat.opposingTeamName = (stat.value(forKeyPath: "opposingTeamName") as! String)
+                tempStat.homeOrAway = (stat.value(forKeyPath: "homeOrAway") as! String)
+                tempArray.append(tempStat)
+            }
+            completion (tempArray)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
     
 }

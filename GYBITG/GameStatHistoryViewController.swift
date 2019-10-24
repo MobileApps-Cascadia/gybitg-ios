@@ -17,7 +17,7 @@ protocol GameStatProtocol: Repo {
     func addGameStat(gameStat: GameStat)
     func saveGameStatDraft(gameStat: GameStat)
     func getGameStatByStatId(statId: Int) -> GameStat
-    func getAllGameStatsByUserId(userId: String) -> [GameStat]
+    func getAllGameStatsByUserId(userId: String)
     func getAllDrafts() -> [GameStat]
     func getAllGameStatDraftsByUserId(userId: String) -> [GameStat]
     func updateGameState(gamestat: GameStat)
@@ -49,6 +49,7 @@ class GameStatHistoryViewController: UITableViewController {
             tabItem.badgeValue = (x > 0 ? count : nil)
         }
         
+        gameRepo?.getAllGameStatsByUserId(userId: Constants.TEST_USERID)
         // Reloads the gamestat data in the table each time the view is shown
         tableView.reloadData()
     }

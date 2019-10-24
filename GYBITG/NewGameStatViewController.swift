@@ -34,6 +34,10 @@ class NewGameStatViewController: UIViewController {
     // initial value of 'false'
     var isUpdate: Bool = false
     
+    // Used to keep track of whether the GameStat is a draft or not
+    // Initial Value: true - every GameStat begins as a draft. Once the user saves the GameStat then isDraft = false.
+    var isDraft: Bool = true
+    
     // Purpose: track whether the user wants to save the gamestat as a draft or not
     // initial value of 'false'
     var saveAsDraft: Bool = false
@@ -44,7 +48,7 @@ class NewGameStatViewController: UIViewController {
         // If we're updating a current Game Stat then fill in the text fields with
         // the current game stat's data
         if (mGameStat != nil && isUpdate) {
-            gameDatePicker.date = mGameStat!.gameDate
+            gameDatePicker.date = mGameStat!.gameDate!
             if let points = mGameStat?.points {
                 pointsField.text = String(points)
             }
@@ -141,6 +145,7 @@ class NewGameStatViewController: UIViewController {
             // save the game stat properties with a value of '0'.
             let YesAction = UIAlertAction(title: "Yes, Save", style: UIAlertAction.Style.default, handler: {
                 (_)in
+                self.isDraft = false
                 if (self.pointsField.text == ""){
                     self.pointsField.text = "0"
                 }
@@ -201,15 +206,15 @@ class NewGameStatViewController: UIViewController {
         let mGameStatUserId: String
         // check whether we should update a current game stat or create a new one
         if (isUpdate) {
-            mGameStatId = mGameStat!.statId
-            mGameStatUserId = mGameStat!.userId
+            mGameStatId = mGameStat!.statId!
+            mGameStatUserId = mGameStat!.userId!
         } else {
             mGameStatId = ((gameRepo?.allGameStats.count)!) + 1
-            mGameStatUserId = "ksmith@gmail.com"
+            mGameStatUserId = Constants.TEST_USERID
         }
         // the user has chosen to save as draft
         if (saveAsDraft) {
-            mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: gameDatePicker.date)
+            mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: gameDatePicker.date, isDraft: true)
             
             // build the rest of the GameStat
             if (self.pointsField.text != ""){
@@ -249,7 +254,9 @@ class NewGameStatViewController: UIViewController {
             let mMinutesPlayed = Double(minutesPlayedField.text!),
             let mOpposingTeam = opposingTeamField?.text!,
             let mHomeOrAway: String = homeOrAway {
-                mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
+                // If we make it here, it means the user has filled out all the fields and we can save the GameStat straight up.
+                // This also means that the user has chosen to not save a "draft" so we can set isDraft to false.
+                mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, isDraft: false, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
             }
         }
     }
