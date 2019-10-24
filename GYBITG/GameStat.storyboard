@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game Stat History View Controller-->
+        <!--Game Stats-->
         <scene sceneID="XTz-hQ-Cqc">
             <objects>
                 <tableViewController storyboardIdentifier="GameStatView" id="UAx-7c-djU" customClass="GameStatHistoryViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,6 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <color key="tintColor" red="0.91764705882352937" green="0.63921568627450975" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GameStatCellReuseID" id="MPr-os-Y9R" customClass="GameStatCell" customModule="GYBITG" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
@@ -52,7 +53,7 @@
                             <outlet property="delegate" destination="UAx-7c-djU" id="GTV-Pz-GL8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="3GC-JL-RUo">
+                    <navigationItem key="navigationItem" title="Game Stats" id="3GC-JL-RUo">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="pUu-CT-3dS">
                             <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -65,7 +66,7 @@
             </objects>
             <point key="canvasLocation" x="4806" y="-854"/>
         </scene>
-        <!--New Game Stat View Controller-->
+        <!--Game Stat-->
         <scene sceneID="dHY-73-w02">
             <objects>
                 <viewController id="jas-Ev-8U8" customClass="NewGameStatViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
@@ -268,7 +269,7 @@
                             <outletCollection property="gestureRecognizers" destination="tqm-Tp-GKY" appends="YES" id="pJB-Mf-Y1j"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="KbV-sb-pFq">
+                    <navigationItem key="navigationItem" title="Game Stat" id="KbV-sb-pFq">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Zz9-rd-iMh">
                             <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>

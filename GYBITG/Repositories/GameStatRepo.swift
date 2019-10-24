@@ -10,6 +10,10 @@
 import UIKit
 
 class GameStatRepo: GameStatProtocol {
+    
+    // context to the class for core data operations
+    let _context = GameStatDbContext()
+
     // This is an array that can store GameStat entities
     var allGameStats: [GameStat] = []
     
@@ -52,6 +56,8 @@ class GameStatRepo: GameStatProtocol {
     // This function is used in the NewGameStatViewController for adding GameStat entity through the form
     func addGameStat(gameStat: GameStat) {
         allGameStats.append(gameStat)
+        
+        _context.saveStat(stat: gameStat)     // save to core data
     }
     
     // Remove a game stat by the statId parameter

@@ -26,9 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // We can instantiate the GameStatRepo and GalleryRepo in here
         for viewController in viewControllers {
-            if let navController = viewController as? UINavigationController, let firstViewController = navController.viewControllers.first as? FirstViewController{
+            if let navController = viewController as? UINavigationController, let firstViewController = navController.viewControllers.first as? FirstViewController {
                 firstViewController.gameRepo = gameStatRepo
                 firstViewController.galleryRepo = galleryRepo
+            }
+            if let notificationsVC = viewController as? NotificationsViewController {
+                notificationsVC.gameRepo = gameStatRepo
             }
         }
         

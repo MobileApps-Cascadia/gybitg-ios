@@ -231,6 +231,7 @@ class NewGameStatViewController: UIViewController {
                 mGameStat?.addMinPlayed(minPlayed: Double(minutesPlayedField.text!)!)
             }
             if (self.opposingTeamField.text != "") {
+                mGameStat?.addOppTeam(oppTeam: self.opposingTeamField.text!)
             }
             if (self.homeOrAway != "Home" && self.homeOrAway != "Away") {
                 self.homeOrAway = ""
