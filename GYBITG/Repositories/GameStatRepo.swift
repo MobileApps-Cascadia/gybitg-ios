@@ -57,7 +57,7 @@ class GameStatRepo: GameStatProtocol {
     func addGameStat(gameStat: GameStat) {
         allGameStats.append(gameStat)
         
-//        _context.save(stat: gameStat)     // save to core data
+        _context.saveStat(stat: gameStat)     // save to core data
     }
     
     // Remove a game stat by the statId parameter

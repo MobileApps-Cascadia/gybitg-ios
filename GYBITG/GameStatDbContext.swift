@@ -11,24 +11,27 @@ import CoreData
 
 public class GameStatDbContext {
     
+    var stats: [GameStat] = []
+    var drafts: [GameStat] = []
     
-    func save(stat: GameStat) {
+    
+    // Purpose: Save a GameStat to our CoreData persistent data storage
+    // Parameter: The GameStat object you want saved
+    // PostCondition: The GameStat object is saved to CoreData
+    func saveStat(stat: GameStat) {
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
         }
         
         // 1
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
+        let managedContext = appDelegate.persistentContainer.viewContext
         
         // 2
         let entity =
-            NSEntityDescription.entity(forEntityName: "GStat",
-                                       in: managedContext)!
+            NSEntityDescription.entity(forEntityName: "Stat", in: managedContext)!
         
-        let newGameStat = NSManagedObject(entity: entity,
-                                        insertInto: managedContext)
+        let newGameStat = NSManagedObject(entity: entity, insertInto: managedContext)
                 
         newGameStat.setValue(stat.statId, forKey: "statId")
         newGameStat.setValue(stat.userId, forKey: "userId")
@@ -44,10 +47,13 @@ public class GameStatDbContext {
         
         do {
             try managedContext.save()
-            print("saved to db!")
-            
+            print("GameStat saved to CoreData")
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+    
+    // Purpose: Save a GameStat Draft to our CoreData persistent data Storage
+    
+    
 }

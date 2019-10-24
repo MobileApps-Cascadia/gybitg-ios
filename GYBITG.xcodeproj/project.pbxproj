@@ -26,7 +26,7 @@
 		3FA615F62273D7FB00A059FC /* GameStatClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA615F52273D7FB00A059FC /* GameStatClassTests.swift */; };
 		3FD34C31235520A6006079E0 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FD34C30235520A6006079E0 /* Notifications.storyboard */; };
 		3FD34C332355281F006079E0 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD34C322355281F006079E0 /* NotificationsViewController.swift */; };
-		3FD34C5923554CE6006079E0 /* gybitg.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3FD34C5723554CE6006079E0 /* gybitg.xcdatamodeld */; };
+		3FD34C5923554CE6006079E0 /* GYBITG.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3FD34C5723554CE6006079E0 /* GYBITG.xcdatamodeld */; };
 		3FDCF60D2360EBF4000A3DFF /* GameStatDbContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDCF60C2360EBF4000A3DFF /* GameStatDbContext.swift */; };
 		3FDDBA4E22B0BA3300DC3327 /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDBA4D22B0BA3300DC3327 /* NewAccountViewController.swift */; };
 		3FDDBA4F22B0BA3300DC3327 /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDBA4D22B0BA3300DC3327 /* NewAccountViewController.swift */; };
@@ -159,7 +159,7 @@
 				3F7982FB22A1FB9D00AC802F /* UIStoryboardSegue.swift */,
 				3FD34C30235520A6006079E0 /* Notifications.storyboard */,
 				3FD34C322355281F006079E0 /* NotificationsViewController.swift */,
-				3FD34C5723554CE6006079E0 /* gybitg.xcdatamodeld */,
+				3FD34C5723554CE6006079E0 /* GYBITG.xcdatamodeld */,
 				3FDCF60C2360EBF4000A3DFF /* GameStatDbContext.swift */,
 			);
 			path = GYBITG;
@@ -314,7 +314,7 @@
 				3F5C0E19227275A600307F74 /* AppDelegate.swift in Sources */,
 				3FDDBA5122B0BA5400DC3327 /* UsersRepository.swift in Sources */,
 				A8F6C9872295AD7D00D5DC8D /* MockVideoRepository.swift in Sources */,
-				3FD34C5923554CE6006079E0 /* gybitg.xcdatamodeld in Sources */,
+				3FD34C5923554CE6006079E0 /* GYBITG.xcdatamodeld in Sources */,
 				3F7982F4229E064D00AC802F /* NewGameStatViewController.swift in Sources */,
 				3FD34C332355281F006079E0 /* NotificationsViewController.swift in Sources */,
 				3F7982FC22A1FB9D00AC802F /* UIStoryboardSegue.swift in Sources */,
@@ -596,13 +596,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		3FD34C5723554CE6006079E0 /* gybitg.xcdatamodeld */ = {
+		3FD34C5723554CE6006079E0 /* GYBITG.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				3FD34C5823554CE6006079E0 /* gybitg.xcdatamodel */,
 			);
 			currentVersion = 3FD34C5823554CE6006079E0 /* gybitg.xcdatamodel */;
-			path = gybitg.xcdatamodeld;
+			path = GYBITG.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
