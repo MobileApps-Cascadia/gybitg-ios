@@ -35,6 +35,7 @@ public class GameStatDbContext {
         newGameStat.setValue(stat.statId, forKey: "statId")
         newGameStat.setValue(stat.userId, forKey: "userId")
         newGameStat.setValue(stat.gameDate, forKey: "gameDate")
+        newGameStat.setValue(stat.isDraft, forKey: "isDraft")
         newGameStat.setValue(stat.points, forKey: "points")
         newGameStat.setValue(stat.rebounds, forKey: "rebounds")
         newGameStat.setValue(stat.assists, forKey: "assists")
@@ -55,7 +56,6 @@ public class GameStatDbContext {
     // Purpose: Fetch all the saved GameStats from CoreData
     // PostCondition: Returns an array of GameStat objects
     func fetchStatsbyUserId(UserId id: String, withCompletion completion: @escaping ([GameStat]?) -> Void) {
-        let tempStat = GameStat()
         var tempArray = [GameStat]()
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -64,22 +64,25 @@ public class GameStatDbContext {
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Stat")
         
-//        fetchRequest.predicate = NSPredicate(format: "userId = %@", id)
-//        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "gameDate", ascending: false)]
+        fetchRequest.predicate = NSPredicate(format: "userId = %@", id)
+        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "statId", ascending: false)]
         do{
             stats = try managedContext.fetch(fetchRequest)
             for stat in stats {
-                tempStat.userId = (stat.value(forKeyPath: "userId") as! String)
-                tempStat.statId = (stat.value(forKeyPath: "statId") as! Int)
-                tempStat.gameDate = (stat.value(forKeyPath: "gameDate") as! Date)
-                tempStat.points = (stat.value(forKeyPath: "points") as! Int)
-                tempStat.rebounds = (stat.value(forKeyPath: "rebounds") as! Int)
-                tempStat.assists = (stat.value(forKeyPath: "assists") as! Int)
-                tempStat.blocks = (stat.value(forKeyPath: "blocks") as! Int)
-                tempStat.steals = (stat.value(forKeyPath: "steals") as! Int)
-                tempStat.minutesPlayed = (stat.value(forKeyPath: "minutesPlayed") as! Double)
-                tempStat.opposingTeamName = (stat.value(forKeyPath: "opposingTeamName") as! String)
-                tempStat.homeOrAway = (stat.value(forKeyPath: "homeOrAway") as! String)
+                let statId = (stat.value(forKeyPath: "statId") as! Int)
+                let userId = (stat.value(forKeyPath: "userId") as! String)
+                let gameDate = (stat.value(forKeyPath: "gameDate") as! Date)
+                let isDraft = (stat.value(forKeyPath: "isDraft") as! Bool)
+                let points = (stat.value(forKeyPath: "points") as! Int)
+                let rebounds = (stat.value(forKeyPath: "rebounds") as! Int)
+                let assists = (stat.value(forKeyPath: "assists") as! Int)
+                let blocks = (stat.value(forKeyPath: "blocks") as! Int)
+                let steals = (stat.value(forKeyPath: "steals") as! Int)
+                let minutesPlayed = (stat.value(forKeyPath: "minutesPlayed") as! Double)
+                let opposingTeamName = (stat.value(forKeyPath: "opposingTeamName") as! String)
+                let homeOrAway = (stat.value(forKeyPath: "homeOrAway") as! String)
+                
+                let tempStat = GameStat(statId: statId, userId: userId, gameDate: gameDate, isDraft: isDraft, points: points, rebounds: rebounds, assists: assists, steals: steals, blocks: blocks, minutesPlayed: minutesPlayed, opposingTeamName: opposingTeamName, homeOrAway: homeOrAway)
                 tempArray.append(tempStat)
             }
             completion (tempArray)

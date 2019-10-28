@@ -137,13 +137,13 @@ class NewGameStatViewController: UIViewController {
         if (homeOrAwaySegmentedControl.selectedSegmentIndex == -1 || pointsField.text == "" || reboundsField.text == "" || assistsField.text == "" || stealsField.text == "" || blocksField.text == "" || minutesPlayedField.text == "" || opposingTeamField.text == "") {
             
             // set the alert message and title
-            let alert = UIAlertController(title: "Did you mean to leave blank stat(s) fields?", message: "Blank stats are recorded as zero", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: "You have blank stat(s) fields.", message: "Blank fields are recorded as zero", preferredStyle: UIAlertController.Style.alert)
             
             
             // Purpose: The YesAction sets the GameStat with values of 0 for fields that are not filled out
             // If the user decides to save the game stat w/ out filling all the fields, we sill need to
             // save the game stat properties with a value of '0'.
-            let YesAction = UIAlertAction(title: "Yes, Save", style: UIAlertAction.Style.default, handler: {
+            let YesAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: {
                 (_)in
                 self.isDraft = false
                 if (self.pointsField.text == ""){
@@ -178,7 +178,7 @@ class NewGameStatViewController: UIViewController {
             })
     
             // Close the alert dialog and stay on the game stat form
-            let NoAction = UIAlertAction(title: "No, Finish Filling Out", style: UIAlertAction.Style.cancel, handler: nil)
+            let NoAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
             
             // Save the GameStat as a draft to fill out later
             let SaveDraftAction = UIAlertAction(title: "Save as Draft", style: UIAlertAction.Style.default, handler: { (_) in

@@ -56,6 +56,7 @@ class GameStatRepo: GameStatProtocol {
     // This function is used in the NewGameStatViewController for adding GameStat entity through the form
     func addGameStat(gameStat: GameStat) {
         allGameStats.append(gameStat)
+        
         _context.saveStat(stat: gameStat)     // save to core data
     }
     
@@ -82,6 +83,7 @@ class GameStatRepo: GameStatProtocol {
     // Retrieve all the game stat entities by the userId parameter
     func getAllGameStatsByUserId(userId: String) {
         // fetch an array of GameStat objects from CoreData
+        // use a closure to fill the allGameStats array
         _context.fetchStatsbyUserId(UserId: Constants.TEST_USERID){ (data) in
             if (data?.count ?? 0 > 0) {
                 self.allGameStats = data!
@@ -90,12 +92,6 @@ class GameStatRepo: GameStatProtocol {
                 return
             }
         }
-//        for stat in allGameStats {
-//            if stat.userId == userId {
-//                mGameStatArray.append(stat)
-//            }
-//        }
-//        return allGameStats
     }
     
     // This function returns a specific GameStat entity based on the statId parameter
