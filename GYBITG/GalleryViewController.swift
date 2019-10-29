@@ -215,8 +215,13 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         let videoThumbnail = turnVideoToThumbnail(selectedVideo)
         
+        
         let newVideo =  videoRepository!.createVideo(userID: " ", videoURL: selectedVideo)
-            newVideo.thumbnail = videoThumbnail
+        
+            //Need to convert the thumnail into an Image object to meet the requirements of the codable Video model.   Replace  newVideo.thumbnail = videoThumbnail With newVideo.thumbnail = Image(withImage: thumbnail!)
+        
+        newVideo.thumbnail = Image(withImage: videoThumbnail!)
+        
         _ = videoRepository!.addVideo(videoToAdd: newVideo)
         
     //Figure out where that last item is in the array
@@ -283,10 +288,15 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         cell.Description.text = video.description
         cell.videoDuration.text = convertTimeIntervalToCMTime(video: video)
         cell.Date.text = convertDateMMMddyyyy(dateToConvert: video.dateTaken)
-        
+         
         if video.thumbnail != nil{
-        cell.thumbnail.setImage(video.thumbnail, for: .normal)
-            cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
+            //Need to convert the thumbnail (that is a Image object to meet the requirements of the codable Video model) into a UIImage object.  the Image has a getter to do this. 1.Convert Image to UIImage 2.Replace video.thumbnail with covertImageToUIImage
+                          
+           let covertImageToUIImage = video.thumbnail?.getImage()
+            cell.thumbnail.setImage(covertImageToUIImage, for: .normal)
+            cell.thumbnail.setBackgroundImage(covertImageToUIImage, for: .normal)
+        //cell.thumbnail.setImage(video.thumbnail, for: .normal)
+           // cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
         }
     
         return cell
@@ -303,7 +313,13 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Postcondition: A sting will be returned with the formatted videoDuration
     func convertTimeIntervalToCMTime(video: Video) -> String{
         var formatTime: String
-        let convertToTimeInterval: TimeInterval = video.videoDuration.seconds
+        
+        //Since I have changed the Video model to use something that is codeable, have to put the right object in so need to reverse convert asset.duration into a Duration object that the Video model uses. Replace   //var  duration = Duration(withCMTime: asset.duration) With  if let duration = video.videoDuration.getDuration(){
+                       //var  duration = Duration(withCMTime: asset.duration)
+        if let duration = video.videoDuration.getDuration(){
+        
+        //let convertToTimeInterval: TimeInterval = video.videoDuration.seconds
+            let convertToTimeInterval: TimeInterval = duration.seconds
         let minutes: Int = Int(convertToTimeInterval/60)
         let seconds: Int = Int(convertToTimeInterval.truncatingRemainder(dividingBy: 60))
         
@@ -313,6 +329,8 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             formatTime = "\(minutes):\(seconds)"
         }
         return formatTime
+        }
+        else{return "0:0"}
     }
     
     //Purpose: To convert the Date in the specified format "MMM dd,yyyy" - May 29,2019

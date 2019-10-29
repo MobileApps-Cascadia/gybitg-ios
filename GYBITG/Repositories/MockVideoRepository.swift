@@ -11,7 +11,7 @@ import CoreMedia
 import UIKit
 import MobileCoreServices
 
-class MockVideoRepository: VideoRepositoryProtocol{
+class MockVideoRepository: VideoRepositoryProtocol, Codable{
     
     func type() -> String {
     return "videoRepo"
@@ -32,7 +32,12 @@ class MockVideoRepository: VideoRepositoryProtocol{
         let date: Date =  asset.creationDate?.dateValue ?? Date()
         
         let videoDescription = "Description of Video"
-        let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, fileName: videoURL.path, videoDuration: asset.duration, videoURL: videoURL, userID: userID, thumbnail: nil)
+        
+        //Since I have changed the Video model to use something that is codeable, have to put the right object in so need to convert asset.duration into a Duration object that the Video model uses. Replace videoDuration:assest.duration that returns a CMTime object with
+                
+            
+               var  duration = Duration(withCMTime: asset.duration)
+        let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, fileName: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil)
         
         return video
     }
@@ -79,8 +84,12 @@ class MockVideoRepository: VideoRepositoryProtocol{
             if longerVideoURL != nil{
                 video!.longerVideoURL = longerVideoURL!
             }
+            //Need to convert the thumnail into an Image object to meet the requirements of the codable Video model.    video!.thumbnail = Image(withImage: thumbnail!)
             if thumbnail != nil{
-                video!.thumbnail = thumbnail
+                
+                video!.thumbnail = Image(withImage: thumbnail!)
+               // video!.thumbnail = thumbnail
+                
             }
             return video?.videoID
         }

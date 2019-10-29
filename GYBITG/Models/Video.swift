@@ -9,19 +9,20 @@ import Foundation
 import AVFoundation
 import UIKit
 
-class Video: Equatable {
+
+class Video: Equatable,Codable {
     
     let videoID: String
     var description: String?
     let dateTaken: Date
     let fileName: String
-    let videoDuration: CMTime
+    let videoDuration: Duration//CMTime
     let videoURL: URL
     let userID: String
     var longerVideoURL: URL?
-    var thumbnail: UIImage?
+    var thumbnail: Image? //UIImage?
     
-    init(videoID: String, description: String? = nil, dateTaken: Date, fileName: String, videoDuration: CMTime, videoURL: URL, userID: String, longerVideoURL: URL? = nil, thumbnail: UIImage?){
+    init(videoID: String, description: String? = nil, dateTaken: Date, fileName: String, videoDuration: Duration, videoURL: URL, userID: String, longerVideoURL: URL? = nil, thumbnail: Image?){
         self.videoID = videoID
         self.description = description
         self.dateTaken = dateTaken
@@ -47,8 +48,58 @@ class Video: Equatable {
             lhs.videoURL == rhs.videoURL &&
             lhs.userID == rhs.userID &&
             lhs.longerVideoURL == rhs.longerVideoURL &&
-            lhs.thumbnail == rhs.thumbnail
+           lhs.thumbnail == rhs.thumbnail
     }
     
 }
+//Purpose: To make the UIImage codable because UIImage is not Codeable
+//1. Create an imageData property of type Data. Have to do this because can only use a codable type for the property.
+//2. Create a custom initializer, to initialize the struct with a UIImage. Then use that UIImage and call the pngData() method. The pngData()method has a return type of Data?, this works perfectly for this situation.
+//3. Now the issue is that we want to get a UIImage from this struct, we don’t always want to convert it ourselves. For this create a get method that will return an optional UIImage. This is required as the argument type is Data, Data could mean anything, it could even be text, so initializing a UIImage with data return an optional UIImage. Either return nil or the image.
+//4. Change the UIImage in the Video Model to return Image, the struct that we created that Conforms to Codable
+struct Image: Codable, Equatable{
+    let imageData: Data?
+    
+    init(withImage image: UIImage) {
+        self.imageData = image.pngData()
+    }
 
+    func getImage() -> UIImage? {
+        guard let imageData = self.imageData else {
+            return nil
+        }
+        let image = UIImage(data: imageData)
+        
+        return image
+    }
+}
+
+//Purpose: To make the UIImage codable because UIImage is not Codeable
+//1. Create an imageData property of type Data. Have to do this because can only use a codable type for the property.
+//2. Create a custom initializer, to initialize the struct with a CMTime. Then use that CMTime and call the CMTimeGetSeconds(_ time: CMTime) -> Float64 method. The CMTimeGetSeconds(_ time: CMTime) -> Float64method has a return type of Float64, this works perfectly for this situation.
+
+//3. Now the issue is that we want to get a CMTime from this struct, we don’t always want to convert it ourselves. For this create a get method that will return an optional CMTime. Either return nil or the CMTime.
+//func CMTimeGetSeconds(_ time: CMTime) -> Float64
+//4. Change the CMTime in the Video Model to return Duration, the struct that we created that Conforms to Codable
+
+//func CMTimeMakeWithSeconds(Float64, preferredTimescale: Int32) -> CMTime
+//Makes a CMTime from a Float64 number of seconds, and a preferred timescale.
+struct Duration: Codable, Equatable{
+  
+    
+    let durationFloat: Float64
+    
+    init(withCMTime duration: CMTime) {
+        
+        self.durationFloat = CMTimeGetSeconds(duration)
+    }
+    
+    func getDuration() -> CMTime? {
+         // guard let durationFloat = self.durationFloat else {
+           //   return nil
+        //  }
+        let duration = CMTimeMakeWithSeconds(self.durationFloat, preferredTimescale: 1)
+          
+          return duration
+      }
+}
