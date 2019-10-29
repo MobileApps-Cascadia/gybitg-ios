@@ -29,6 +29,9 @@ protocol VideoRepositoryProtocol: Repo{
     func deleteVideo(videoToDeleteID: String) -> String?
     func deleteAllVideos()
     
+    var path: String{get}
+    func fetch(withId id: Int, withCompletion completion: @escaping (Video?) -> Void)
+    
 }
 
 class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
@@ -377,7 +380,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                         //Will then call the get video 
                       //self.getVideoFromUrl(urlString: textField.text!)
                         
-                        var isValid = textField.text!.isValidURL()
+                        let isValid = textField.text!.isValidURL()
                          print("Text field: \(isValid) \(textField.text ?? "NO TEXTFIELD")")
            
                     }

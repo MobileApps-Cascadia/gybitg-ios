@@ -11,12 +11,23 @@ import UIKit
 import MobileCoreServices
 import CoreMedia
 class VideoRepository: VideoRepositoryProtocol, Codable{
-   
+  
+    //TODO will be the YOUTUBE api endpoint
+    var path: String = ""
+    //nexzt line could replace? base url is endpoint
+  //  private let baseURL = URL(string: "https://swapi.co/api/")!
+       
+      /*  init(withPath path:String){
+              self.path = path
+       }*/
+    
     func type() -> String {
     return "videoRepo"
     }
     
     internal var videos = [Video]()
+    
+    
     
      func getAllVideos() -> [Video] {
         return videos
@@ -37,7 +48,7 @@ class VideoRepository: VideoRepositoryProtocol, Codable{
       
        //Duration duration = duration(asset.duration)
      
-        var  duration = Duration(withCMTime: asset.duration)
+        let  duration = Duration(withCMTime: asset.duration)
         let video = Video(videoID: "\(date)", dateTaken: date, fileName: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil)
         return video
     }
@@ -110,4 +121,39 @@ class VideoRepository: VideoRepositoryProtocol, Codable{
         videos.removeAll()
     }
     
+  
+         
+     func fetch(withId id: Int, withCompletion completion: @escaping (Video?) -> Void) {
+       /*  let URLstring = path + "\(id)"
+         if let url = URL.init(string: URLstring){
+             let task = URLSession.shared.dataTask(with: url, completionHandler:
+             {(data, response, error) in
+                 if let user = try? JSONDecoder().decode(Video.self, from: data!){
+                     completion (user)
+                 }
+             })
+             task.resume()
+         }*/
+     }
 }
+
+/*extension VideoRepository{
+    var path: String
+    
+    convenience init(withPath path:String){
+           self.path = path
+    }
+        
+    func fetch(withId id: Int, withCompletion completion: @escaping (Video?) -> Void) {
+        let URLstring = path + "\(id)"
+        if let url = URL.init(string: URLstring){
+            let task = URLSession.shared.dataTask(with: url, completionHandler:
+            {(data, response, error) in
+                if let user = try? JSONDecoder().decode(User.self, from: data!){
+                    completion (user)
+                }
+            })
+            task.resume()
+        }
+    }
+}*/

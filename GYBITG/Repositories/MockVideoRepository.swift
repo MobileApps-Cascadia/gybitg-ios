@@ -12,6 +12,9 @@ import UIKit
 import MobileCoreServices
 
 class MockVideoRepository: VideoRepositoryProtocol, Codable{
+    //TODO will be the YOUTUBE api endpoint
+    var path: String = ""
+     
     
     func type() -> String {
     return "videoRepo"
@@ -36,7 +39,7 @@ class MockVideoRepository: VideoRepositoryProtocol, Codable{
         //Since I have changed the Video model to use something that is codeable, have to put the right object in so need to convert asset.duration into a Duration object that the Video model uses. Replace videoDuration:assest.duration that returns a CMTime object with
                 
             
-               var  duration = Duration(withCMTime: asset.duration)
+        let  duration = Duration(withCMTime: asset.duration)
         let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, fileName: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil)
         
         return video
@@ -116,4 +119,17 @@ class MockVideoRepository: VideoRepositoryProtocol, Codable{
         videos.removeAll()
     }
     
+    
+    func fetch(withId id: Int, withCompletion completion: @escaping (Video?) -> Void) {
+       /*     let URLstring = path + "\(id)"
+            if let url = URL.init(string: URLstring){
+                let task = URLSession.shared.dataTask(with: url, completionHandler:
+                {(data, response, error) in
+                    if let user = try? JSONDecoder().decode(Video.self, from: data!){
+                        completion (user)
+                    }
+                })
+                task.resume()
+            }*/
+        }
 }
