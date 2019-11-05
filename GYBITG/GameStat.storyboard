@@ -69,7 +69,7 @@
         <!--Game Stat-->
         <scene sceneID="dHY-73-w02">
             <objects>
-                <viewController id="jas-Ev-8U8" customClass="NewGameStatViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewGameStatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jas-Ev-8U8" customClass="NewGameStatViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="juT-4G-pSQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

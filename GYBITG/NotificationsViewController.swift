@@ -32,16 +32,6 @@ class NotificationsViewController: UIViewController {
         statDraftsTableView.reloadData()
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == UIStoryboardSegue.AppSegue.segueModalEditStatDraft.rawValue) {
-            
-        }
-    }
-    
-
 }
 
 // MARK: - UITableViewDataSource
@@ -57,26 +47,29 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
         let item = gameRepo!.allGameStatDrafts[indexPath.row]
         
         // Date formatter for converting "yyyy-MM-dd HH:mm:ss +0000" to "MM/dd/yyyy"
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "MM/dd/YY"
+        let date = item.gameDate
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/YY"
         
-        // fill in the cell with the format: "Vs. <opposing team name> @ <home/away> - <game date>"
-        if let date = dateFormatterGet.date(from: String(describing: item.gameDate)) {
-            cell.cellLabel.text = "\(dateFormatterPrint.string(from:date)) vs. \(item.opposingTeamName ?? "(no opposing team)")"
+        if (item.homeOrAway == "Home") {
+            cell.cellLabel!.text = "vs \(item.opposingTeamName ?? "(no team name)") on \(formatter.string(from: date!))"
         } else {
-            print("There was an error decoding the string")
+            cell.cellLabel!.text = "@ \(item.opposingTeamName ?? "(no team name)") on \(formatter.string(from: date!))"
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("row selected: \(indexPath.row)")
-        //self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.segueModalEditStatDraft.rawValue, sender: self)
+        let storyboard = UIStoryboard(name: "GameStat", bundle: nil)
+        let newGameStatViewController = storyboard.instantiateViewController(withIdentifier: "NewGameStatViewController") as! NewGameStatViewController
+        
+        newGameStatViewController.mGameStat = gameRepo!.allGameStatDrafts[indexPath.row]
+        self.present(newGameStatViewController, animated: true, completion: nil)
     }
 }
 
+
+// The Custome cell class for the table view
 class GameStatDraftTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cellLabel: UILabel!

@@ -55,7 +55,7 @@ public class GameStatDbContext {
     
     // Purpose: Fetch all the saved GameStats from CoreData
     // PostCondition: Returns an array of GameStat objects
-    func fetchStatsbyUserId(UserId id: String, withCompletion completion: @escaping ([GameStat]?) -> Void) {
+    func fetchStatsByUserId(UserId id: String, withCompletion completion: @escaping ([GameStat]?) -> Void) {
         var tempArray = [GameStat]()
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {

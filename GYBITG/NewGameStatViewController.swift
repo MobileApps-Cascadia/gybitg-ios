@@ -47,39 +47,40 @@ class NewGameStatViewController: UIViewController {
         
         // If we're updating a current Game Stat then fill in the text fields with
         // the current game stat's data
-        if (mGameStat != nil && isUpdate) {
-            gameDatePicker.date = mGameStat!.gameDate!
-            if let points = mGameStat?.points {
-                pointsField.text = String(points)
+        if (mGameStat != nil) {
+            if(isUpdate || mGameStat?.isDraft == true) {
+                gameDatePicker.date = mGameStat!.gameDate!
+                if let points = mGameStat?.points {
+                    pointsField.text = String(points)
+                }
+                if let rebounds = mGameStat?.rebounds {
+                    reboundsField.text = String(rebounds)
+                }
+                if let assists = mGameStat?.assists {
+                    assistsField.text = String(assists)
+                }
+                if let steals = mGameStat?.steals {
+                    stealsField.text = String(steals)
+                }
+                if let blocks = mGameStat?.blocks {
+                    blocksField.text = String(blocks)
+                }
+                if let minutesPlayed = mGameStat?.minutesPlayed {
+                    minutesPlayedField.text = String(minutesPlayed)
+                }
+                if let opposingTeam = mGameStat?.opposingTeamName {
+                    opposingTeamField.text = String(opposingTeam)
+                }
+                if (mGameStat?.homeOrAway == "Home") {
+                    homeOrAwaySegmentedControl.selectedSegmentIndex = 0
+                    homeOrAway = "Home"
+                } else if (mGameStat?.homeOrAway == "Away") {
+                    homeOrAwaySegmentedControl.selectedSegmentIndex = 1
+                    homeOrAway = "Away"
+                } else {
+                    homeOrAwaySegmentedControl.selectedSegmentIndex = -1
+                }
             }
-            if let rebounds = mGameStat?.rebounds {
-                reboundsField.text = String(rebounds)
-            }
-            if let assists = mGameStat?.assists {
-                assistsField.text = String(assists)
-            }
-            if let steals = mGameStat?.steals {
-                stealsField.text = String(steals)
-            }
-            if let blocks = mGameStat?.blocks {
-                blocksField.text = String(blocks)
-            }
-            if let minutesPlayed = mGameStat?.minutesPlayed {
-                minutesPlayedField.text = String(minutesPlayed)
-            }
-            if let opposingTeam = mGameStat?.opposingTeamName {
-                opposingTeamField.text = String(opposingTeam)
-            }
-            if (mGameStat?.homeOrAway == "Home") {
-                homeOrAwaySegmentedControl.selectedSegmentIndex = 0
-                homeOrAway = "Home"
-            } else if (mGameStat?.homeOrAway == "Away") {
-                homeOrAwaySegmentedControl.selectedSegmentIndex = 1
-                homeOrAway = "Away"
-            } else {
-                homeOrAwaySegmentedControl.selectedSegmentIndex = -1
-            }
-            
         }
         
         // These are for changing the placeholder text color progromatically

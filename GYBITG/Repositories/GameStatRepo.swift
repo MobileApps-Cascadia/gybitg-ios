@@ -84,7 +84,7 @@ class GameStatRepo: GameStatProtocol {
     func getAllGameStatsByUserId(userId: String) {
         // fetch an array of GameStat objects from CoreData
         // use a closure to fill the allGameStats array
-        _context.fetchStatsbyUserId(UserId: Constants.TEST_USERID){ (data) in
+        _context.fetchStatsByUserId(UserId: Constants.TEST_USERID){ (data) in
             if (data?.count ?? 0 > 0) {
                 self.allGameStats = data!
             } else {
