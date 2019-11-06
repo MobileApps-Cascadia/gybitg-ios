@@ -35,6 +35,7 @@ class GameStatRepo: GameStatProtocol {
     // Parameter: a incomplete gamestat object
     func saveGameStatDraft(gameStat: GameStat) {
         allGameStatDrafts.append(gameStat)
+        _context.saveStat(stat: gameStat)
     }
 
     // Used to update a current Game Stat
@@ -56,8 +57,7 @@ class GameStatRepo: GameStatProtocol {
     // This function is used in the NewGameStatViewController for adding GameStat entity through the form
     func addGameStat(gameStat: GameStat) {
         allGameStats.append(gameStat)
-        
-        _context.saveStat(stat: gameStat)     // save to core data
+        _context.saveStat(stat: gameStat)
     }
     
     // Remove a game stat by the statId parameter
@@ -86,7 +86,8 @@ class GameStatRepo: GameStatProtocol {
         // use a closure to fill the allGameStats array
         _context.fetchStatsByUserId(UserId: Constants.TEST_USERID){ (data) in
             if (data?.count ?? 0 > 0) {
-                self.allGameStats = data!
+                self.allGameStats = data![0]
+                self.allGameStatDrafts = data![1]
             } else {
                 print("You have no stats saved")
                 return

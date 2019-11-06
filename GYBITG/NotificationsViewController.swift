@@ -20,15 +20,7 @@ class NotificationsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // update the badge number for the Notifications tab icon
-        if let tabItems = tabBarController?.tabBar.items {
-            let x : Int = (gameRepo?.allGameStatDrafts.count)!
-            let count = String(x)
-            
-            // In this case we want to modify the badge number of the third (Notifications) tab:
-            let tabItem = tabItems[2]
-            tabItem.badgeValue = (x > 0 ? count : nil)
-        }
+        gameRepo?.getAllGameStatsByUserId(userId: Constants.TEST_USERID)
         statDraftsTableView.reloadData()
     }
     

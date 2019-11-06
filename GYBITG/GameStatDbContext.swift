@@ -22,16 +22,13 @@ public class GameStatDbContext {
             UIApplication.shared.delegate as? AppDelegate else {
                 return
         }
-        
         // 1
         let managedContext = appDelegate.persistentContainer.viewContext
         
         // 2
         let entity =
             NSEntityDescription.entity(forEntityName: "Stat", in: managedContext)!
-        
         let newGameStat = NSManagedObject(entity: entity, insertInto: managedContext)
-                
         newGameStat.setValue(stat.statId, forKey: "statId")
         newGameStat.setValue(stat.userId, forKey: "userId")
         newGameStat.setValue(stat.gameDate, forKey: "gameDate")
@@ -55,8 +52,10 @@ public class GameStatDbContext {
     
     // Purpose: Fetch all the saved GameStats from CoreData
     // PostCondition: Returns an array of GameStat objects
-    func fetchStatsByUserId(UserId id: String, withCompletion completion: @escaping ([GameStat]?) -> Void) {
+    func fetchStatsByUserId(UserId id: String, withCompletion completion: @escaping ([[GameStat]]?) -> Void) {
+        var tempGameStatArray = [[GameStat]]()
         var tempArray = [GameStat]()
+        var tempDraftArray = [GameStat]()
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
@@ -73,19 +72,27 @@ public class GameStatDbContext {
                 let userId = (stat.value(forKeyPath: "userId") as! String)
                 let gameDate = (stat.value(forKeyPath: "gameDate") as! Date)
                 let isDraft = (stat.value(forKeyPath: "isDraft") as! Bool)
-                let points = (stat.value(forKeyPath: "points") as! Int)
-                let rebounds = (stat.value(forKeyPath: "rebounds") as! Int)
-                let assists = (stat.value(forKeyPath: "assists") as! Int)
-                let blocks = (stat.value(forKeyPath: "blocks") as! Int)
-                let steals = (stat.value(forKeyPath: "steals") as! Int)
-                let minutesPlayed = (stat.value(forKeyPath: "minutesPlayed") as! Double)
-                let opposingTeamName = (stat.value(forKeyPath: "opposingTeamName") as! String)
-                let homeOrAway = (stat.value(forKeyPath: "homeOrAway") as! String)
+                let points = (stat.value(forKeyPath: "points") as? Int) ?? 0
+                let rebounds = (stat.value(forKeyPath: "rebounds") as? Int) ?? 0
+                let assists = (stat.value(forKeyPath: "assists") as? Int) ?? 0
+                let blocks = (stat.value(forKeyPath: "blocks") as? Int) ?? 0
+                let steals = (stat.value(forKeyPath: "steals") as? Int) ?? 0
+                let minutesPlayed = (stat.value(forKeyPath: "minutesPlayed") as? Double) ?? 0.0
+                let opposingTeamName = (stat.value(forKeyPath: "opposingTeamName") as? String) ?? ""
+                let homeOrAway = (stat.value(forKeyPath: "homeOrAway") as? String) ?? "Home"
                 
                 let tempStat = GameStat(statId: statId, userId: userId, gameDate: gameDate, isDraft: isDraft, points: points, rebounds: rebounds, assists: assists, steals: steals, blocks: blocks, minutesPlayed: minutesPlayed, opposingTeamName: opposingTeamName, homeOrAway: homeOrAway)
-                tempArray.append(tempStat)
+                
+                if (tempStat.isDraft!) {
+                    tempDraftArray.append(tempStat)
+                }
+                else {
+                    tempArray.append(tempStat)
+                }
             }
-            completion (tempArray)
+            tempGameStatArray.append(tempArray)
+            tempGameStatArray.append(tempDraftArray)
+            completion (tempGameStatArray)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
