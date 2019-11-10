@@ -26,7 +26,7 @@ class VideoRepository: VideoRepositoryProtocol{
     
     //NEED a key for the youtube api
     //This keyWorks AIzaSyAbwfyC36pq1WoaGOkdx7m8cLMh8kMQRGE
-  let apiKey = "AIzaSyAbwfyC36pq1WoaGOkdx7m8cLMh8kMQRGE"//AIzaSyAYJAckWf6wC0YF23QobOIXnNXNL3ZvwOU"
+  let apiKey = "AIzaSyAYJAckWf6wC0YF23QobOIXnNXNL3ZvwOU" //"AIzaSyAbwfyC36pq1WoaGOkdx7m8cLMh8kMQRGE"//AIzaSyAYJAckWf6wC0YF23QobOIXnNXNL3ZvwOU"
     //TODO will be the YOUTUBE api endpoint
     var path: String = "https://www.googleapis.com/youtube/v3/videos" //"https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2C+snippet%2C+statistics&id=AKiiekaEHhI&key="
     //nexzt line could replace? base url is endpoint
