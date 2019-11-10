@@ -14,6 +14,7 @@ import Photos
 import UIKit
 import MobileCoreServices
 import CoreMedia
+import youtube_ios_player_helper_swift
 
 
 //The protocol for the VideoView
@@ -30,11 +31,16 @@ protocol VideoRepositoryProtocol: Repo{
     func deleteAllVideos()
     
     var path: String{get}
-    func fetch(withId id: Int, withCompletion completion: @escaping (Video?) -> Void)
+    //A has-a relationship for the delegate
+    //Now in fetch get the video requested and send it in the didRecieveData fx
+    var delegate: VideoRepoDelegate? { get set }
+   func fetch(withId id:String?, videoUrl: String?) -> String
+  //   func fetch (withId id: String?, videoUrl: String?, completion: @escaping (Video?) -> Void)
+    //func fetch(withId id: String?, withCompletion completion: @escaping (Video?) -> Void)
     
 }
 
-class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, VideoRepoDelegate{
     
     var videoRepository: VideoRepositoryProtocol?
     
@@ -55,6 +61,10 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         tableView.delegate = self
         // Do any additional setup after loading the view.
+        //Make this VC the videoRepository's delegate
+        //Now make and extension and conform to the videoRepos delgate
+        videoRepository?.delegate = self
+        //videoRepository!.delegate = self as? VideoRepoDelegate
     }
     
     //Purpose: To show the user an actionsheet with options to choose from
@@ -377,12 +387,21 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                     
                     if(textField.text!.isValidURL()){
                     
-                        //Will then call the get video 
-                      //self.getVideoFromUrl(urlString: textField.text!)
+                        //Will then call the get video
+                        
+                      var id = self.getVideoIdFromUrl(urlString: textField.text!)
+                   
                         
                         let isValid = textField.text!.isValidURL()
                          print("Text field: \(isValid) \(textField.text ?? "NO TEXTFIELD")")
-           
+                             //put id and url from textfield into fetch
+                   let videoId = self.videoRepository!.fetch(withId: id, videoUrl: textField.text!)
+                        //add and save the video
+                      
+                        print("printing this from addaction: \(videoId)")
+                       // var testvideo =  self.videoRepository?.getVideo(videoID: id!)
+                            
+                       // print("DateTaken IIIS: String(describing: estvideo?.dateTaken)) \(testvideo)")
                     }
                 else {//if the user did not enter a url display an alert and call the function again
                    let emptyFieldAlert = UIAlertController(title: "Empty or invalid URL", message: "You Did not enter a valid Url", preferredStyle: .alert)
@@ -419,15 +438,17 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Purpose: To add get the url passed
     //Precondition: The user selects the YouTube option from the attachment
     //PostCondition: The url passed
-    func getVideoFromUrl(urlString: String){
-       
-        
+    func getVideoIdFromUrl(urlString: String?)-> String?{
         //Need to do more work to get the id
         //its differnt url  when coppied from Youtube https://youtu.be/RmHqOSrkZnk
-       
-         // let array = urlString.components(separatedBy: ".be/")
-            //  print(array[1])
-        
+        if let array = urlString?.components(separatedBy: ".be/"){
+             print(array[1])
+            let id = array[1]
+            return id
+        }
+        else{
+        return nil
+        }
     }
     
     //Purpose: To open the Youtube app from this app
@@ -449,6 +470,29 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         }
         
     }
+    
+    //purpose: To be notified when the request for the fetched video is completed
+    //precodition:@param Video
+    //postcodition: the galleryViewController is notified that the video is fetched and will add this video to the array and reload the tableview
+    func didReceiveData(_ data: Video?) {
+        if let newVideo = data{
+        
+           let id = videoRepository!.addVideo(videoToAdd: newVideo)
+                   print("THE VIDEO TO BE ADEED: \(id)")
+            print("THE VIDEO duration TO BE ADEED: \(newVideo.videoDuration)")
+            print("THE VIDEO description TO BE ADEED: \(newVideo.description)")
+            print("THE VIDEO dateTakenTO BE ADEED: \(newVideo.dateTaken)")
+            print("THE VIDEO videoUrl TO BE ADEED: \(newVideo.videoURL)")
+            print("THE VIDEO fileName TO BE ADEED: \(newVideo.fileName)")
+            //now reload the data now that there is a new video to load
+            self.tableView.reloadData()
+         }
+        else{
+            print(Error.self)
+        }
+              
+    }
+    
 
 }
 
@@ -484,5 +528,24 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         let urlPattern = "https://youtu.be/[a-z0-9]+"
         return self.matches(pattern: urlPattern)
     }
+        
+      
 }
+
+//Loads a remote image
+//used to upload the corresponding thumbnail to the uploaded Youtube video
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
+}
+
 

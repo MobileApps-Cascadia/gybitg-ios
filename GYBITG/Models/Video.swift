@@ -94,6 +94,10 @@ struct Duration: Codable, Equatable{
         self.durationFloat = CMTimeGetSeconds(duration)
     }
     
+    init(){
+        self.durationFloat = 0.0
+    }
+    
     func getDuration() -> CMTime? {
          // guard let durationFloat = self.durationFloat else {
            //   return nil
