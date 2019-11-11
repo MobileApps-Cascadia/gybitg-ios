@@ -15,18 +15,18 @@ class Video: Equatable,Codable {
     let videoID: String
     var description: String?
     let dateTaken: Date
-    var videoTitle: String?
+    var videoFileName: String
     let videoDuration: Duration//CMTime
     let videoURL: URL
     let userID: String
     var longerVideoURL: URL?
     var thumbnail: Image? //UIImage?
     
-    init(videoID: String, description: String? = nil, dateTaken: Date, videoTitle: String, videoDuration: Duration, videoURL: URL, userID: String, longerVideoURL: URL? = nil, thumbnail: Image?){
+    init(videoID: String, description: String? = nil, dateTaken: Date, videoFileName: String, videoDuration: Duration, videoURL: URL, userID: String, longerVideoURL: URL? = nil, thumbnail: Image?){
         self.videoID = videoID
         self.description = description
         self.dateTaken = dateTaken
-        self.videoTitle = videoTitle
+        self.videoFileName = videoFileName
         self.videoDuration = videoDuration
         self.videoURL = videoURL
         self.userID = userID
@@ -43,7 +43,7 @@ class Video: Equatable,Codable {
         return lhs.videoID == rhs.videoID &&
             lhs.description == rhs.description &&
             lhs.dateTaken == rhs.dateTaken &&
-            lhs.videoTitle == rhs.videoTitle &&
+            lhs.videoFileName == rhs.videoFileName &&
             lhs.videoDuration == rhs.videoDuration &&
             lhs.videoURL == rhs.videoURL &&
             lhs.userID == rhs.userID &&

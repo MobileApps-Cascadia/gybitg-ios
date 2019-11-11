@@ -301,6 +301,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         cell.Description.text = video.description
         cell.videoDuration.text = convertTimeIntervalToCMTime(video: video)
         cell.Date.text = convertDateMMMddyyyy(dateToConvert: video.dateTaken)
+        
          
         if video.thumbnail != nil{
             //Need to convert the thumbnail (that is a Image object to meet the requirements of the codable Video model) into a UIImage object.  the Image has a getter to do this. 1.Convert Image to UIImage 2.Replace video.thumbnail with covertImageToUIImage
@@ -312,6 +313,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
            // cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
         }
         print("Description from cell in GVC \(video.description)")
+    
         return cell
      }
     
@@ -483,7 +485,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             print("THE VIDEO description TO BE ADEED: \(newVideo.description)")
             print("THE VIDEO dateTakenTO BE ADEED: \(newVideo.dateTaken)")
             print("THE VIDEO videoUrl TO BE ADEED: \(newVideo.videoURL)")
-            print("THE VIDEO videoTitle TO BE ADEED: \(newVideo.videoTitle)")
+            print("THE VIDEO videoTitle TO BE ADEED: \(newVideo.videoFileName)")
             //now reload the data now that there is a new video to load
             self.tableView.reloadData()
          }
