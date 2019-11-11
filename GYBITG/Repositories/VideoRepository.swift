@@ -170,7 +170,7 @@ class VideoRepository: VideoRepositoryProtocol{
             
             var videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: "", thumbnail: nil)
             
-                  var videoDuration = Duration()
+                 var videoDuration = Duration()
                  var videoDescription = String()
                     
            print("RESPONS IS: \(response)")
@@ -182,8 +182,7 @@ class VideoRepository: VideoRepositoryProtocol{
                      
                 //the values in items are returned as an array so loop through the array
                     if let contentDetails = video["contentDetails"] {
-                         //prints out the value for every key
-                       print("HHHHH \(String(describing: contentDetails))")
+                      
                      //make the contentDetails a dictionary and loop through it to find the duration of the video
                         for (kind, details) in contentDetails as! NSDictionary{
                        
@@ -194,6 +193,7 @@ class VideoRepository: VideoRepositoryProtocol{
                            //Now grab the details that is the duration value
                             //convert the duration into a string and parse the string to get the minutes and seconds
                                     let durationStr = details as! String
+                                    
                                     var minutes = ""
                                     var ismin = true
                                     var seconds = ""
@@ -208,15 +208,14 @@ class VideoRepository: VideoRepositoryProtocol{
                                            seconds += String (s)
                                         }
                                     }
-                                    print(minutes)
-                                    print(seconds)
+                                
                         //convert the minutes into a timeinterval and add the secondes
                                     var timeInterval: TimeInterval = (Double(minutes)! * 60.0)
                                     if seconds != ""{
                                        timeInterval += (Double(seconds))!
                                     }
                                     //now convert the timeInterval into a CMTime
-                                    let durationCMTime = CMTime(seconds:(timeInterval), preferredTimescale: 1)
+                                    let durationCMTime = self.convertTimeIntervalToCMTime(minutes: minutes, seconds: seconds)
                                                 //Convert the videoDuration into a Duration for the video model
                                      videoDuration = Duration(withCMTime: durationCMTime)
                                       print("RESULT Conversion \(videoDuration)")
@@ -297,6 +296,18 @@ class VideoRepository: VideoRepositoryProtocol{
       
     }
     
+    //Purpose: to convert the minutes and seconds passed in into a cmtime
+    
+    func convertTimeIntervalToCMTime(minutes: String, seconds: String)->CMTime{
+        var timeInterval: TimeInterval = (Double(minutes)! * 60.0)
+        if seconds != ""{
+       timeInterval += (Double(seconds))!
+        }
+    //now convert the timeInterval into a CMTime
+        let durationCMTime = CMTime(seconds:(timeInterval), preferredTimescale: 1)
+                //Convert the videoDuration into a Duration for the video model
+        return durationCMTime
+    }
     
   /*  func getVideo(withId id: String?, response: AF){
 //This works
