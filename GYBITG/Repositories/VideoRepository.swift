@@ -191,35 +191,17 @@ class VideoRepository: VideoRepositoryProtocol{
                                 if kindStr == "duration"{
                                     print("Duration is: \(kindStr) and detail is \(details)")
                            //Now grab the details that is the duration value
-                            //convert the duration into a string and parse the string to get the minutes and seconds
+                            //convert the duration into a string
                                     let durationStr = details as! String
-                                    
-                                    var minutes = ""
-                                    var ismin = true
-                                    var seconds = ""
-                                    for s in durationStr{
-                                        if s.isNumber && ismin{
-                                           minutes += String (s)
-                                        }
-                                        if s == "M"{
-                                           ismin = false
-                                        }
-                                        if s.isNumber && !(ismin){
-                                           seconds += String (s)
-                                        }
-                                    }
+                                    // and parse the string to get the minutes and seconds
+                                    let timeInterval = self.convertMinutesSecondsToTimeInterval(durationStr: durationStr)
+                                       //now convert the timeInterval into a CMTime
+                                    let durationCMTime = CMTime(seconds:(timeInterval), preferredTimescale: 1)
                                 
-                        //convert the minutes into a timeinterval and add the secondes
-                                    var timeInterval: TimeInterval = (Double(minutes)! * 60.0)
-                                    if seconds != ""{
-                                       timeInterval += (Double(seconds))!
-                                    }
                                     //now convert the timeInterval into a CMTime
-                                    let durationCMTime = self.convertTimeIntervalToCMTime(minutes: minutes, seconds: seconds)
-                                                //Convert the videoDuration into a Duration for the video model
+                        //Convert the videoDuration into a Duration for the video model
                                      videoDuration = Duration(withCMTime: durationCMTime)
-                                      print("RESULT Conversion \(videoDuration)")
-                                    
+                                     // print("RESULT Conversion \(videoDuration)")
                                 }
                             }
                        }
@@ -258,18 +240,18 @@ class VideoRepository: VideoRepositoryProtocol{
                 //Now grab the snipDetails that is the Date the video was publish at value
                                 let publishedStr = snipDetails as! String
                                 
-                                 let dateFormatter = DateFormatter()
+                                let dateFormatter = DateFormatter()
                                 let vidDPublished  = dateFormatter.date(fromSwapiString: publishedStr)
-                                videoDatePublished = vidDPublished!
-                                        print(videoDatePublished)
+                               videoDatePublished = vidDPublished!
+                                
                                 let video = Video(videoID: id!, description: videoTest.description, dateTaken: videoDatePublished, videoFileName: videoTest.videoFileName, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL: nil, thumbnail: nil)
-                                print(" Video Descripton ois: \(video.description)")
+                               
                                 //Add this to fetch but put the Created new video in the param to send to the Vc
                                 if self.delegate != nil{
                                    self.delegate?.didReceiveData(video)
                                 }
                                }
-                          /*  if kindStr == "thumbnails"{
+                          /* if kindStr == "thumbnails"{
                                 print("Date video thumbnail at is: \(kindStr) and detail is \(snipDetails)")
                                          //Now grab the snipDetails that is the Date the video was publish at value
                                 let thumbnailStr = snipDetails as! String
@@ -296,18 +278,32 @@ class VideoRepository: VideoRepositoryProtocol{
       
     }
     
-    //Purpose: to convert the minutes and seconds passed in into a cmtime
-    
-    func convertTimeIntervalToCMTime(minutes: String, seconds: String)->CMTime{
+    //Purpose: to convert the minutes and seconds of the string passed in into minutes into a timeinterval and add the secondes
+    func convertMinutesSecondsToTimeInterval(durationStr: String)->TimeInterval{
+    //parse the string to get the minutes and seconds
+            var minutes = ""
+            var ismin = true
+            var seconds = ""
+            for s in durationStr{
+                if s.isNumber && ismin{
+                    minutes += String (s)
+                }
+                if s == "M"{
+                    ismin = false
+                }
+                if s.isNumber && !(ismin){
+                    seconds += String (s)
+                }
+            }
         var timeInterval: TimeInterval = (Double(minutes)! * 60.0)
         if seconds != ""{
-       timeInterval += (Double(seconds))!
+           timeInterval += (Double(seconds))!
         }
-    //now convert the timeInterval into a CMTime
-        let durationCMTime = CMTime(seconds:(timeInterval), preferredTimescale: 1)
-                //Convert the videoDuration into a Duration for the video model
-        return durationCMTime
+    
+        return timeInterval
     }
+    
+   
     
   /*  func getVideo(withId id: String?, response: AF){
 //This works
