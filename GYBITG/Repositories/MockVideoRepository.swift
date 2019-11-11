@@ -45,7 +45,7 @@ class MockVideoRepository: VideoRepositoryProtocol{
                 
             
         let  duration = Duration(withCMTime: asset.duration)
-        let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, fileName: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil)
+        let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, videoTitle: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil)
         
         return video
     }

@@ -311,7 +311,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         //cell.thumbnail.setImage(video.thumbnail, for: .normal)
            // cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
         }
-    
+        print("Description from cell in GVC \(video.description)")
         return cell
      }
     
@@ -483,7 +483,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             print("THE VIDEO description TO BE ADEED: \(newVideo.description)")
             print("THE VIDEO dateTakenTO BE ADEED: \(newVideo.dateTaken)")
             print("THE VIDEO videoUrl TO BE ADEED: \(newVideo.videoURL)")
-            print("THE VIDEO fileName TO BE ADEED: \(newVideo.fileName)")
+            print("THE VIDEO videoTitle TO BE ADEED: \(newVideo.videoTitle)")
             //now reload the data now that there is a new video to load
             self.tableView.reloadData()
          }

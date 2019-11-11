@@ -75,7 +75,7 @@ class VideoRepository: VideoRepositoryProtocol{
        //Duration duration = duration(asset.duration)
      
         let  duration = Duration(withCMTime: asset.duration)
-        let video = Video(videoID: "\(date)", dateTaken: date, fileName: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil)
+        let video = Video(videoID: "\(date)", dateTaken: date, videoTitle: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil)
         return video
     }
     
@@ -161,11 +161,13 @@ class VideoRepository: VideoRepositoryProtocol{
    
         var videoId: String
         let videoURL = URL(fileURLWithPath: videoUrl!)
+    
          if videoUrl != nil{
             if id != nil{
             videoId = id!
         AF.request("https://www.googleapis.com/youtube/v3/videos", method: .get, parameters: ["part":"snippet,contentDetails,statistics","id": videoId,"key": self.apiKey], encoding: URLEncoding.default, headers: nil).responseJSON{(response)->Void in
-          
+            
+          var videoTest = Video(videoID: videoId, dateTaken: Date(), videoTitle: "", videoDuration: Duration(), videoURL: videoURL, userID: "", thumbnail: nil)
             //var videoDescription:
                   var videoDuration = Duration()
                   var videoTitle = "TEST"
@@ -180,9 +182,8 @@ class VideoRepository: VideoRepositoryProtocol{
                      
                 //the values in items are returned as an array so loop through the array
                     if let contentDetails = video["contentDetails"] {
+                         //prints out the value for every key
                        print("HHHHH \(String(describing: contentDetails))")
-                        //prints out the value for every key
-                      //need to look for duration
                      //make the contentDetails a dictionary and loop through it to find the duration of the video
                         for (kind, details) in contentDetails as! NSDictionary{
                         // print("kind: \(kind) Detail: \(details)")
@@ -219,6 +220,7 @@ class VideoRepository: VideoRepositoryProtocol{
                                                 //Convert the videoDuration into a Duration for the video model
                                      videoDuration = Duration(withCMTime: durationCMTime)
                                       print("RESULT Conversion \(videoDuration)")
+                                    
                                 }
                             }
                        }
@@ -234,7 +236,8 @@ class VideoRepository: VideoRepositoryProtocol{
                              
                                 let descriptionStr = snipDetails as! String
                                 videoDescription += descriptionStr
-                              
+                               // videoTest.description = videoDescription
+                                self.updateVideo(videoToUpdateID: id!, description: videoDescription, longerVideoURL: nil, thumbnail: nil)
                               }
                               if kindStr == "localized"{
                                 for (kind, localDetails) in snipDetails as! NSDictionary{
@@ -248,7 +251,7 @@ class VideoRepository: VideoRepositoryProtocol{
                                         else{
                                             videoTitle = ""
                                         }
-                                                
+                                        videoTest.videoTitle = videoTitle
                                     }
                                  }
                               }
@@ -261,18 +264,22 @@ class VideoRepository: VideoRepositoryProtocol{
                                 let vidDPublished  = dateFormatter.date(fromSwapiString: publishedStr)
                                 videoDatePublished = vidDPublished!
                                         print(videoDatePublished)
-                                
-                                let video = Video(videoID: id!, description: videoDescription, dateTaken: videoDatePublished, fileName: videoTitle, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL: nil, thumbnail: nil)
+                                let video = Video(videoID: id!, description: videoTest.description, dateTaken: videoDatePublished, videoTitle: videoTest.videoTitle!, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL: nil, thumbnail: nil)
                                 print(" Video Descripton ois: \(video.description)")
-                                //Add this to fetch but put the Created new video in the param to send to the VC
-                                
+                                //Add this to fetch but put the Created new video in the param to send to the Vc
                                 if self.delegate != nil{
                                    self.delegate?.didReceiveData(video)
                                 }
                                }
-                        
-                          
-                            }
+                          /*  if kindStr == "thumbnails"{
+                                print("Date video thumbnail at is: \(kindStr) and detail is \(snipDetails)")
+                                         //Now grab the snipDetails that is the Date the video was publish at value
+                                let thumbnailStr = snipDetails as! String
+                                
+                                
+                            }*/
+                            
+                          }
                             
                         }
                        
