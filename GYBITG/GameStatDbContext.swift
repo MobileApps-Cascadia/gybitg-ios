@@ -72,6 +72,7 @@ public class GameStatDbContext {
                 let userId = (stat.value(forKeyPath: "userId") as! String)
                 let gameDate = (stat.value(forKeyPath: "gameDate") as! Date)
                 let isDraft = (stat.value(forKeyPath: "isDraft") as! Bool)
+                
                 let points = (stat.value(forKeyPath: "points") as? Int) ?? 0
                 let rebounds = (stat.value(forKeyPath: "rebounds") as? Int) ?? 0
                 let assists = (stat.value(forKeyPath: "assists") as? Int) ?? 0

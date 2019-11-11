@@ -11,7 +11,7 @@ class NotificationsViewController: UIViewController {
     
     @IBOutlet weak var statDraftsTableView: UITableView!
     var gameRepo: GameStatProtocol?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,9 +54,10 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "GameStat", bundle: nil)
         let newGameStatViewController = storyboard.instantiateViewController(withIdentifier: "NewGameStatViewController") as! NewGameStatViewController
-        
         newGameStatViewController.mGameStat = gameRepo!.allGameStatDrafts[indexPath.row]
-        self.present(newGameStatViewController, animated: true, completion: nil)
+        
+        let navVC = UINavigationController(rootViewController: newGameStatViewController)
+        self.present(navVC, animated: true, completion: nil)
     }
 }
 

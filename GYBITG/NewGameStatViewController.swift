@@ -36,11 +36,14 @@ class NewGameStatViewController: UIViewController {
     
     // Used to keep track of whether the GameStat is a draft or not
     // Initial Value: true - every GameStat begins as a draft. Once the user saves the GameStat then isDraft = false.
-    var isDraft: Bool = true
+    var isDraft: Bool = false
     
     // Purpose: track whether the user wants to save the gamestat as a draft or not
     // initial value of 'false'
     var saveAsDraft: Bool = false
+    
+    var window: UIWindow?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
