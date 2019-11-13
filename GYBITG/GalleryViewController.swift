@@ -312,7 +312,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         //cell.thumbnail.setImage(video.thumbnail, for: .normal)
            // cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
         }
-        print("Description from cell in GVC \(video.description)")
+       // print("Description from cell in GVC \(video.t)")
     
         return cell
      }
@@ -388,26 +388,19 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             if let textField = alert?.textFields?[0]{
                     
                     if(textField.text!.isValidURL()){
-                    
                         //Will then call the get video
-                        
-                      var id = self.getVideoIdFromUrl(urlString: textField.text!)
-                   
-                        
-                        let isValid = textField.text!.isValidURL()
+                       let id = self.getVideoIdFromUrl(urlString: textField.text!)
+           
+                       let isValid = textField.text!.isValidURL()
                          print("Text field: \(isValid) \(textField.text ?? "NO TEXTFIELD")")
                              //put id and url from textfield into fetch
-                   let videoId = self.videoRepository!.fetch(withId: id, videoUrl: textField.text!)
+                       let videoId = self.videoRepository!.fetch(withId: id, videoUrl: textField.text!)
                         //add and save the video
-                      
                         print("printing this from addaction: \(videoId)")
-                       // var testvideo =  self.videoRepository?.getVideo(videoID: id!)
-                            
-                       // print("DateTaken IIIS: String(describing: estvideo?.dateTaken)) \(testvideo)")
                     }
-                else {//if the user did not enter a url display an alert and call the function again
-                   let emptyFieldAlert = UIAlertController(title: "Empty or invalid URL", message: "You Did not enter a valid Url", preferredStyle: .alert)
-                     emptyFieldAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    else {//if the user did not enter a url display an alert and call the function again
+                        let emptyFieldAlert = UIAlertController(title: "Empty or invalid URL", message: "You Did not enter a valid Url", preferredStyle: .alert)
+                        emptyFieldAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                print("NOTHING ENTERED" )
                                self.alertTextBoxForYouTubeUrl()
                     }))
@@ -480,12 +473,12 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         if let newVideo = data{
         
            let id = videoRepository!.addVideo(videoToAdd: newVideo)
-                   print("THE VIDEO TO BE ADEED: \(id)")
+            print("THE VIDEO TO BE ADEED: \(id)")
             print("THE VIDEO duration TO BE ADEED: \(newVideo.videoDuration)")
-            print("THE VIDEO description TO BE ADEED: \(newVideo.description)")
+            print("THE VIDEO description TO BE ADEED: \(String(describing: newVideo.description))")
             print("THE VIDEO dateTakenTO BE ADEED: \(newVideo.dateTaken)")
             print("THE VIDEO videoUrl TO BE ADEED: \(newVideo.videoURL)")
-            print("THE VIDEO videoTitle TO BE ADEED: \(newVideo.videoFileName)")
+            print("THE VIDEO videoFileName TO BE ADEED: \(newVideo.videoFileName)")
             //now reload the data now that there is a new video to load
             self.tableView.reloadData()
          }
