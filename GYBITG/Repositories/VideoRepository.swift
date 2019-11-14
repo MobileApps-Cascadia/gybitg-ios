@@ -230,18 +230,20 @@ class VideoRepository: VideoRepositoryProtocol{
                                              print("video thumbnails at is: \(kind) and detail is \(snipDetails)")
                                     //get the url from the string
                                             let videoUrlString = snipDetails as! String
-                                            let thumbUrl = URL(fileURLWithPath: videoUrlString)
-                                            print("the videoUrlString is \(snipDetails)")
+                                            let thumbUrl = URL(string: videoUrlString)
+                                            print("the videoThumbnailUrlString is \(snipDetails)")
                                                
                                         do{
-                                             let data = try? Data(contentsOf: thumbUrl)
-                                             if data != nil{
-                                           // let data = try Data?(contentsOf: thumbUrl)
-                                           // var thumbUIImage = UIImage(data: data)
-
-                                           //self.updateVideo(videoToUpdateID: id!, description: videoTest.description, longerVideoURL: nil, thumbnail: thumbUIImage)
-                                            
-                                                 hasThumbnail = true
+                                            if let thumbnailUrl = thumbUrl, let data = try? Data(contentsOf: thumbnailUrl){
+                                                
+                                                print("data is: \(String(describing: data))")
+                                          
+                                                if let thumbUIImage = UIImage(data: data){
+                                                 var   uIImageToConvert = Image(withImage: thumbUIImage)
+                                                    videoTest.thumbnail = uIImageToConvert
+                                               // self.updateVideo(videoToUpdateID: id!, description: videoTest.description, longerVideoURL: videoTest.longerVideoURL, thumbnail: uIImageToConvert)
+                                                    hasThumbnail = true
+                                                }
                                               }
                                               else{
                                                 let uIImageToConvert = Image(withImage:  UIImage(named: "ball-basketball-basketball-court-1752757(1)")!)
@@ -300,6 +302,8 @@ class VideoRepository: VideoRepositoryProtocol{
         }
   
     }
+
+
 /*extension DateFormatter {
   func date(fromSwapiString dateString: String) -> Date? {
     // SWAPI dates look like: "2014-12-10T16:44:31.486000Z"
