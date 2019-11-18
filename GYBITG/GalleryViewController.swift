@@ -35,12 +35,10 @@ protocol VideoRepositoryProtocol: Repo{
     //Now in fetch get the video requested and send it in the didRecieveData fx
     var delegate: VideoRepoDelegate? { get set }
    func fetch(withId id:String?, videoUrl: String?) -> String
-  //   func fetch (withId id: String?, videoUrl: String?, completion: @escaping (Video?) -> Void)
-    //func fetch(withId id: String?, withCompletion completion: @escaping (Video?) -> Void)
     
 }
 
-class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, VideoRepoDelegate{
+class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, VideoRepoDelegate, YTPlayerViewDelegate{
     
     var videoRepository: VideoRepositoryProtocol?
     
@@ -64,7 +62,8 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         //Make this VC the videoRepository's delegate
         //Now make and extension and conform to the videoRepos delgate
         videoRepository?.delegate = self
-        //videoRepository!.delegate = self as? VideoRepoDelegate
+     
+
     }
     
     //Purpose: To show the user an actionsheet with options to choose from
@@ -160,9 +159,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             //calls the videoSaved fx
             if( picker.sourceType != UIImagePickerController.SourceType.photoLibrary){
                 
-            
             let selectorToCall = #selector(self.videoSaved(_:didFinishSavingWithError:context:))
-            
             
             UISaveVideoAtPathToSavedPhotosAlbum(selectedVideo.relativePath, self, selectorToCall, nil)
                 
@@ -267,7 +264,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         do {
             let asset = AVURLAsset(url: videoURL, options: nil)
-            print("THis is the duration of the video: \(asset.duration)")
             let imgGenerator = AVAssetImageGenerator(asset: asset)
             imgGenerator.appliesPreferredTrackTransform = true
             let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
@@ -312,7 +308,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         //cell.thumbnail.setImage(video.thumbnail, for: .normal)
            // cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
         }
-       // print("Description from cell in GVC \(video.t)")
     
         return cell
      }
@@ -364,6 +359,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Precondition: a videoURL is passed
     //PostCondition: The AVPlayer will open and begin playing the video selected
     @objc func playThumbnailVideo(videoURL: URL!){
+      
         avvc.player = AVPlayer(url: videoURL)
         self.present(avvc, animated: true){
             self.avvc.player?.play()
@@ -392,16 +388,14 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                        let id = self.getVideoIdFromUrl(urlString: textField.text!)
            
                        let isValid = textField.text!.isValidURL()
-                         print("Text field: \(isValid) \(textField.text ?? "NO TEXTFIELD")")
                              //put id and url from textfield into fetch
                        let videoId = self.videoRepository!.fetch(withId: id, videoUrl: textField.text!)
                         //add and save the video
-                        print("printing this from addaction: \(videoId)")
+                        
                     }
                     else {//if the user did not enter a url display an alert and call the function again
                         let emptyFieldAlert = UIAlertController(title: "Empty or invalid URL", message: "You Did not enter a valid Url", preferredStyle: .alert)
                         emptyFieldAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                               print("NOTHING ENTERED" )
                                self.alertTextBoxForYouTubeUrl()
                     }))
                     
@@ -437,7 +431,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         //Need to do more work to get the id
         //its differnt url  when coppied from Youtube https://youtu.be/RmHqOSrkZnk
         if let array = urlString?.components(separatedBy: ".be/"){
-             print(array[1])
+            // print(array[1])
             let id = array[1]
             return id
         }
@@ -475,7 +469,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
            let id = videoRepository!.addVideo(videoToAdd: newVideo)
             print("THE VIDEO TO BE ADEED: \(id)")
             print("THE VIDEO duration TO BE ADEED: \(newVideo.videoDuration)")
-            print("THE VIDEO description TO BE ADEED: \(String(describing: newVideo.description))")
             print("THE VIDEO dateTakenTO BE ADEED: \(newVideo.dateTaken)")
             print("THE VIDEO videoUrl TO BE ADEED: \(newVideo.videoURL)")
             print("THE VIDEO videoFileName TO BE ADEED: \(newVideo.videoFileName)")

@@ -137,41 +137,29 @@ class VideoRepository: VideoRepositoryProtocol{
     //precondions: @param id
     //postconditions:
    func fetch(withId id: String?, videoUrl: String?) -> String {
-       
-         var hasThumbnail = false
-    
-        var videoId: String
-        let videoURL = URL(fileURLWithPath: videoUrl!)
-    
-         if videoUrl != nil{
-            if id != nil{
-               videoId = id!
+       var hasThumbnail = false
+     
+       if let videoUrlStr = videoUrl, let vidId = id{
+            let videoURL = URL(fileURLWithPath: videoUrlStr)
+              let videoId = vidId
+        
                 AF.request(self.path, method: .get, parameters: ["part":"snippet,contentDetails","id": videoId,"key": self.apiKey], encoding: URLEncoding.default, headers: nil).responseJSON{(response)->Void in
-            
-            var videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: "", thumbnail: nil)
-            
+                var videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: "", thumbnail: nil)
                  var videoDuration = Duration()
                  var videoDescription = String()
-
-            
           // print("RESPONS IS: \(response)")
                     print("THE RESULTING VALUES ARE : \(String(describing: response.value))")
             if let JSON = response.value as? [String:Any]{
                if let videos = JSON["items"] as? [[String:Any]] {
                   for video in videos{
-                   
                     var videoDatePublished: Date
-                     
                 //the values in items are returned as an array so loop through the array
                     if let contentDetails = video["contentDetails"] {
-                      
                      //make the contentDetails a dictionary and loop through it to find the duration of the video
                         for (kind, details) in contentDetails as! NSDictionary{
-                       
                             let kindStr = kind as! String
                             //if the key is duration, go
                                 if kindStr == "duration"{
-                                  //  print("Duration is: \(kindStr) and detail is \(details)")
                            //Now grab the details that is the duration value
                             //convert the duration into a string
                                     let durationStr = details as! String
@@ -179,7 +167,6 @@ class VideoRepository: VideoRepositoryProtocol{
                                     let timeInterval = self.convertMinutesSecondsToTimeInterval(durationStr: durationStr)
                                        //now convert the timeInterval into a CMTime
                                     let durationCMTime = CMTime(seconds:(timeInterval), preferredTimescale: 1)
-                                
                                     //now convert the timeInterval into a CMTime
                         //Convert the videoDuration into a Duration for the video model
                                      videoDuration = Duration(withCMTime: durationCMTime)
@@ -187,61 +174,44 @@ class VideoRepository: VideoRepositoryProtocol{
                             }
                        }
                         if let snip = video["snippet"]{
-                          
                            for (kind, snipDetails) in snip as! NSDictionary{
-                        
                               let kindStr = kind as! String
                               if kindStr == "description"{
-                                 print("Description is: \(kindStr) and detail is \(snipDetails)")
                         //Now grab the snipDetails that is the description value
-                             
                                 let descriptionStr = snipDetails as! String
                                 videoDescription += descriptionStr
                                 _ =  self.updateVideo(videoToUpdateID: id!, description: videoDescription, longerVideoURL: videoTest.longerVideoURL, thumbnail: nil)
                               }
                 //if you need the video Title put code here//   if kindStr == "localized"{
-                            
                               if kindStr == "publishedAt"{
-                               //  print("Date video published at is: \(kindStr) and detail is \(snipDetails)")
                 //Now grab the snipDetails that is the Date the video was publish at value
                                  let publishedStr = snipDetails as! String
-                                
                                  let dateFormatter = DateFormatter()
                                  let vidDPublished  = dateFormatter.date(fromSwapiString: publishedStr)
-                                
                                  videoDatePublished = vidDPublished!
                                 
                                 let video = Video(videoID: id!, description: videoTest.description, dateTaken: videoDatePublished, videoFileName: videoTest.videoFileName, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL:videoTest.longerVideoURL, thumbnail: videoTest.thumbnail)
                                  
                                 //Add this to fetch but put the Created new video in the param to send to the Vc
-                                if self.delegate != nil {
-                                  self.delegate?.didReceiveData(video)
+                                if let delegate = self.delegate{
+                                   delegate.didReceiveData(video)
                                 }
                                }
                          if kindStr == "thumbnails"{
-                            print("video thumbnails at is: \(kindStr) and detail is \(snipDetails)")
                             for (kind, snipDetail) in snipDetails as! NSDictionary{
                                 let thumbStr = kind as! String
                                 if thumbStr == "default"{
                                    for (kind, snipDetails) in snipDetail as! NSDictionary{
-                                     print("video default at is: \(kind) and url detail is \(snipDetails)")
                                         let defaultStr = kind as! String
                                         if defaultStr == "url"{
-                                             print("video thumbnails at is: \(kind) and detail is \(snipDetails)")
                                     //get the url from the string
                                             let videoUrlString = snipDetails as! String
                                             let thumbUrl = URL(string: videoUrlString)
-                                            print("the videoThumbnailUrlString is \(snipDetails)")
-                                               
                                         do{
                                             if let thumbnailUrl = thumbUrl, let data = try? Data(contentsOf: thumbnailUrl){
-                                                
-                                                print("data is: \(String(describing: data))")
-                                          
                                                 if let thumbUIImage = UIImage(data: data){
                                                  var   uIImageToConvert = Image(withImage: thumbUIImage)
                                                     videoTest.thumbnail = uIImageToConvert
-                                               // self.updateVideo(videoToUpdateID: id!, description: videoTest.description, longerVideoURL: videoTest.longerVideoURL, thumbnail: uIImageToConvert)
                                                     hasThumbnail = true
                                                 }
                                               }
@@ -268,8 +238,6 @@ class VideoRepository: VideoRepositoryProtocol{
            }
                     
         }
-            
-      }
             
     }
     return id ?? "no id valid"
