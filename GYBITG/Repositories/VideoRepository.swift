@@ -1,4 +1,6 @@
 // This class will conform to the VideoRepositoryProtocol and implement the methods. It will have an array of videos. WIll get the all of the videos in the array of videos. Will create a Video object from the URL of the parameter. Will return the video with the videoID passed in. Will insert the video passed in to the array. Will update the video with the videoID with the description, longerVideoURL or image passed in. Will delete the video passed in. Will delete all of the videos in the videos array.
+//Will have a fetch method to send a request using Alamofire, with an id to get the youtube video through the api and the youTube video will be uploaded and saved to the repo, with the videoId, thumbnail, date published, duration and the title will be used for the description in the tableView
+
 //  VideoRepository.swift
 //  GYBITG
 //
@@ -46,7 +48,7 @@ class VideoRepository: VideoRepositoryProtocol{
         let asset = AVURLAsset(url: videoURL, options: nil)
         let date: Date =  asset.creationDate?.dateValue ?? Date()
         
-        //Since I have changed the Video model to use something that is codeable, have to put the right object in so need to convert asset.duration into a Duration object that the Video model uses. Replace videoDuration:assest.duration that returns a CMTime object with
+        //Since I have changed the Video model to use something that is codeable, have to put the right object in so need to convert asset.duration into a Duration object that the Video model uses. Replaced videoDuration:assest.duration that returns a CMTime object with
      
         let  duration = Duration(withCMTime: asset.duration)
         let video = Video(videoID: "\(date)", dateTaken: date, videoFileName: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil)
@@ -122,10 +124,9 @@ class VideoRepository: VideoRepositoryProtocol{
     
         
     //Use Alamofire to get the videos asynchonously
-    //need to get the Title, description, thumbnail, date published, duration, id, 
-    //purpose: to send a request with an id to get the youtube video through the api
+    //purpose: to send a request using Alamofire, with an id to get the youtube video through the api
     //precondions: @param id @param videoUrl
-    //postconditions:
+    //postconditions: The youTube video will be uploaded and saved to the repo, with the videoId, thumbnail, date published, duration and the title will be used for the description in the tableView
    func fetch(withId id: String?, videoUrl: String?) -> String {
      
        if let videoUrlStr = videoUrl, let vidId = id{
@@ -165,14 +166,8 @@ class VideoRepository: VideoRepositoryProtocol{
                        }
                         if let snip = video["snippet"]{
                            for (kind, snipDetails) in snip as! NSDictionary{
-                              let kindStr = kind as! String
-                             /* if kindStr == "description"{
-                        //Now grab the snipDetails that is the description value
-                                let descriptionStr = snipDetails as! String
-                                videoDescription += descriptionStr
-                                _ =  self.updateVideo(videoToUpdateID: id!, description: videoDescription, longerVideoURL: videoTest.longerVideoURL, thumbnail: nil)
-                              }*/
-                    //The video Title is going to be used as the description for the video
+                            let kindStr = kind as! String
+                    
                             if kindStr == "localized"{
                                for (kind, localDetails) in snipDetails as! NSDictionary{
                                 let kindStr = kind as! String
@@ -258,18 +253,6 @@ class VideoRepository: VideoRepositoryProtocol{
         return timeInterval
         }
   
-    func compareResponseString(videoArray:[String:Any], videoDetail: String?, youTubeResponse: String? ) -> String?{
-       if let snip = videoArray[videoDetail!]{
-         for (kind, snipDetails) in snip as! NSDictionary{
-             let kindStr = kind as! String
-             //if kindStr == youTubeResponse{
-                 
-             //}
-            return kindStr
-         }
-       }
-        return nil
-    }
     
 }
 
