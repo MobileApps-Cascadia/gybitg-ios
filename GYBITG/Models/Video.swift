@@ -51,6 +51,11 @@ class Video: Equatable,Codable {
            lhs.thumbnail == rhs.thumbnail
     }
     
+  /*  static func createVideo() -> Video {
+        
+         //var videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: "", thumbnail: nil)
+          return Video(videoID: "", description: "", dateTaken: <#T##Date#>, videoFileName: <#T##String#>, videoDuration: <#T##Duration#>, videoURL: <#T##URL#>, userID: <#T##String#>, longerVideoURL: <#T##URL?#>, thumbnail: <#T##Image?#>)
+      }*/
 }
 //Purpose: To make the UIImage codable because UIImage is not Codeable
 //1. Create an imageData property of type Data. Have to do this because can only use a codable type for the property.

@@ -328,17 +328,16 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                        //var  duration = Duration(withCMTime: asset.duration)
         if let duration = video.videoDuration.getDuration(){
         
-        //let convertToTimeInterval: TimeInterval = video.videoDuration.seconds
             let convertToTimeInterval: TimeInterval = duration.seconds
-        let minutes: Int = Int(convertToTimeInterval/60)
-        let seconds: Int = Int(convertToTimeInterval.truncatingRemainder(dividingBy: 60))
+            let minutes: Int = Int(convertToTimeInterval/60)
+            let seconds: Int = Int(convertToTimeInterval.truncatingRemainder(dividingBy: 60))
         
-        if(seconds < 10){
+           if(seconds < 10){
             formatTime =  "\(minutes):0\(seconds)"
-        } else{
+           } else{
             formatTime = "\(minutes):\(seconds)"
-        }
-        return formatTime
+           }
+           return formatTime
         }
         else{return "0:0"}
     }
@@ -412,15 +411,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         // 5. Present the alert.
         self.present(alert, animated: true, completion: nil)
         
-       /* let alert = UIAlertController(title: "Enter URL", message: "Add a video from YouTube", preferredStyle: .alert)
-
-        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] action in
-
-          guard let textField = alert.textFields?.first,
-            let nameToSave = textField.text else {
-              return
-          }
-      }*/
     }
     
     
@@ -431,7 +421,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         //Need to do more work to get the id
         //its differnt url  when coppied from Youtube https://youtu.be/RmHqOSrkZnk
         if let array = urlString?.components(separatedBy: ".be/"){
-            // print(array[1])
             let id = array[1]
             return id
         }
