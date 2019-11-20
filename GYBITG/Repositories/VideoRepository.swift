@@ -1,5 +1,5 @@
 // This class will conform to the VideoRepositoryProtocol and implement the methods. It will have an array of videos. WIll get the all of the videos in the array of videos. Will create a Video object from the URL of the parameter. Will return the video with the videoID passed in. Will insert the video passed in to the array. Will update the video with the videoID with the description, longerVideoURL or image passed in. Will delete the video passed in. Will delete all of the videos in the videos array.
-//Will have a fetch method to send a request using Alamofire, with an id to get the youtube video through the api and the youTube video will be uploaded and saved to the repo, with the videoId, thumbnail, date published, duration and the title will be used for the description in the tableView
+//Will have a fetch method to send a request using Alamofire, with an id to get the youtube video through the api and the youTube video will be uploaded and saved to the repo, with the videoId, thumbnail, date published, duration and the title will be used for the description in the tableView. Will have a method to convert the minutes and seconds of the string passed in into minutes into a timeinterval and add the seconds.
 
 //  VideoRepository.swift
 //  GYBITG
@@ -17,13 +17,14 @@ import Alamofire
 
 //Delegate to send the requested video to the GalleryVC
 protocol VideoRepoDelegate: class {
-   func didReceiveData(_ data: Video?)
+    func didReceiveData(_ data: Video?)
 }
 
 class VideoRepository: VideoRepositoryProtocol{
+    
      weak var delegate: VideoRepoDelegate?
     
-    //NEED a key for the youtube api
+    //Key for the youtube api
     let apiKey = "AIzaSyAYJAckWf6wC0YF23QobOIXnNXNL3ZvwOU"
     //the YOUTUBE api endpoint
     var path: String = "https://www.googleapis.com/youtube/v3/videos"
@@ -124,21 +125,20 @@ class VideoRepository: VideoRepositoryProtocol{
     
         
     //Use Alamofire to get the videos asynchonously
-    //purpose: to send a request using Alamofire, with an id to get the youtube video through the api
+    //purpose: to send a request using Alamofire, with an id to get the youtube video through the api and return the videoId
     //precondions: @param id @param videoUrl
     //postconditions: The youTube video will be uploaded and saved to the repo, with the videoId, thumbnail, date published, duration and the title will be used for the description in the tableView
-   func fetch(withId id: String?, videoUrl: String?) -> String {
+    func fetch(withId id: String?, videoUrl: String?, userID: String?) -> String {
      
-       if let videoUrlStr = videoUrl, let vidId = id{
+       if let videoUrlStr = videoUrl, let vidId = id, let userId = userID{
             let videoURL = URL(fileURLWithPath: videoUrlStr)
               let videoId = vidId
         
                 AF.request(self.path, method: .get, parameters: ["part":"snippet,contentDetails","id": videoId,"key": self.apiKey], encoding: URLEncoding.default, headers: nil).responseJSON{(response)->Void in
                     
-                  var videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: "", thumbnail: nil)
+                    let videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: userId, thumbnail: nil)
                     
                   var videoDuration = Duration()
-                    //var videoDescription = String()
                   var videoTitle = String()
           // print("RESPONS IS: \(response)")
                     print("THE RESULTING VALUES ARE : \(String(describing: response.value))")
@@ -158,7 +158,6 @@ class VideoRepository: VideoRepositoryProtocol{
                                     let timeInterval = self.convertMinutesSecondsToTimeInterval(durationStr: durationStr)
                                        //now convert the timeInterval into a CMTime
                                     let durationCMTime = CMTime(seconds:(timeInterval), preferredTimescale: 1)
-                                    //now convert the timeInterval into a CMTime
                         //Convert the videoDuration into a Duration for the video model
                                      videoDuration = Duration(withCMTime: durationCMTime)
                                 }
@@ -178,7 +177,6 @@ class VideoRepository: VideoRepositoryProtocol{
                                 }
                             }
                             if kindStr == "publishedAt"{
-                //Now grab the snipDetails that is the Date the video was publish at value
                                  let publishedStr = snipDetails as! String
                                  let dateFormatter = DateFormatter()
                                  let vidDPublished  = dateFormatter.date(fromSwapiString: publishedStr)
@@ -187,7 +185,7 @@ class VideoRepository: VideoRepositoryProtocol{
                                 let video = Video(videoID: id!, description: videoTest.description, dateTaken: videoDatePublished, videoFileName: videoTest.videoFileName, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL:videoTest.longerVideoURL, thumbnail: videoTest.thumbnail)
                                  
                                 if let delegate = self.delegate{
-                                   delegate.didReceiveData(video)
+                                    delegate.didReceiveData(video)
                                 }
                                }
                          if kindStr == "thumbnails"{
@@ -197,7 +195,7 @@ class VideoRepository: VideoRepositoryProtocol{
                                    for (kind, snipDetails) in snipDetail as! NSDictionary{
                                         let defaultStr = kind as! String
                                         if defaultStr == "url"{
-                                    //get the url from the string
+                                  
                                             let videoUrlString = snipDetails as! String
                                             let thumbUrl = URL(string: videoUrlString)
                                         do{
@@ -207,7 +205,7 @@ class VideoRepository: VideoRepositoryProtocol{
                                                     videoTest.thumbnail = uIImageToConvert
                                                 }
                                               }
-                                              else{
+                                              else{//default image
                                                 let uIImageToConvert = Image(withImage:  UIImage(named: "ball-basketball-basketball-court-1752757(1)")!)
                                                 videoTest.thumbnail = uIImageToConvert
                                               }

@@ -14,9 +14,7 @@ import Alamofire
 
 class MockVideoRepository: VideoRepositoryProtocol{
     var delegate: VideoRepoDelegate?
-    
-   
-    
+ 
     //TODO will be the YOUTUBE api endpoint
     var path: String = ""
       let apiKey = "AIzaSyAbwfyC36pq1WoaGOkdx7m8cLMh8kMQRGE"
@@ -124,135 +122,134 @@ class MockVideoRepository: VideoRepositoryProtocol{
         videos.removeAll()
     }
     
-    
-  /*  func fetch(withId id: String?, withCompletion completion: @escaping (Video?) -> Void) {
-       /*     let URLstring = path + "\(id)"
-            if let url = URL.init(string: URLstring){
-                let task = URLSession.shared.dataTask(with: url, completionHandler:
-                {(data, response, error) in
-                    if let user = try? JSONDecoder().decode(Video.self, from: data!){
-                        completion (user)
-                    }
-                })
-                task.resume()
-            }*/
-        }*/
-  
-    
     //Use Alamofire to get the videos asynchonously
-       //need to get the Title, description, thumbnail, date published, duration, id,
-       //purpose: to send a request with an id to get the youtube video through the api
-       //precondions: @param id
-       //postconditions:
-       func fetch(withId id: String?, videoUrl: String?) -> String {
+       //purpose: to send a request using Alamofire, with an id to get the youtube video through the api and return the videoId
+       //precondions: @param id @param videoUrl
+       //postconditions: The youTube video will be uploaded and saved to the repo, with the videoId, thumbnail, date published, duration and the title will be used for the description in the tableView
+       func fetch(withId id: String?, videoUrl: String?, userID: String?) -> String {
+        
+          if let videoUrlStr = videoUrl, let vidId = id, let userId = userID{
+               let videoURL = URL(fileURLWithPath: videoUrlStr)
+                 let videoId = vidId
            
-            //var YouTubeVideo:Video
-           var videoTitle = ""
-           var videoDescription = ""
-           var videoDatePublished = Date()
-           var videoId: String
-           var videoDuration = Duration()
-           var videoThumbnail:Image
-           var videoURL = URL(fileURLWithPath: videoUrl!)
-            if let vidURL = videoUrl{
-              if let vidId = id{
-          
-              
-                
-                
-                               
-           AF.request("https://www.googleapis.com/youtube/v3/videos", method: .get, parameters: ["part":"snippet,contentDetails,statistics","id": "AKiiekaEHhI","key": self.apiKey], encoding: URLEncoding.default, headers: nil).responseJSON{(response)->Void in
-               
+                   AF.request(self.path, method: .get, parameters: ["part":"snippet,contentDetails","id": videoId,"key": self.apiKey], encoding: URLEncoding.default, headers: nil).responseJSON{(response)->Void in
                        
-               print("RESPONS IS: \(response)")
-               print("THE RESULTING VALUES ARE : \(response.value)")
-               if let JSON = response.value as? [String:Any]{
-                  if let videos = JSON["items"] as? [[String:Any]] {
+                    let videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: userId, thumbnail: nil)
+                       
+                     var videoDuration = Duration()
+                     var videoTitle = String()
+             // print("RESPONS IS: \(response)")
+                       print("THE RESULTING VALUES ARE : \(String(describing: response.value))")
+               if let JSON = response.value as? [String:Any], let videos = JSON["items"] as? [[String:Any]] {
                      for video in videos{
+                       var videoDatePublished: Date
                    //the values in items are returned as an array so loop through the array
                        if let contentDetails = video["contentDetails"] {
-                          print("HHHHH \(String(describing: contentDetails))")
-                           //prints out the value for every key
-                         //need to look for duration
                         //make the contentDetails a dictionary and loop through it to find the duration of the video
                            for (kind, details) in contentDetails as! NSDictionary{
-                           // print("kind: \(kind) Detail: \(details)")
                                let kindStr = kind as! String
-                               //if the key is duration, go
                                    if kindStr == "duration"{
-                                       print("Duration is: \(kindStr) and detail is \(details)")
                               //Now grab the details that is the duration value
-                               //convert the duration into a string and parse the string to get the minutes and seconds
+                               //convert the duration into a string
                                        let durationStr = details as! String
-                                       var minutes = ""
-                                       var ismin = true
-                                       var seconds = ""
-                                       for s in durationStr{
-                                           if s.isNumber && ismin{
-                                              minutes += String (s)
-                                           }
-                                           if s == "M"{
-                                              ismin = false
-                                           }
-                                           if s.isNumber && !(ismin){
-                                              seconds += String (s)
-                                           }
-                                       }
-                                       print(minutes)
-                                       print(seconds)
-                           //convert the minutes into a timeinterval and add the secondes
-                                       var timeInterval: TimeInterval = (Double(minutes)! * 60.0)
-                                       timeInterval += (Double(seconds))!
-                                       //now convert the timeInterval into a CMTime
+                                       // and parse the string to get the minutes and seconds
+                                       let timeInterval = self.convertMinutesSecondsToTimeInterval(durationStr: durationStr)
+                                          //now convert the timeInterval into a CMTime
                                        let durationCMTime = CMTime(seconds:(timeInterval), preferredTimescale: 1)
-                                                   //Convert the videoDuration into a Duration for the video model
+                           //Convert the videoDuration into a Duration for the video model
                                         videoDuration = Duration(withCMTime: durationCMTime)
-                                         print("RESULT Conversion \(videoDuration)")
                                    }
                                }
-                           }
-                           if let snippet = video["snippet"]{
-                              for (kind, snipDetails) in snippet as! NSDictionary{
-                           //print("kind: \(kind) Detail: \(snipDetails)")
-                                 let kindStr = kind as! String
-                                 if kindStr == "description"{
-                                    print("Description is: \(kindStr) and detail is \(snipDetails)")
-                           //Now grab the snipDetails that is the description value
-                                    videoDescription = snipDetails as! String
-                                 }
-                                 if kindStr == "localized"{
-                                   for (kind, localDetails) in snipDetails as! NSDictionary{
-                                       print("kind: \(kind) LocalDetails:  \(localDetails)")
-                                       let kindStr = localDetails as! String
-                                       if kindStr == "title"{
-                                          print("The TITLE IS: \(kindStr)")
-                                          videoTitle = localDetails as! String
-                                       }
-                                    }
-                                 }
-                                 if kindStr == "publishedAt"{
-                                    print("Date video published at is: \(kindStr) and detail is \(snipDetails)")
-                   //Now grab the snipDetails that is the Date the video was publish at value
-                                    let publishedStr = snipDetails as! String
-                                    print("THE Date published : \(publishedStr)")
-                                    let dateFormatter = DateFormatter()
-                                    if let  videoDatePublished = dateFormatter.date(fromSwapiString: publishedStr){
-                                                       print(videoDatePublished)
-                                    }
-                                  }
-                               }
-                           }
-                       }
-                   }
-              }
+                          }
+                           if let snip = video["snippet"]{
+                              for (kind, snipDetails) in snip as! NSDictionary{
+                               let kindStr = kind as! String
                        
-           }
+                               if kindStr == "localized"{
+                                  for (kind, localDetails) in snipDetails as! NSDictionary{
+                                   let kindStr = kind as! String
+                                      if kindStr == "title"{
+                                          videoTitle = localDetails as! String
+                                    _ =   self.updateVideo(videoToUpdateID: id!, description: videoTitle, longerVideoURL: videoTest.longerVideoURL, thumbnail: nil)
+                                      }
+                                   }
+                               }
+                               if kindStr == "publishedAt"{
+                                    let publishedStr = snipDetails as! String
+                                    let dateFormatter = DateFormatter()
+                                    let vidDPublished  = dateFormatter.date(fromSwapiString: publishedStr)
+                                    videoDatePublished = vidDPublished!
+                                   
+                                   let video = Video(videoID: id!, description: videoTest.description, dateTaken: videoDatePublished, videoFileName: videoTest.videoFileName, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL:videoTest.longerVideoURL, thumbnail: videoTest.thumbnail)
+                                    
+                                   if let delegate = self.delegate{
+                                       delegate.didReceiveData(video)
+                                   }
+                                  }
+                            if kindStr == "thumbnails"{
+                               for (kind, snipDetail) in snipDetails as! NSDictionary{
+                                   let thumbStr = kind as! String
+                                   if thumbStr == "default"{
+                                      for (kind, snipDetails) in snipDetail as! NSDictionary{
+                                           let defaultStr = kind as! String
+                                           if defaultStr == "url"{
+                                     
+                                               let videoUrlString = snipDetails as! String
+                                               let thumbUrl = URL(string: videoUrlString)
+                                           do{
+                                               if let thumbnailUrl = thumbUrl, let data = try? Data(contentsOf: thumbnailUrl){
+                                                   if let thumbUIImage = UIImage(data: data){
+                                                       let   uIImageToConvert = Image(withImage: thumbUIImage)
+                                                       videoTest.thumbnail = uIImageToConvert
+                                                   }
+                                                 }
+                                                 else{//default image
+                                                   let uIImageToConvert = Image(withImage:  UIImage(named: "ball-basketball-basketball-court-1752757(1)")!)
+                                                   videoTest.thumbnail = uIImageToConvert
+                                                 }
+                                               }
+                                             }
+                                          }
+                                      }
+                                   }
+                                }
+                               
+                             }
+                          }
+                      }
+                 }
+             }
          }
+       return id ?? "no id valid"
+         
        }
-          //  var video = Video(videoID: id!, description: videoDescription, dateTaken: videoDatePublished, fileName: videoTitle, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL: nil, thumbnail: nil)
-          
-               return ""
-       }
+    //Purpose: to convert the minutes and seconds of the string passed in into minutes into a timeinterval and add the secondes
+   func convertMinutesSecondsToTimeInterval(durationStr: String)->TimeInterval{
+       //parse the string to get the minutes and seconds
+               var minutes = ""
+               var ismin = true
+               var seconds = ""
+               for s in durationStr{
+                   if s.isNumber && ismin{
+                       minutes += String (s)
+                   }
+                   if s == "M"{
+                       ismin = false
+                   }
+                   if s.isNumber && !(ismin){
+                       seconds += String (s)
+                   }
+               }
+           var timeInterval: TimeInterval = (Double(minutes)! * 60.0)
+           if seconds != ""{
+              timeInterval += (Double(seconds))!
+           }
+       
+           return timeInterval
+           }
+     
+       
+  
 }
 extension DateFormatter {
   func date(fromSwapiString dateString: String) -> Date? {

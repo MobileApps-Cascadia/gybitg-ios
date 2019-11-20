@@ -34,7 +34,7 @@ protocol VideoRepositoryProtocol: Repo{
     //A has-a relationship for the delegate
     //Now in fetch get the video requested and send it in the didRecieveData fx
     var delegate: VideoRepoDelegate? { get set }
-   func fetch(withId id:String?, videoUrl: String?) -> String
+    func fetch(withId id:String?, videoUrl: String?, userID: String?) -> String
     
 }
 
@@ -46,6 +46,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
 
     let avvc = AVPlayerViewController()
     
+    let userID = "Ksmith@gmail.com"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -192,18 +193,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                      ac.addAction(cancelAction)
                            
                     self.present(ac, animated: true, completion: nil)
-                   // self.viewLibrary(controller)
-                       
-                   /* let videoLimitAlert = UIAlertController(title: "Selected Video Too Long", message: "The video selected is over the 3 minute limit", preferredStyle: .actionSheet)
-                    let libraryAction = UIAlertAction(title: "Video Library", style: .default, handler: { (action) -> Void in
-                               self.viewLibrary(picker)
-                           })
-                          videoLimitAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                       videoLimitAlert.addAction(libraryAction)
-                      //  self.present(videoLimitAlert, animated: true, completion: nil)
-                          print("OVER LIMIT")
-                    picker.present(videoLimitAlert, animated: true, completion: nil)
-                       // self.viewLibrary(picker)*/
                     
                       }
                 
@@ -386,10 +375,9 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                         //Will then call the get video
                        let id = self.getVideoIdFromUrl(urlString: textField.text!)
            
-                       let isValid = textField.text!.isValidURL()
+                        _ = textField.text!.isValidURL()
                              //put id and url from textfield into fetch
-                       let videoId = self.videoRepository!.fetch(withId: id, videoUrl: textField.text!)
-                        //add and save the video
+                        _ = self.videoRepository!.fetch(withId: id, videoUrl: textField.text!, userID: self.userID)
                         
                     }
                     else {//if the user did not enter a url display an alert and call the function again
@@ -454,7 +442,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //postcodition: the galleryViewController is notified that the video is fetched and will add this video to the array and reload the tableview
     func didReceiveData(_ data: Video?) {
         if let newVideo = data{
-        
+         
            let id = videoRepository!.addVideo(videoToAdd: newVideo)
             print("THE VIDEO TO BE ADEED: \(id)")
             print("THE VIDEO duration TO BE ADEED: \(newVideo.videoDuration)")
@@ -470,6 +458,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
               
     }
     
+ 
 
 }
 
