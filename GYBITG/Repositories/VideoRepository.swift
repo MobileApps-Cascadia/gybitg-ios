@@ -12,7 +12,6 @@ import Photos
 import UIKit
 import MobileCoreServices
 import CoreMedia
-import youtube_ios_player_helper_swift
 import Alamofire
 
 //Delegate to send the requested video to the GalleryVC

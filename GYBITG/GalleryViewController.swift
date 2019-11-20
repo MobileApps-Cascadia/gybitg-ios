@@ -14,7 +14,6 @@ import Photos
 import UIKit
 import MobileCoreServices
 import CoreMedia
-import youtube_ios_player_helper_swift
 
 
 //The protocol for the VideoView
@@ -38,7 +37,7 @@ protocol VideoRepositoryProtocol: Repo{
     
 }
 
-class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, VideoRepoDelegate, YTPlayerViewDelegate{
+class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, VideoRepoDelegate{
     
     var videoRepository: VideoRepositoryProtocol?
     
@@ -47,6 +46,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     let avvc = AVPlayerViewController()
     
     let userID = "Ksmith@gmail.com"
+    let videoTimeLimit = 180.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,8 +124,8 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             controller.mediaTypes = [kUTTypeMovie as String]
             controller.delegate = self
             
-            //limit video to 3 minutes
-            controller.videoMaximumDuration = TimeInterval(180.0)
+            //limit video to the videoTimeLimit set
+            controller.videoMaximumDuration = TimeInterval(videoTimeLimit)
             
             present(controller, animated: true, completion: nil)
         }
@@ -143,7 +143,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             controller.sourceType = UIImagePickerController.SourceType.photoLibrary
             controller.mediaTypes = [kUTTypeMovie as String]
             controller.delegate = self
-            
             
             present(controller, animated: true, completion: nil)
         }
@@ -179,7 +178,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                 //turn the selected video into an asset to get the duration
                 let asset = AVURLAsset(url: selectedVideo, options: nil)
                 
-                if( asset.duration.seconds > 180.0){
+                if( asset.duration.seconds > videoTimeLimit){
                     isOverThreeMin = true
                    picker.dismiss(animated: true)
                    let ac = UIAlertController(title: "Video Selected Is Over the 3 Minute Limit", message: "Select another video or cancel action", preferredStyle: .actionSheet)
@@ -199,12 +198,12 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             }
         //if the video is not over 3 minutes, the video will be turned into a thumbnail and added to the Gallery 
             if(!isOverThreeMin){
-            addVideoThumbnailToTableView(selectedVideo: selectedVideo)
+               addVideoThumbnailToTableView(selectedVideo: selectedVideo)
             }
             
         }
         
-    picker.dismiss(animated: true)
+       picker.dismiss(animated: true)
     }
     
     //Purpose: To create a Video object, and add a thumbnail of the video to the tableView
@@ -214,8 +213,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         let videoThumbnail = turnVideoToThumbnail(selectedVideo)
         
-        
-        let newVideo =  videoRepository!.createVideo(userID: " ", videoURL: selectedVideo)
+        let newVideo =  videoRepository!.createVideo(userID: userID, videoURL: selectedVideo)
         
             //Need to convert the thumnail into an Image object to meet the requirements of the codable Video model.   Replace  newVideo.thumbnail = videoThumbnail With newVideo.thumbnail = Image(withImage: thumbnail!)
         
@@ -347,7 +345,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Precondition: a videoURL is passed
     //PostCondition: The AVPlayer will open and begin playing the video selected
     @objc func playThumbnailVideo(videoURL: URL!){
-      
         avvc.player = AVPlayer(url: videoURL)
         self.present(avvc, animated: true){
             self.avvc.player?.play()
@@ -436,30 +433,19 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         }
         
     }
-    
+
     //purpose: To be notified when the request for the fetched video is completed
     //precodition:@param Video
     //postcodition: the galleryViewController is notified that the video is fetched and will add this video to the array and reload the tableview
     func didReceiveData(_ data: Video?) {
         if let newVideo = data{
-         
-           let id = videoRepository!.addVideo(videoToAdd: newVideo)
-            print("THE VIDEO TO BE ADEED: \(id)")
-            print("THE VIDEO duration TO BE ADEED: \(newVideo.videoDuration)")
-            print("THE VIDEO dateTakenTO BE ADEED: \(newVideo.dateTaken)")
-            print("THE VIDEO videoUrl TO BE ADEED: \(newVideo.videoURL)")
-            print("THE VIDEO videoFileName TO BE ADEED: \(newVideo.videoFileName)")
-            //now reload the data now that there is a new video to load
+            _ = videoRepository!.addVideo(videoToAdd: newVideo)
             self.tableView.reloadData()
          }
         else{
             print(Error.self)
         }
-              
     }
-    
- 
-
 }
 
 //Purpose: To be able to chech the string to see if its a valid URL and matches the String passed in
