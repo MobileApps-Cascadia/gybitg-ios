@@ -24,10 +24,33 @@ class NotificationsViewController: UIViewController {
         statDraftsTableView.reloadData()
     }
     
+    func convertGameLoc(gameLoc: String) -> String {
+        switch(gameLoc) {
+        case "Home":
+            return "vs "
+        case "Away":
+            return "@ "
+        case "":
+            return "(no location set) "
+        default:
+            return ""
+        }
+    }
+    
+    func convertOppTeam(oppTeam: String) -> String {
+        if (oppTeam == "") {
+            return "(opposing team not set)"
+        } else {
+            return oppTeam
+        }
+    }
+    
 }
 
 // MARK: - UITableViewDataSource
 extension NotificationsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (gameRepo?.allGameStatDrafts.count)!
     }
@@ -43,11 +66,11 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/YY"
         
-        if (item.homeOrAway == "Home") {
-            cell.cellLabel!.text = "vs \(item.opposingTeamName ?? "(no team name)") on \(formatter.string(from: date!))"
-        } else {
-            cell.cellLabel!.text = "@ \(item.opposingTeamName ?? "(no team name)") on \(formatter.string(from: date!))"
-        }
+        // begin building out the celllabel string text
+        cell.cellLabel.text = "\(convertGameLoc(gameLoc: item.homeOrAway ?? "") )"
+        cell.cellLabel.text?.append(convertOppTeam(oppTeam: item.opposingTeamName ?? "") )
+        cell.cellLabel.text?.append(" on \(formatter.string(from: date!))")
+        
         return cell
     }
     
