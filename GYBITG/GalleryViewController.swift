@@ -14,6 +14,7 @@ import Photos
 import UIKit
 import MobileCoreServices
 import CoreMedia
+import EzPopup
 
 
 //The protocol for the VideoView
@@ -39,6 +40,10 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
 
     let avvc = AVPlayerViewController()
     
+    let videoEditorVC = UIViewController()
+    
+    //let popupVC = PopupViewController(contentController: videoEditorVC)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +56,13 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         tableView.estimatedRowHeight = 150
         
         tableView.delegate = self
-        // Do any additional setup after loading the view.
+        
     }
+    
+    @IBAction func onEditMenuTouched(_ sender: UIButton) {
+        print("tapped")
+    }
+    
     
     //Purpose: To show the user an actionsheet with options to choose from
     //Precondition: The User clicks the icon
@@ -295,7 +305,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let indexPath = tableView.indexPathForSelectedRow
         let video = videoRepository!.videos[indexPath!.row]
-        self.playThumbnailVideo(videoURL: video.videoURL)
+       // self.playThumbnailVideo(videoURL: video.videoURL)
     }
     
     //Purpose: To convert the time to CMTime show the duration so it looks like min:sec
@@ -463,5 +473,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         let urlPattern = "https://youtu.be/[a-z0-9]+"
         return self.matches(pattern: urlPattern)
     }
+        
 }
 

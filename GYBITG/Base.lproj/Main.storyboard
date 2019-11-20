@@ -454,11 +454,11 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GalleryCell" id="Okr-K2-fJ5" customClass="GalleryCell" customModule="GYBITG" customModuleProvider="target">
+                            <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GalleryCell" editingAccessoryType="detailButton" id="Okr-K2-fJ5" customClass="GalleryCell" customModule="GYBITG" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Okr-K2-fJ5" id="ACT-w0-OIc" customClass="GalleryCell" customModule="GYBITG" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ed-hF-Ded">
@@ -492,6 +492,14 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCf-26-DDE">
+                                            <rect key="frame" x="334" y="1" width="41" height="42"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="white_vertical_menu"/>
+                                            <connections>
+                                                <action selector="onEditMenuTouched:" destination="7Sr-sB-4lF" eventType="touchUpInside" id="V60-XH-nNZ"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                     <constraints>
@@ -527,7 +535,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VYD-r1-DTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3170" y="-709"/>
+            <point key="canvasLocation" x="3168.8000000000002" y="-709.29535232383819"/>
         </scene>
         <!--GameStatView-->
         <scene sceneID="47j-aU-0f1">
@@ -589,6 +597,7 @@
         <image name="icons-female-profile-50" width="25" height="25"/>
         <image name="icons-home-page-50" width="25" height="25"/>
         <image name="orangegybitgiconfromweb" width="300" height="201"/>
+        <image name="white_vertical_menu" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qEm-w4-R2I"/>
