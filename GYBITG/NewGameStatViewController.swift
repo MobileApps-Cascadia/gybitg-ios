@@ -34,48 +34,56 @@ class NewGameStatViewController: UIViewController {
     // initial value of 'false'
     var isUpdate: Bool = false
     
+    // Used to keep track of whether the GameStat is a draft or not
+    // Initial Value: true - every GameStat begins as a draft. Once the user saves the GameStat then isDraft = false.
+    var isDraft: Bool = false
+    
     // Purpose: track whether the user wants to save the gamestat as a draft or not
     // initial value of 'false'
     var saveAsDraft: Bool = false
+    
+    var window: UIWindow?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // If we're updating a current Game Stat then fill in the text fields with
         // the current game stat's data
-        if (mGameStat != nil && isUpdate) {
-            gameDatePicker.date = mGameStat!.gameDate
-            if let points = mGameStat?.points {
-                pointsField.text = String(points)
+        if (mGameStat != nil) {
+            if(isUpdate || mGameStat?.isDraft == true) {
+                gameDatePicker.date = mGameStat!.gameDate!
+                if let points = mGameStat?.points {
+                    pointsField.text = String(points)
+                }
+                if let rebounds = mGameStat?.rebounds {
+                    reboundsField.text = String(rebounds)
+                }
+                if let assists = mGameStat?.assists {
+                    assistsField.text = String(assists)
+                }
+                if let steals = mGameStat?.steals {
+                    stealsField.text = String(steals)
+                }
+                if let blocks = mGameStat?.blocks {
+                    blocksField.text = String(blocks)
+                }
+                if let minutesPlayed = mGameStat?.minutesPlayed {
+                    minutesPlayedField.text = String(minutesPlayed)
+                }
+                if let opposingTeam = mGameStat?.opposingTeamName {
+                    opposingTeamField.text = String(opposingTeam)
+                }
+                if (mGameStat?.homeOrAway == "Home") {
+                    homeOrAwaySegmentedControl.selectedSegmentIndex = 0
+                    homeOrAway = "Home"
+                } else if (mGameStat?.homeOrAway == "Away") {
+                    homeOrAwaySegmentedControl.selectedSegmentIndex = 1
+                    homeOrAway = "Away"
+                } else {
+                    homeOrAwaySegmentedControl.selectedSegmentIndex = -1
+                }
             }
-            if let rebounds = mGameStat?.rebounds {
-                reboundsField.text = String(rebounds)
-            }
-            if let assists = mGameStat?.assists {
-                assistsField.text = String(assists)
-            }
-            if let steals = mGameStat?.steals {
-                stealsField.text = String(steals)
-            }
-            if let blocks = mGameStat?.blocks {
-                blocksField.text = String(blocks)
-            }
-            if let minutesPlayed = mGameStat?.minutesPlayed {
-                minutesPlayedField.text = String(minutesPlayed)
-            }
-            if let opposingTeam = mGameStat?.opposingTeamName {
-                opposingTeamField.text = String(opposingTeam)
-            }
-            if (mGameStat?.homeOrAway == "Home") {
-                homeOrAwaySegmentedControl.selectedSegmentIndex = 0
-                homeOrAway = "Home"
-            } else if (mGameStat?.homeOrAway == "Away") {
-                homeOrAwaySegmentedControl.selectedSegmentIndex = 1
-                homeOrAway = "Away"
-            } else {
-                homeOrAwaySegmentedControl.selectedSegmentIndex = -1
-            }
-            
         }
         
         // These are for changing the placeholder text color progromatically
@@ -133,14 +141,15 @@ class NewGameStatViewController: UIViewController {
         if (homeOrAwaySegmentedControl.selectedSegmentIndex == -1 || pointsField.text == "" || reboundsField.text == "" || assistsField.text == "" || stealsField.text == "" || blocksField.text == "" || minutesPlayedField.text == "" || opposingTeamField.text == "") {
             
             // set the alert message and title
-            let alert = UIAlertController(title: "Did you mean to leave blank stat(s) fields?", message: "Blank stats are recorded as zero", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: "You have blank stat(s) fields.", message: "Blank fields are recorded as zero", preferredStyle: UIAlertController.Style.alert)
             
             
             // Purpose: The YesAction sets the GameStat with values of 0 for fields that are not filled out
             // If the user decides to save the game stat w/ out filling all the fields, we sill need to
             // save the game stat properties with a value of '0'.
-            let YesAction = UIAlertAction(title: "Yes, Save", style: UIAlertAction.Style.default, handler: {
+            let YesAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: {
                 (_)in
+                self.isDraft = false
                 if (self.pointsField.text == ""){
                     self.pointsField.text = "0"
                 }
@@ -173,7 +182,7 @@ class NewGameStatViewController: UIViewController {
             })
     
             // Close the alert dialog and stay on the game stat form
-            let NoAction = UIAlertAction(title: "No, Finish Filling Out", style: UIAlertAction.Style.cancel, handler: nil)
+            let NoAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
             
             // Save the GameStat as a draft to fill out later
             let SaveDraftAction = UIAlertAction(title: "Save as Draft", style: UIAlertAction.Style.default, handler: { (_) in
@@ -201,15 +210,15 @@ class NewGameStatViewController: UIViewController {
         let mGameStatUserId: String
         // check whether we should update a current game stat or create a new one
         if (isUpdate) {
-            mGameStatId = mGameStat!.statId
-            mGameStatUserId = mGameStat!.userId
+            mGameStatId = mGameStat!.statId!
+            mGameStatUserId = mGameStat!.userId!
         } else {
             mGameStatId = ((gameRepo?.allGameStats.count)!) + 1
-            mGameStatUserId = "ksmith@gmail.com"
+            mGameStatUserId = Constants.TEST_USERID
         }
         // the user has chosen to save as draft
         if (saveAsDraft) {
-            mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: gameDatePicker.date)
+            mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: gameDatePicker.date, isDraft: true)
             
             // build the rest of the GameStat
             if (self.pointsField.text != ""){
@@ -249,7 +258,9 @@ class NewGameStatViewController: UIViewController {
             let mMinutesPlayed = Double(minutesPlayedField.text!),
             let mOpposingTeam = opposingTeamField?.text!,
             let mHomeOrAway: String = homeOrAway {
-                mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
+                // If we make it here, it means the user has filled out all the fields and we can save the GameStat straight up.
+                // This also means that the user has chosen to not save a "draft" so we can set isDraft to false.
+                mGameStat = GameStat(statId: mGameStatId, userId: mGameStatUserId, gameDate: mGameDate, isDraft: false, points: mPoints, rebounds: mRebounds, assists: mAssists, steals: mSteals, blocks: mBlocks, minutesPlayed: mMinutesPlayed, opposingTeamName: mOpposingTeam, homeOrAway: mHomeOrAway)
             }
         }
     }

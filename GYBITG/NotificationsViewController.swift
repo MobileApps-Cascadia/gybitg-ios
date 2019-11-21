@@ -11,7 +11,7 @@ class NotificationsViewController: UIViewController {
     
     @IBOutlet weak var statDraftsTableView: UITableView!
     var gameRepo: GameStatProtocol?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,32 +20,37 @@ class NotificationsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // update the badge number for the Notifications tab icon
-        if let tabItems = tabBarController?.tabBar.items {
-            let x : Int = (gameRepo?.allGameStatDrafts.count)!
-            let count = String(x)
-            
-            // In this case we want to modify the badge number of the third (Notifications) tab:
-            let tabItem = tabItems[2]
-            tabItem.badgeValue = (x > 0 ? count : nil)
-        }
+        gameRepo?.getAllGameStatsByUserId(userId: Constants.TEST_USERID)
         statDraftsTableView.reloadData()
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == UIStoryboardSegue.AppSegue.segueModalEditStatDraft.rawValue) {
-            
+    func convertGameLoc(gameLoc: String) -> String {
+        switch(gameLoc) {
+        case "Home":
+            return "vs "
+        case "Away":
+            return "@ "
+        case "":
+            return "(no location set) "
+        default:
+            return ""
         }
     }
     
-
+    func convertOppTeam(oppTeam: String) -> String {
+        if (oppTeam == "") {
+            return "(opposing team not set)"
+        } else {
+            return oppTeam
+        }
+    }
+    
 }
 
 // MARK: - UITableViewDataSource
 extension NotificationsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (gameRepo?.allGameStatDrafts.count)!
     }
@@ -57,26 +62,30 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
         let item = gameRepo!.allGameStatDrafts[indexPath.row]
         
         // Date formatter for converting "yyyy-MM-dd HH:mm:ss +0000" to "MM/dd/yyyy"
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "MM/dd/YY"
+        let date = item.gameDate
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/YY"
         
-        // fill in the cell with the format: "Vs. <opposing team name> @ <home/away> - <game date>"
-        if let date = dateFormatterGet.date(from: String(describing: item.gameDate)) {
-            cell.cellLabel.text = "\(dateFormatterPrint.string(from:date)) vs. \(item.opposingTeamName ?? "(no opposing team)")"
-        } else {
-            print("There was an error decoding the string")
-        }
+        // begin building out the celllabel string text
+        cell.cellLabel.text = "\(convertGameLoc(gameLoc: item.homeOrAway ?? "") )"
+        cell.cellLabel.text?.append(convertOppTeam(oppTeam: item.opposingTeamName ?? "") )
+        cell.cellLabel.text?.append(" on \(formatter.string(from: date!))")
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("row selected: \(indexPath.row)")
-        //self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.segueModalEditStatDraft.rawValue, sender: self)
+        let storyboard = UIStoryboard(name: "GameStat", bundle: nil)
+        let newGameStatViewController = storyboard.instantiateViewController(withIdentifier: "NewGameStatViewController") as! NewGameStatViewController
+        newGameStatViewController.mGameStat = gameRepo!.allGameStatDrafts[indexPath.row]
+        
+        let navVC = UINavigationController(rootViewController: newGameStatViewController)
+        self.present(navVC, animated: true, completion: nil)
     }
 }
 
+
+// The Custome cell class for the table view
 class GameStatDraftTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cellLabel: UILabel!

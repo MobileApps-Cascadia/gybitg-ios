@@ -69,7 +69,7 @@
         <!--Game Stat-->
         <scene sceneID="dHY-73-w02">
             <objects>
-                <viewController id="jas-Ev-8U8" customClass="NewGameStatViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewGameStatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jas-Ev-8U8" customClass="NewGameStatViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="juT-4G-pSQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -276,7 +276,7 @@
                                 <segue destination="OgV-iM-4uT" kind="unwind" unwindAction="cancel:" id="2FU-Rm-nXP"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Kwq-bd-qea">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="Kwq-bd-qea">
                             <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="checkForEmptyFields:" destination="jas-Ev-8U8" id="ndl-zL-ZGU"/>
