@@ -537,6 +537,40 @@
             </objects>
             <point key="canvasLocation" x="3168.8000000000002" y="-709.29535232383819"/>
         </scene>
+        <!--Details Editor Popup-->
+        <scene sceneID="aBq-CS-QSm">
+            <objects>
+                <viewController storyboardIdentifier="VideoDetailsViewController" title="Details Editor Popup" id="k98-5D-RUU" customClass="VideoDetailsViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RFP-h2-TJe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QG-Ss-PRP">
+                                <rect key="frame" x="69" y="116" width="38" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Spa-eD-eWp">
+                                <rect key="frame" x="178" y="111" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <viewLayoutGuide key="safeArea" id="dpm-Bg-ght"/>
+                    </view>
+                    <connections>
+                        <outlet property="Title_Text" destination="Spa-eD-eWp" id="hdt-0f-M0N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1zH-rU-8Ws" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4263" y="-707"/>
+        </scene>
         <!--GameStatView-->
         <scene sceneID="47j-aU-0f1">
             <objects>
@@ -600,7 +634,7 @@
         <image name="white_vertical_menu" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qEm-w4-R2I"/>
+        <segue reference="FOC-tq-duv"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>

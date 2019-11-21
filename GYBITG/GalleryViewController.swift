@@ -40,9 +40,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
 
     let avvc = AVPlayerViewController()
     
-    let videoEditorVC = UIViewController()
-    
-    //let popupVC = PopupViewController(contentController: videoEditorVC)
+    let contentVC = VideoDetailsViewController.instantiate()
     
     
     override func viewDidLoad() {
@@ -61,6 +59,9 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     
     @IBAction func onEditMenuTouched(_ sender: UIButton) {
         print("tapped")
+        let popupVC = PopupViewController(contentController: contentVC!, popupWidth: 100, popupHeight: 200)
+        popupVC.canTapOutsideToDismiss = false
+        present(popupVC, animated: true)
     }
     
     
@@ -472,6 +473,10 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
 
         let urlPattern = "https://youtu.be/[a-z0-9]+"
         return self.matches(pattern: urlPattern)
+    }
+        
+    func showDetailsEditor(){
+        
     }
         
 }
