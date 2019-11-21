@@ -29,9 +29,15 @@ protocol VideoRepositoryProtocol: Repo{
     func deleteVideo(videoToDeleteID: String) -> String?
     func deleteAllVideos()
     
+    var path: String{get}
+    //A has-a relationship for the delegate
+    //Now in fetch get the video requested and send it in the didRecieveData fx
+    var delegate: VideoRepoDelegate? { get set }
+    func fetch(withId id:String?, videoUrl: String?, userID: String?) -> String
+    
 }
 
-class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, VideoRepoDelegate{
     
     var videoRepository: VideoRepositoryProtocol?
     
@@ -39,6 +45,8 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
 
     let avvc = AVPlayerViewController()
     
+    let userID = "Ksmith@gmail.com"
+    let videoTimeLimit = 180.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +60,11 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         tableView.delegate = self
         // Do any additional setup after loading the view.
+        //Make this VC the videoRepository's delegate
+        //Now make and extension and conform to the videoRepos delgate
+        videoRepository?.delegate = self
+     
+
     }
     
     //Purpose: To show the user an actionsheet with options to choose from
@@ -111,8 +124,8 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             controller.mediaTypes = [kUTTypeMovie as String]
             controller.delegate = self
             
-            //limit video to 3 minutes
-            controller.videoMaximumDuration = TimeInterval(180.0)
+            //limit video to the videoTimeLimit set
+            controller.videoMaximumDuration = TimeInterval(videoTimeLimit)
             
             present(controller, animated: true, completion: nil)
         }
@@ -131,7 +144,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             controller.mediaTypes = [kUTTypeMovie as String]
             controller.delegate = self
             
-            
             present(controller, animated: true, completion: nil)
         }
     
@@ -147,9 +159,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             //calls the videoSaved fx
             if( picker.sourceType != UIImagePickerController.SourceType.photoLibrary){
                 
-            
             let selectorToCall = #selector(self.videoSaved(_:didFinishSavingWithError:context:))
-            
             
             UISaveVideoAtPathToSavedPhotosAlbum(selectedVideo.relativePath, self, selectorToCall, nil)
                 
@@ -168,7 +178,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                 //turn the selected video into an asset to get the duration
                 let asset = AVURLAsset(url: selectedVideo, options: nil)
                 
-                if( asset.duration.seconds > 180.0){
+                if( asset.duration.seconds > videoTimeLimit){
                     isOverThreeMin = true
                    picker.dismiss(animated: true)
                    let ac = UIAlertController(title: "Video Selected Is Over the 3 Minute Limit", message: "Select another video or cancel action", preferredStyle: .actionSheet)
@@ -182,30 +192,18 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
                      ac.addAction(cancelAction)
                            
                     self.present(ac, animated: true, completion: nil)
-                   // self.viewLibrary(controller)
-                       
-                   /* let videoLimitAlert = UIAlertController(title: "Selected Video Too Long", message: "The video selected is over the 3 minute limit", preferredStyle: .actionSheet)
-                    let libraryAction = UIAlertAction(title: "Video Library", style: .default, handler: { (action) -> Void in
-                               self.viewLibrary(picker)
-                           })
-                          videoLimitAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                       videoLimitAlert.addAction(libraryAction)
-                      //  self.present(videoLimitAlert, animated: true, completion: nil)
-                          print("OVER LIMIT")
-                    picker.present(videoLimitAlert, animated: true, completion: nil)
-                       // self.viewLibrary(picker)*/
                     
                       }
                 
             }
         //if the video is not over 3 minutes, the video will be turned into a thumbnail and added to the Gallery 
             if(!isOverThreeMin){
-            addVideoThumbnailToTableView(selectedVideo: selectedVideo)
+               addVideoThumbnailToTableView(selectedVideo: selectedVideo)
             }
             
         }
         
-    picker.dismiss(animated: true)
+       picker.dismiss(animated: true)
     }
     
     //Purpose: To create a Video object, and add a thumbnail of the video to the tableView
@@ -215,8 +213,12 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         let videoThumbnail = turnVideoToThumbnail(selectedVideo)
         
-        let newVideo =  videoRepository!.createVideo(userID: " ", videoURL: selectedVideo)
-            newVideo.thumbnail = videoThumbnail
+        let newVideo =  videoRepository!.createVideo(userID: userID, videoURL: selectedVideo)
+        
+            //Need to convert the thumnail into an Image object to meet the requirements of the codable Video model.   Replace  newVideo.thumbnail = videoThumbnail With newVideo.thumbnail = Image(withImage: thumbnail!)
+        
+        newVideo.thumbnail = Image(withImage: videoThumbnail!)
+        
         _ = videoRepository!.addVideo(videoToAdd: newVideo)
         
     //Figure out where that last item is in the array
@@ -249,7 +251,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         do {
             let asset = AVURLAsset(url: videoURL, options: nil)
-            print("THis is the duration of the video: \(asset.duration)")
             let imgGenerator = AVAssetImageGenerator(asset: asset)
             imgGenerator.appliesPreferredTrackTransform = true
             let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
@@ -284,9 +285,15 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         cell.videoDuration.text = convertTimeIntervalToCMTime(video: video)
         cell.Date.text = convertDateMMMddyyyy(dateToConvert: video.dateTaken)
         
+         
         if video.thumbnail != nil{
-        cell.thumbnail.setImage(video.thumbnail, for: .normal)
-            cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
+            //Need to convert the thumbnail (that is a Image object to meet the requirements of the codable Video model) into a UIImage object.  the Image has a getter to do this. 1.Convert Image to UIImage 2.Replace video.thumbnail with covertImageToUIImage
+                          
+           let covertImageToUIImage = video.thumbnail?.getImage()
+            cell.thumbnail.setImage(covertImageToUIImage, for: .normal)
+            cell.thumbnail.setBackgroundImage(covertImageToUIImage, for: .normal)
+        //cell.thumbnail.setImage(video.thumbnail, for: .normal)
+           // cell.thumbnail.setBackgroundImage(video.thumbnail, for: .normal)
         }
     
         return cell
@@ -303,16 +310,23 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Postcondition: A sting will be returned with the formatted videoDuration
     func convertTimeIntervalToCMTime(video: Video) -> String{
         var formatTime: String
-        let convertToTimeInterval: TimeInterval = video.videoDuration.seconds
-        let minutes: Int = Int(convertToTimeInterval/60)
-        let seconds: Int = Int(convertToTimeInterval.truncatingRemainder(dividingBy: 60))
         
-        if(seconds < 10){
+        //Since I have changed the Video model to use something that is codeable, have to put the right object in so need to reverse convert asset.duration into a Duration object that the Video model uses. Replace   //var  duration = Duration(withCMTime: asset.duration) With  if let duration = video.videoDuration.getDuration(){
+                       //var  duration = Duration(withCMTime: asset.duration)
+        if let duration = video.videoDuration.getDuration(){
+        
+            let convertToTimeInterval: TimeInterval = duration.seconds
+            let minutes: Int = Int(convertToTimeInterval/60)
+            let seconds: Int = Int(convertToTimeInterval.truncatingRemainder(dividingBy: 60))
+        
+           if(seconds < 10){
             formatTime =  "\(minutes):0\(seconds)"
-        } else{
+           } else{
             formatTime = "\(minutes):\(seconds)"
+           }
+           return formatTime
         }
-        return formatTime
+        else{return "0:0"}
     }
     
     //Purpose: To convert the Date in the specified format "MMM dd,yyyy" - May 29,2019
@@ -355,18 +369,17 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             if let textField = alert?.textFields?[0]{
                     
                     if(textField.text!.isValidURL()){
-                    
-                        //Will then call the get video 
-                      //self.getVideoFromUrl(urlString: textField.text!)
-                        
-                        var isValid = textField.text!.isValidURL()
-                         print("Text field: \(isValid) \(textField.text ?? "NO TEXTFIELD")")
+                        //Will then call the get video
+                       let id = self.getVideoIdFromUrl(urlString: textField.text!)
            
+                        _ = textField.text!.isValidURL()
+                             //put id and url from textfield into fetch
+                        _ = self.videoRepository!.fetch(withId: id, videoUrl: textField.text!, userID: self.userID)
+                        
                     }
-                else {//if the user did not enter a url display an alert and call the function again
-                   let emptyFieldAlert = UIAlertController(title: "Empty or invalid URL", message: "You Did not enter a valid Url", preferredStyle: .alert)
-                     emptyFieldAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                               print("NOTHING ENTERED" )
+                    else {//if the user did not enter a url display an alert and call the function again
+                        let emptyFieldAlert = UIAlertController(title: "Empty or invalid URL", message: "You Did not enter a valid Url", preferredStyle: .alert)
+                        emptyFieldAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                self.alertTextBoxForYouTubeUrl()
                     }))
                     
@@ -383,30 +396,22 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         // 5. Present the alert.
         self.present(alert, animated: true, completion: nil)
         
-       /* let alert = UIAlertController(title: "Enter URL", message: "Add a video from YouTube", preferredStyle: .alert)
-
-        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] action in
-
-          guard let textField = alert.textFields?.first,
-            let nameToSave = textField.text else {
-              return
-          }
-      }*/
     }
     
     
     //Purpose: To add get the url passed
     //Precondition: The user selects the YouTube option from the attachment
     //PostCondition: The url passed
-    func getVideoFromUrl(urlString: String){
-       
-        
+    func getVideoIdFromUrl(urlString: String?)-> String?{
         //Need to do more work to get the id
         //its differnt url  when coppied from Youtube https://youtu.be/RmHqOSrkZnk
-       
-         // let array = urlString.components(separatedBy: ".be/")
-            //  print(array[1])
-        
+        if let array = urlString?.components(separatedBy: ".be/"){
+            let id = array[1]
+            return id
+        }
+        else{
+        return nil
+        }
     }
     
     //Purpose: To open the Youtube app from this app
@@ -429,6 +434,18 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
     }
 
+    //purpose: To be notified when the request for the fetched video is completed
+    //precodition:@param Video
+    //postcodition: the galleryViewController is notified that the video is fetched and will add this video to the array and reload the tableview
+    func didReceiveData(_ data: Video?) {
+        if let newVideo = data{
+            _ = videoRepository!.addVideo(videoToAdd: newVideo)
+            self.tableView.reloadData()
+         }
+        else{
+            print(Error.self)
+        }
+    }
 }
 
 //Purpose: To be able to chech the string to see if its a valid URL and matches the String passed in
@@ -463,5 +480,24 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         let urlPattern = "https://youtu.be/[a-z0-9]+"
         return self.matches(pattern: urlPattern)
     }
+        
+      
 }
+
+//Loads a remote image
+//used to upload the corresponding thumbnail to the uploaded Youtube video
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
+}
+
 
