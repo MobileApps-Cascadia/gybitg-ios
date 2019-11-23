@@ -42,6 +42,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     
     let contentVC = VideoDetailsViewController.instantiate()
     
+    var exitPopup = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,9 +60,9 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     
     @IBAction func onEditMenuTouched(_ sender: UIButton) {
         print("tapped")
-        let popupVC = PopupViewController(contentController: contentVC!, popupWidth: 100, popupHeight: 200)
+        let popupVC = PopupViewController(contentController: contentVC!, position: .bottom(20), popupWidth: 100, popupHeight: 100)
         popupVC.canTapOutsideToDismiss = false
-        present(popupVC, animated: true)
+        present(popupVC, animated: true, completion: nil)
     }
     
     
