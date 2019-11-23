@@ -11,6 +11,8 @@ class VideoDetailsViewController: UIViewController {
     
     @IBOutlet weak var Title_Text: UITextField!
     
+    var title_text: String?
+    
     static func instantiate() -> VideoDetailsViewController? {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "\(VideoDetailsViewController.self)") as? VideoDetailsViewController
     }
@@ -18,5 +20,11 @@ class VideoDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        title_text = Title_Text.text
     }
+    
+    @IBAction func ClosePopUp(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
