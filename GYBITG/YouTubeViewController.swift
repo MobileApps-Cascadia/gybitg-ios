@@ -1,4 +1,4 @@
-//This class will get the videoId and play the youtubevideo.Will get the URL of the youTube video. Will load and play the Youtube video passed in and The WKWebView will play the youtube video. Will have a WKWebView webView, a Sting vidID and a videoUrl that is the url of the video to be loaded. 
+//This class will get the videoId and play the youtubevideo.Will get the URL of the youTube video. Will load and play the Youtube video passed in and The WKWebView will play the youtube video. Will have a WKWebView webView, a Sting videoID and a videoUrl that is the url of the video to be loaded.
 //  YouTubeViewController.swift
 //  GYBITG
 //
@@ -11,7 +11,7 @@ import WebKit
 class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
 
     var webView: WKWebView!
-    var vidID:String? = ""
+    var videoID:String? = ""
     var videoURL: URL?
     
     override func viewDidLoad() {
@@ -49,7 +49,7 @@ class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate 
      //Precondition: The video is a youtube video
      //Postcondition: The Self.videoURL will be set to the the Youtube url if the videoID is not nill or a default YoutTube url
     func getUrltoLoad(){
-        if let videoID = self.vidID{
+        if let videoID = self.videoID{
             self.videoURL = URL(string: "https://www.youtube.com/embed/\(videoID)")
         }
         else{

@@ -2,7 +2,7 @@
 //Will get the selected video and Save video to the main photo album.
 //Will conform to the UINavigationControllerDelegate, UIImagePickerControllerDelegate.
 //Will have a UIImageView to store a thumbnail of the video, a videoFileName,
-//Will convert the Date in the specified format "MMM dd,yyyy" - May 29,2019. Will convert the time to CMTime print the duration. Will Return an int for the number of rows in the table a row for each item. Will fill the tableView with the items in the repository array of Videos.
+//Will convert the Date in the specified format "MMM dd,yyyy" - May 29,2019. Will convert the time to CMTime print the duration. Will Return an int for the number of rows in the table a row for each item. Will fill the tableView with the items in the repository array of Videos.Will have a vidID: String? and have a prepare for seque method to send the videoID to the youtubeVideoVC to be loaded in the webview.
 //  GalleryViewController.swift
 //  GYBITG
 //
@@ -46,7 +46,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
 
     let avvc = AVPlayerViewController()
     let videoTimeLimit = 180.0
-    var vidID: String? = nil
+    var videoID: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -304,7 +304,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         let indexPath = tableView.indexPathForSelectedRow
         let video = videoRepository!.videos[indexPath!.row]
         if video.isYouTubeVideo == true{
-            self.vidID = video.videoID
+            self.videoID = video.videoID
             
             self.performSegue(withIdentifier: "goToYouTubeVC", sender: self)
         }
@@ -412,8 +412,8 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
            // Get the new view controller using segue.destination.
            // Pass the selected object to the new view controller.
           let youtubeViewController = segue.destination as! YouTubeViewController
-          if let vID = self.vidID{
-            youtubeViewController.vidID! += vID
+          if let vidID = self.videoID{
+            youtubeViewController.videoID! += vidID
           }
        }
        
