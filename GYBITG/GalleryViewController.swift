@@ -407,18 +407,16 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
     }
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //Purpose: to send the videoId to the youtubeVideoVC to be loaded in the webview
       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
            // Get the new view controller using segue.destination.
            // Pass the selected object to the new view controller.
-        let youtubeViewController = segue.destination as! YouTubeViewController
-        if let vID = self.vidID{
+          let youtubeViewController = segue.destination as! YouTubeViewController
+          if let vID = self.vidID{
             youtubeViewController.vidID! += vID
-            print("printing self.vidId from prepare: \(self.vidID)")
-        }
-        
+          }
        }
        
-    
     //Purpose: To add get the url passed
     //Precondition: The user selects the YouTube option from the attachment
     //PostCondition: The url passed

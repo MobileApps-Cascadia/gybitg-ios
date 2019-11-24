@@ -1,4 +1,4 @@
-//
+//This class will get the videoId and play the youtubevideo.Will get the URL of the youTube video. Will load and play the Youtube video passed in and The WKWebView will play the youtube video. Will have a WKWebView webView, a Sting vidID and a videoUrl that is the url of the video to be loaded. 
 //  YouTubeViewController.swift
 //  GYBITG
 //
@@ -8,11 +8,9 @@
 import UIKit
 import WebKit
 
-
-
 class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
 
-    
+    var webView: WKWebView!
     var vidID:String? = ""
     var videoURL: URL?
     
@@ -26,13 +24,10 @@ class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate 
      //Precondition: The video is a youtube video and the user clicks on the cell that has the corresponding youtube video information
      //Postcondition: The WKWebView will play the youtube video
     override func viewDidAppear(_ animated: Bool) {
-        
         let myRequest = URLRequest(url: self.videoURL!)
         webView.load(myRequest)
     }
 
-    var webView: WKWebView!
-       
        override func loadView() {
            let webConfiguration = WKWebViewConfiguration()
            webView = WKWebView(frame: .zero, configuration: webConfiguration)
@@ -50,9 +45,9 @@ class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate 
     }
     */
     
-    //Purpose: To get the URL to load and play the Youtube video passed in
-     //Precondition: The video is a youtube video and the user clicks on the cell that has the corresponding youtube video information
-     //Postcondition: The Self.vidID will be set to the the Youtube url if the videoID is not nill or a default YoutTube url
+    //Purpose: To get the URL of the youTube video
+     //Precondition: The video is a youtube video
+     //Postcondition: The Self.videoURL will be set to the the Youtube url if the videoID is not nill or a default YoutTube url
     func getUrltoLoad(){
         if let videoID = self.vidID{
             self.videoURL = URL(string: "https://www.youtube.com/embed/\(videoID)")
