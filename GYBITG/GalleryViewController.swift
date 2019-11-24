@@ -14,6 +14,7 @@ import Photos
 import UIKit
 import MobileCoreServices
 import CoreMedia
+import youtube_ios_player_helper_swift
 
 
 //The protocol for the VideoView
@@ -21,7 +22,7 @@ protocol VideoRepositoryProtocol: Repo{
     
     //to store all videos
     var videos: [Video] {get}
-    func createVideo(userID: String, videoURL: URL) -> Video
+    func createVideo(userID: String, videoURL: URL, isYouTubeVideo: Bool) -> Video
     func getAllVideos() -> [Video]
     func getVideo(videoID: String) -> Video?
     func addVideo(videoToAdd: Video) -> String
@@ -37,16 +38,15 @@ protocol VideoRepositoryProtocol: Repo{
     
 }
 
-class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, VideoRepoDelegate{
+class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, VideoRepoDelegate, YTPlayerViewDelegate{
     
     var videoRepository: VideoRepositoryProtocol?
     
     let videoFileName = "/video.mp4"
 
     let avvc = AVPlayerViewController()
-    
-    let userID = "Ksmith@gmail.com"
     let videoTimeLimit = 180.0
+    var vidID = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -213,7 +213,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
         let videoThumbnail = turnVideoToThumbnail(selectedVideo)
         
-        let newVideo =  videoRepository!.createVideo(userID: userID, videoURL: selectedVideo)
+        let newVideo =  videoRepository!.createVideo(userID: Constants.TEST_USERID, videoURL: selectedVideo, isYouTubeVideo: false)
         
             //Need to convert the thumnail into an Image object to meet the requirements of the codable Video model.   Replace  newVideo.thumbnail = videoThumbnail With newVideo.thumbnail = Image(withImage: thumbnail!)
         
@@ -300,9 +300,33 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
      }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let indexPath = tableView.indexPathForSelectedRow
         let video = videoRepository!.videos[indexPath!.row]
-        self.playThumbnailVideo(videoURL: video.videoURL)
+        if video.isYouTubeVideo == true{
+            self.vidID = video.videoID
+            
+            self.performSegue(withIdentifier: "goToYouTubeVC", sender: self)
+        }
+      /* let mySubstring = video.videoURL.absoluteString.prefix(13)
+        var videou = video.videoURL.absoluteString.components(separatedBy: "file:///")
+        //let video2 = videou.remove(at: 0)
+        print("THE VIDEOSUBSRING : \(videou)")
+        // Hello
+        print("THE SUBSTRIMG : \(mySubstring)")
+         print("THE SUBSTRIMG : \(video.videoURL.absoluteString)")
+         //  if mySubstring == "https"
+        if mySubstring == "file:///https" {
+           // let vc = storyboard?.instantiateViewController(identifier: "youtubeVC")
+            print("THE SUBSTRIMG : \(mySubstring)")
+        print("THE URL : \(video.videoURL)")
+            
+            self.playThumbnailVideo(videoURL: URL.init(fileURLWithPath: "https://youtu.be/E2986xBAtXI"))
+           
+        }*/
+        else{
+             self.playThumbnailVideo(videoURL: video.videoURL)
+        }
     }
     
     //Purpose: To convert the time to CMTime show the duration so it looks like min:sec
@@ -345,10 +369,34 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Precondition: a videoURL is passed
     //PostCondition: The AVPlayer will open and begin playing the video selected
     @objc func playThumbnailVideo(videoURL: URL!){
+        let mySubstring = videoURL.absoluteString.prefix(13) // Hello
+        print("THE SUBSTRIMG : \(mySubstring)")
+         print("THE SUBSTRIMG : \(videoURL.absoluteString)")
+         //  if mySubstring == "https"
+        if mySubstring == "file:///https" {
+           // let vc = storyboard?.instantiateViewController(identifier: "youtubeVC")
+            print("THE SUBSTRIMG : \(mySubstring)")
+            var pathId = getVideoIdFromUrl(urlString: videoURL!.absoluteString)
+            var  pathToWatch = "https://www.youtube.com/watch?v=\(pathId!)"
+            print(pathToWatch)
+          /*  var url = URL.init(string: pathToWatch)
+            var frame = CGRect(x: 0, y: 0, width: 375, height: 320)
+           var  videoPlayerView = YTPlayerView(frame: frame)
+            videoPlayerView.load(videoId: pathId!, startSeconds: 0, suggestedQuality: .auto)//video.videoID
+            self.view.addSubview(videoPlayerView) //addSubview:videoPlayerView];*/
+       //  testing url
+       // https://www.youtube.com/watch?v=E2986xBAtXI
+
+          /*  avvc.player = AVPlayer(url:URL.init(fileURLWithPath: "https://www.youtube.com/watch?v=E2986xBAtXI") )//url!)
+            self.present(avvc, animated: true){
+                self.avvc.player?.play()
+
+            }*/
+        }
         avvc.player = AVPlayer(url: videoURL)
         self.present(avvc, animated: true){
-            self.avvc.player?.play()
-        }
+        self.avvc.player?.play()
+       }
     }
     
     //Purpose: To add an alert textbox so the user can enter a url to get a video from YouTube
@@ -374,7 +422,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
            
                         _ = textField.text!.isValidURL()
                              //put id and url from textfield into fetch
-                        _ = self.videoRepository!.fetch(withId: id, videoUrl: textField.text!, userID: self.userID)
+                        _ = self.videoRepository!.fetch(withId: id, videoUrl: textField.text!, userID: Constants.TEST_USERID)
                         
                     }
                     else {//if the user did not enter a url display an alert and call the function again
@@ -397,7 +445,16 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         self.present(alert, animated: true, completion: nil)
         
     }
-    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+           // Get the new view controller using segue.destination.
+           // Pass the selected object to the new view controller.
+        let youtubeViewController = segue.destination as! YouTubeViewController
+        
+       // youtubeViewController.getVideo(videoID: self.vidID )
+        
+       }
+       
     
     //Purpose: To add get the url passed
     //Precondition: The user selects the YouTube option from the attachment

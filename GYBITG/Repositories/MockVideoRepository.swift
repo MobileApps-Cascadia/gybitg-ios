@@ -13,6 +13,7 @@ import MobileCoreServices
 import Alamofire
 
 class MockVideoRepository: VideoRepositoryProtocol{
+    
     var delegate: VideoRepoDelegate?
  
     //TODO will be the YOUTUBE api endpoint
@@ -32,7 +33,7 @@ class MockVideoRepository: VideoRepositoryProtocol{
     //Purpose: To create a Video object from the URL of the parameter
     //Precondition: a URL of a video exists,
     //Postcondition: A Video will be created and returned and properties set. Will check if there is a date for the asset and if not, the date will be set to now
-    func createVideo(userID: String, videoURL: URL) -> Video {
+    func createVideo(userID: String, videoURL: URL, isYouTubeVideo: Bool ) -> Video {
         
         let asset = getAVAsset(videoUrl: videoURL)
         let date: Date =  asset.creationDate?.dateValue ?? Date()
@@ -43,7 +44,7 @@ class MockVideoRepository: VideoRepositoryProtocol{
                 
             
         let  duration = Duration(withCMTime: asset.duration)
-        let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, videoFileName: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil)
+        let video = Video(videoID: "\(date)", description: videoDescription, dateTaken: date, videoFileName: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil, isYouTubeVideo: isYouTubeVideo)
         
         return video
     }
@@ -134,7 +135,7 @@ class MockVideoRepository: VideoRepositoryProtocol{
            
                    AF.request(self.path, method: .get, parameters: ["part":"snippet,contentDetails","id": videoId,"key": self.apiKey], encoding: URLEncoding.default, headers: nil).responseJSON{(response)->Void in
                        
-                    let videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: userId, thumbnail: nil)
+                    let videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: userId, thumbnail: nil, isYouTubeVideo: true)
                        
                      var videoDuration = Duration()
                      var videoTitle = String()
@@ -180,7 +181,7 @@ class MockVideoRepository: VideoRepositoryProtocol{
                                     let vidDPublished  = dateFormatter.date(fromSwapiString: publishedStr)
                                     videoDatePublished = vidDPublished!
                                    
-                                   let video = Video(videoID: id!, description: videoTest.description, dateTaken: videoDatePublished, videoFileName: videoTest.videoFileName, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL:videoTest.longerVideoURL, thumbnail: videoTest.thumbnail)
+                                let video = Video(videoID: id!, description: videoTest.description, dateTaken: videoDatePublished, videoFileName: videoTest.videoFileName, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL:videoTest.longerVideoURL, thumbnail: videoTest.thumbnail, isYouTubeVideo:  videoTest.isYouTubeVideo)
                                     
                                    if let delegate = self.delegate{
                                        delegate.didReceiveData(video)
