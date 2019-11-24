@@ -46,7 +46,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
 
     let avvc = AVPlayerViewController()
     let videoTimeLimit = 180.0
-    var vidID = ""
+    var vidID: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -369,30 +369,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
     //Precondition: a videoURL is passed
     //PostCondition: The AVPlayer will open and begin playing the video selected
     @objc func playThumbnailVideo(videoURL: URL!){
-        let mySubstring = videoURL.absoluteString.prefix(13) // Hello
-        print("THE SUBSTRIMG : \(mySubstring)")
-         print("THE SUBSTRIMG : \(videoURL.absoluteString)")
-         //  if mySubstring == "https"
-        if mySubstring == "file:///https" {
-           // let vc = storyboard?.instantiateViewController(identifier: "youtubeVC")
-            print("THE SUBSTRIMG : \(mySubstring)")
-            var pathId = getVideoIdFromUrl(urlString: videoURL!.absoluteString)
-            var  pathToWatch = "https://www.youtube.com/watch?v=\(pathId!)"
-            print(pathToWatch)
-          /*  var url = URL.init(string: pathToWatch)
-            var frame = CGRect(x: 0, y: 0, width: 375, height: 320)
-           var  videoPlayerView = YTPlayerView(frame: frame)
-            videoPlayerView.load(videoId: pathId!, startSeconds: 0, suggestedQuality: .auto)//video.videoID
-            self.view.addSubview(videoPlayerView) //addSubview:videoPlayerView];*/
-       //  testing url
-       // https://www.youtube.com/watch?v=E2986xBAtXI
-
-          /*  avvc.player = AVPlayer(url:URL.init(fileURLWithPath: "https://www.youtube.com/watch?v=E2986xBAtXI") )//url!)
-            self.present(avvc, animated: true){
-                self.avvc.player?.play()
-
-            }*/
-        }
         avvc.player = AVPlayer(url: videoURL)
         self.present(avvc, animated: true){
         self.avvc.player?.play()
@@ -450,8 +426,10 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
            // Get the new view controller using segue.destination.
            // Pass the selected object to the new view controller.
         let youtubeViewController = segue.destination as! YouTubeViewController
-        
-       // youtubeViewController.getVideo(videoID: self.vidID )
+        if let vID = self.vidID{
+            youtubeViewController.vidID! += vID
+            print("printing self.vidId from prepare: \(self.vidID)")
+        }
         
        }
        

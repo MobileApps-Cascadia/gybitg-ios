@@ -12,40 +12,28 @@ import WebKit
 
 class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
 
-   
-   /* @IBOutlet weak var myWKWebView: WKWebView!{
-        didSet{
-           myWKWebView.uiDelegate = self
-                myWKWebView.navigationDelegate = self
-        }
-    }*/
     
-    let vidID:String? = "annoymous"
-    
-    //let webView = WKWebView()
+    var vidID:String? = ""
+    var videoURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-          let myURL = URL(string:"https://www.apple.com")
-                  let myRequest = URLRequest(url: myURL!)
-                  webView.load(myRequest)
-          // getVideo(v"ideoID: vidID)
+        self.getUrltoLoad()
+        print("THIS is prinitn from viewDidLosad: \(self.vidID)"  )
 
         // Do any additional setup after loading the view.
     }
+    
+    //Purpose: To load and play the Youtube video passed in
+     //Precondition: The video is a youtube video and the user clicks on the cell that has the corresponding youtube video information
+     //Postcondition: The WKWebView will play the youtube video
     override func viewDidAppear(_ animated: Bool) {
-        let testurlstring = "https://www.apple.com"
-       // webView.load(testurlstring)
-        print("THIS is prinitn from viewDidAppear: \(testurlstring)"  )
-        let myURL = URL(string:"https://www.apple.com")
-        let myRequest = URLRequest(url: myURL!)
+        
+        let myRequest = URLRequest(url: self.videoURL!)
         webView.load(myRequest)
+        
     }
-  /*  override func loadView() {
-        self.view = webView
-          webView.uiDelegate = self
-        //getVideo(videoID: vidID)
-    }*/
+
     var webView: WKWebView!
        
        override func loadView() {
@@ -54,13 +42,7 @@ class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate 
            webView.uiDelegate = self
            view = webView
        }
-     /*  override func viewDidLoad() {
-           super.viewDidLoad()
-           
-           let myURL = URL(string:"https://www.apple.com")
-           let myRequest = URLRequest(url: myURL!)
-           webView.load(myRequest)
-       }*/
+
     /*
     // MARK: - Navigation
 
@@ -71,15 +53,15 @@ class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate 
     }
     */
     
-    //Purpose: To load and play the Youtube video passed in
-    //Precondition: The video is a youtube video and the user clicks on the cell that has the corresponding youtube video information
-    //Postcondition: The WKWebView will play the youtube video
-    func getVideo(videoID: String?){
-        if let vidID = videoID{
-            let url = URL(string: "https://www.youtube.com/embed/\(vidID)")!
-            print(url)
-            
-           // myWKWebView.load(URLRequest(url: url))
+    //Purpose: To get the URL to load and play the Youtube video passed in
+     //Precondition: The video is a youtube video and the user clicks on the cell that has the corresponding youtube video information
+     //Postcondition: The Self.vidID will be set to the the Youtube url if the videoID is not nill or a default YoutTube url
+    func getUrltoLoad(){
+        if let videoID = self.vidID{
+            self.videoURL = URL(string: "https://www.youtube.com/embed/\(videoID)")
+        }
+        else{
+            self.videoURL =  URL(string:"https://www.youtube.com")
         }
     }
 
