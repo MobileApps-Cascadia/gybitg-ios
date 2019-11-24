@@ -308,22 +308,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
             
             self.performSegue(withIdentifier: "goToYouTubeVC", sender: self)
         }
-      /* let mySubstring = video.videoURL.absoluteString.prefix(13)
-        var videou = video.videoURL.absoluteString.components(separatedBy: "file:///")
-        //let video2 = videou.remove(at: 0)
-        print("THE VIDEOSUBSRING : \(videou)")
-        // Hello
-        print("THE SUBSTRIMG : \(mySubstring)")
-         print("THE SUBSTRIMG : \(video.videoURL.absoluteString)")
-         //  if mySubstring == "https"
-        if mySubstring == "file:///https" {
-           // let vc = storyboard?.instantiateViewController(identifier: "youtubeVC")
-            print("THE SUBSTRIMG : \(mySubstring)")
-        print("THE URL : \(video.videoURL)")
-            
-            self.playThumbnailVideo(videoURL: URL.init(fileURLWithPath: "https://youtu.be/E2986xBAtXI"))
-           
-        }*/
+      
         else{
              self.playThumbnailVideo(videoURL: video.videoURL)
         }
@@ -469,6 +454,7 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         
     }
 
+    
     //purpose: To be notified when the request for the fetched video is completed
     //precodition:@param Video
     //postcodition: the galleryViewController is notified that the video is fetched and will add this video to the array and reload the tableview

@@ -19,8 +19,6 @@ class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getUrltoLoad()
-        print("THIS is prinitn from viewDidLosad: \(self.vidID)"  )
-
         // Do any additional setup after loading the view.
     }
     
@@ -31,7 +29,6 @@ class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate 
         
         let myRequest = URLRequest(url: self.videoURL!)
         webView.load(myRequest)
-        
     }
 
     var webView: WKWebView!
@@ -66,6 +63,7 @@ class YouTubeViewController: UIViewController,WKUIDelegate,WKNavigationDelegate 
     }
 
 }
+
 extension WKWebView{
     func load(_ urlString: String) {
         if let url = URL(string: urlString){
