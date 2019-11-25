@@ -14,7 +14,7 @@ import Photos
 import UIKit
 import MobileCoreServices
 import CoreMedia
-import youtube_ios_player_helper_swift
+
 
 
 //The protocol for the VideoView
@@ -38,7 +38,7 @@ protocol VideoRepositoryProtocol: Repo{
     
 }
 
-class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, VideoRepoDelegate, YTPlayerViewDelegate{
+class GalleryViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, VideoRepoDelegate{
     
     var videoRepository: VideoRepositoryProtocol?
     
