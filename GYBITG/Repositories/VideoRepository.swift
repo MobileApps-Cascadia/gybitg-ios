@@ -141,7 +141,7 @@ class VideoRepository: VideoRepositoryProtocol{
                   var videoDuration = Duration()
                   var videoTitle = String()
           // print("RESPONS IS: \(response)")
-                    print("THE RESULTING VALUES ARE : \(String(describing: response.value))")
+                 //   print("THE RESULTING VALUES ARE : \(String(describing: response.value))")
             if let JSON = response.value as? [String:Any], let videos = JSON["items"] as? [[String:Any]] {
                   for video in videos{
                     var videoDatePublished: Date

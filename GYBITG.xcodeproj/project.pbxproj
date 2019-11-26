@@ -608,7 +608,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B2A4XXAMQ8;
+				DEVELOPMENT_TEAM = 38V8Y67B3N;
 				INFOPLIST_FILE = GYBITG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -627,7 +627,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B2A4XXAMQ8;
+				DEVELOPMENT_TEAM = 38V8Y67B3N;
 				INFOPLIST_FILE = GYBITG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
