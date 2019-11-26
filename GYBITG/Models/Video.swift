@@ -21,8 +21,9 @@ class Video: Equatable,Codable {
     let userID: String
     var longerVideoURL: URL?
     var thumbnail: Image?
+    var isYouTubeVideo: Bool
     
-    init(videoID: String, description: String? = nil, dateTaken: Date, videoFileName: String, videoDuration: Duration, videoURL: URL, userID: String, longerVideoURL: URL? = nil, thumbnail: Image?){
+    init(videoID: String, description: String? = nil, dateTaken: Date, videoFileName: String, videoDuration: Duration, videoURL: URL, userID: String, longerVideoURL: URL? = nil, thumbnail: Image?, isYouTubeVideo: Bool){
         self.videoID = videoID
         self.description = description
         self.dateTaken = dateTaken
@@ -32,6 +33,7 @@ class Video: Equatable,Codable {
         self.userID = userID
         self.longerVideoURL = longerVideoURL
         self.thumbnail = thumbnail
+        self.isYouTubeVideo = isYouTubeVideo
     }
     
     //Implementing the equable method to conform to the Equatable protocol
@@ -47,7 +49,7 @@ class Video: Equatable,Codable {
             lhs.videoURL == rhs.videoURL &&
             lhs.userID == rhs.userID
     }
-    
+   
   /*  static func createVideo() -> Video {
         
          //var videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: "", thumbnail: nil)

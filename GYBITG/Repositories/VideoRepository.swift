@@ -21,6 +21,7 @@ protocol VideoRepoDelegate: class {
 
 class VideoRepository: VideoRepositoryProtocol{
     
+    
      weak var delegate: VideoRepoDelegate?
     
     //Key for the youtube api
@@ -43,7 +44,7 @@ class VideoRepository: VideoRepositoryProtocol{
     //Purpose: To create a Video object from the URL of the parameter and properties set
     //Precondition: a URL of a video exists, a valid userID is passed
     //Postcondition: A Video will be created and returned
-    func createVideo(userID: String, videoURL: URL) -> Video{
+    func createVideo(userID: String, videoURL: URL, isYouTubeVideo: Bool) -> Video{
         
         let asset = AVURLAsset(url: videoURL, options: nil)
         let date: Date =  asset.creationDate?.dateValue ?? Date()
@@ -51,7 +52,7 @@ class VideoRepository: VideoRepositoryProtocol{
         //Since I have changed the Video model to use something that is codeable, have to put the right object in so need to convert asset.duration into a Duration object that the Video model uses. Replaced videoDuration:assest.duration that returns a CMTime object with
      
         let  duration = Duration(withCMTime: asset.duration)
-        let video = Video(videoID: "\(date)", dateTaken: date, videoFileName: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil)
+        let video = Video(videoID: "\(date)", dateTaken: date, videoFileName: videoURL.path, videoDuration: duration, videoURL: videoURL, userID: userID, thumbnail: nil, isYouTubeVideo: isYouTubeVideo)
         return video
     }
     
@@ -135,12 +136,12 @@ class VideoRepository: VideoRepositoryProtocol{
         
                 AF.request(self.path, method: .get, parameters: ["part":"snippet,contentDetails","id": videoId,"key": self.apiKey], encoding: URLEncoding.default, headers: nil).responseJSON{(response)->Void in
                     
-                    let videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: userId, thumbnail: nil)
+                    let videoTest = Video(videoID: videoId, dateTaken: Date(), videoFileName: videoUrl!, videoDuration: Duration(), videoURL: videoURL, userID: userId, thumbnail: nil, isYouTubeVideo: true)
                     
                   var videoDuration = Duration()
                   var videoTitle = String()
           // print("RESPONS IS: \(response)")
-                    print("THE RESULTING VALUES ARE : \(String(describing: response.value))")
+                 //   print("THE RESULTING VALUES ARE : \(String(describing: response.value))")
             if let JSON = response.value as? [String:Any], let videos = JSON["items"] as? [[String:Any]] {
                   for video in videos{
                     var videoDatePublished: Date
@@ -181,7 +182,7 @@ class VideoRepository: VideoRepositoryProtocol{
                                  let vidDPublished  = dateFormatter.date(fromSwapiString: publishedStr)
                                  videoDatePublished = vidDPublished!
                                 
-                                let video = Video(videoID: id!, description: videoTest.description, dateTaken: videoDatePublished, videoFileName: videoTest.videoFileName, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL:videoTest.longerVideoURL, thumbnail: videoTest.thumbnail)
+                                let video = Video(videoID: id!, description: videoTest.description, dateTaken: videoDatePublished, videoFileName: videoTest.videoFileName, videoDuration: videoDuration, videoURL: videoURL, userID: id!, longerVideoURL:videoTest.longerVideoURL, thumbnail: videoTest.thumbnail, isYouTubeVideo: videoTest.isYouTubeVideo)
                                  
                                 if let delegate = self.delegate{
                                     delegate.didReceiveData(video)
