@@ -17,7 +17,7 @@ protocol GameStatProtocol: Repo {
     func addGameStat(gameStat: GameStat)
     func saveGameStatDraft(gameStat: GameStat)
     func getGameStatByStatId(statId: Int) -> GameStat
-    func getAllGameStatsByUserId(userId: String) -> [GameStat]
+    func getAllGameStatsByUserId(userId: String)
     func getAllDrafts() -> [GameStat]
     func getAllGameStatDraftsByUserId(userId: String) -> [GameStat]
     func updateGameState(gamestat: GameStat)
@@ -39,16 +39,7 @@ class GameStatHistoryViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // update the badge number for the Notifications tab icon
-        if let tabItems = tabBarController?.tabBar.items {
-            let x : Int = (gameRepo?.allGameStatDrafts.count)!
-            let count = String(x)
-            
-            // In this case we want to modify the badge number of the third (Notifications) tab:
-            let tabItem = tabItems[2]
-            tabItem.badgeValue = (x > 0 ? count : nil)
-        }
-        
+        gameRepo?.getAllGameStatsByUserId(userId: Constants.TEST_USERID)
         // Reloads the gamestat data in the table each time the view is shown
         tableView.reloadData()
     }
@@ -72,16 +63,14 @@ class GameStatHistoryViewController: UITableViewController {
         let item = gameRepo!.allGameStats[indexPath.row]
         
         // Date formatter for converting "yyyy-MM-dd HH:mm:ss +0000" to "MM/dd/yyyy"
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "MM/dd/YY"
+        let date = item.gameDate
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/YY"
         
-        // fill in the cell with the format: "Vs. <opposing team name> @ <home/away> - <game date>"
-        if let date = dateFormatterGet.date(from: String(describing: item.gameDate)) {
-            cell.gameLabel.text = "Vs. \(item.opposingTeamName!) @ \(item.homeOrAway!) - \(dateFormatterPrint.string(from:date))"
+        if (item.homeOrAway == "Home") {
+            cell.gameLabel!.text = "vs \(item.opposingTeamName ?? "(no team name)") on \(formatter.string(from: date!))"
         } else {
-            print("There was an error decoding the string")
+            cell.gameLabel!.text = "@ \(item.opposingTeamName ?? "(no team name)") on \(formatter.string(from: date!))"
         }
         return cell
     }
