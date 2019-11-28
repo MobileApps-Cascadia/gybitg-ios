@@ -78,6 +78,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
         let storyboard = UIStoryboard(name: "GameStat", bundle: nil)
         let newGameStatViewController = storyboard.instantiateViewController(withIdentifier: "NewGameStatViewController") as! NewGameStatViewController
         newGameStatViewController.mGameStat = gameRepo!.allGameStatDrafts[indexPath.row]
+        newGameStatViewController.isUpdate = true
         
         let navVC = UINavigationController(rootViewController: newGameStatViewController)
         self.present(navVC, animated: true, completion: nil)

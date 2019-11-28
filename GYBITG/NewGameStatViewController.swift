@@ -193,7 +193,9 @@ class NewGameStatViewController: UIViewController {
             // show the alert
             alert.addAction(YesAction)
             alert.addAction(NoAction)
-            alert.addAction(SaveDraftAction)
+            if (self.isDraft) {
+                alert.addAction(SaveDraftAction)
+            }
             self.present(alert, animated: true, completion: nil)
         } else {
             // If all the fields have been filled out then proceed to the unwind segue
@@ -213,7 +215,7 @@ class NewGameStatViewController: UIViewController {
             mGameStatId = mGameStat!.statId!
             mGameStatUserId = mGameStat!.userId!
         } else {
-            mGameStatId = ((gameRepo?.allGameStats.count)!) + 1
+            mGameStatId = (gameRepo!.allGameStats.count) + 1
             mGameStatUserId = Constants.TEST_USERID
         }
         // the user has chosen to save as draft

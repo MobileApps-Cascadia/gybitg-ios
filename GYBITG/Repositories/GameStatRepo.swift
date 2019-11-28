@@ -44,6 +44,7 @@ class GameStatRepo: GameStatProtocol {
         for (index, old) in allGameStats.enumerated() {
             if old.statId == gamestat.statId {
                 allGameStats[index] = gamestat
+                _context.updateStat(gameStat: gamestat)
                 break
             }
         }
