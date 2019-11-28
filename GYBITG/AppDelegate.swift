@@ -12,13 +12,13 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let gameStatRepo = GameStatRepo()
-    let galleryRepo = VideoRepository()
+
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //UINavigationBar.appearance().titleTextAttributes
-        
+        let gameStatRepo = GameStatRepo()
+        let galleryRepo = VideoRepository()
         // The rootViewController is the UITabController
         guard let tabController = window?.rootViewController as? UITabBarController, let viewControllers = tabController.viewControllers else {
                 return true
