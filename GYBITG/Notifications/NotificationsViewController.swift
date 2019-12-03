@@ -93,5 +93,6 @@ class GameStatDraftTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         cellLabel.adjustsFontForContentSizeCategory = true
+        
     }
 }
