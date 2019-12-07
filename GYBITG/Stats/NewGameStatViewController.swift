@@ -132,6 +132,10 @@ class NewGameStatViewController: UIViewController {
         }
     }
     
+    @IBAction func closeStatModal(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     // IBAction func linked to the 'Save' button on the Game Stat form
     // Check if the user left any fields blank
     // If a field is left blank, show an alert, warning user it will be entered as a '0'.
@@ -198,8 +202,13 @@ class NewGameStatViewController: UIViewController {
             }
             self.present(alert, animated: true, completion: nil)
         } else {
-            // If all the fields have been filled out then proceed to the unwind segue
-            self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.unwindSegueShowGameStatHistory.rawValue, sender: self)
+            if (self.isDraft) {
+                dismiss(animated: true, completion: nil)
+            }
+            else {
+                // If all the fields have been filled out then proceed to the unwind segue
+                self.performSegue(withIdentifier: UIStoryboardSegue.AppSegue.unwindSegueShowGameStatHistory.rawValue, sender: self)
+            }
         }
     }
     

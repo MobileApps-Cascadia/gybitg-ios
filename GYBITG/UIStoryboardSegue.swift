@@ -41,8 +41,12 @@ extension UIStoryboardSegue {
             if let newGameStatViewController = destination as? NewGameStatViewController {
                 newGameStatViewController.gameRepo = (repo as! GameStatProtocol)
             }
+            if let notificationsViewController = destination as? NotificationsViewController {
+                notificationsViewController.gameRepo = (repo as! GameStatProtocol)
+            }
         }
     }
+
     
     // This enumeration will return the segue identifiers so we're not using the string literals
     // in the prepare functions when segueing to different views
@@ -53,6 +57,7 @@ extension UIStoryboardSegue {
         case unwindSegueShowGameStatHistory
         case FirstViewToGallerySegue
         case segueModalEditStatDraft
+        case segueShowNotifications
     }
     
     // Enum for returning a Repo 'type', so we're not using string literals 
