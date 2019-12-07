@@ -20,10 +20,12 @@ class NotificationsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // use our repo method to retrieve all gamestat drafts of the signed in user
         gameRepo?.getAllGameStatsByUserId(userId: Constants.TEST_USERID)
         statDraftsTableView.reloadData()
     }
     
+    // function for returning a defualt text if no game location has been set by user
     func convertGameLoc(gameLoc: String) -> String {
         switch(gameLoc) {
         case "Home":
@@ -37,6 +39,7 @@ class NotificationsViewController: UIViewController {
         }
     }
     
+    // function for returning a defualt text if no opposing team has been set by user
     func convertOppTeam(oppTeam: String) -> String {
         if (oppTeam == "") {
             return "(opposing team not set)"
@@ -74,12 +77,19 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
+    // This gets called when the user clicks on a gamestat draft in the notifications view
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // get a reference to the GameStat storyboard
         let storyboard = UIStoryboard(name: "GameStat", bundle: nil)
+        // get a reference to the NewGameStatViewController
         let newGameStatViewController = storyboard.instantiateViewController(withIdentifier: "NewGameStatViewController") as! NewGameStatViewController
+        // prepare the gamestat that was selected in the table
         newGameStatViewController.mGameStat = gameRepo!.allGameStatDrafts[indexPath.row]
+        newGameStatViewController.isUpdate = true
         
+        // attach a navigation controller to our newgamestat view controller
         let navVC = UINavigationController(rootViewController: newGameStatViewController)
+        // present the form with the selected gamestat's info
         self.present(navVC, animated: true, completion: nil)
     }
 }

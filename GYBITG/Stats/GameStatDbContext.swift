@@ -13,6 +13,43 @@ public class GameStatDbContext {
     
     var stats: [NSManagedObject] = []
     var drafts: [NSManagedObject] = []
+    var _gameStat: NSManagedObject = NSManagedObject()
+    
+    // Purpose: Update a GameStat field
+    // Parameter: The GameStat object you need updated
+    // Postcondition: The GameStat object is updated in CoreData
+    func updateStat(gameStat: GameStat) {
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Stat")
+        
+        let statId = String(gameStat.statId!)
+        fetchRequest.predicate = NSPredicate(format: "statId == %@", statId)
+        
+        do {
+            try _gameStat = managedContext.fetch(fetchRequest)[0]
+            _gameStat.setValue(gameStat.statId, forKey: "statId")
+            _gameStat.setValue(gameStat.userId, forKey: "userId")
+            _gameStat.setValue(gameStat.gameDate, forKey: "gameDate")
+            _gameStat.setValue(gameStat.isDraft, forKey: "isDraft")
+            _gameStat.setValue(gameStat.points, forKey: "points")
+            _gameStat.setValue(gameStat.rebounds, forKey: "rebounds")
+            _gameStat.setValue(gameStat.assists, forKey: "assists")
+            _gameStat.setValue(gameStat.blocks, forKey: "blocks")
+            _gameStat.setValue(gameStat.steals, forKey: "steals")
+            _gameStat.setValue(gameStat.minutesPlayed, forKey: "minutesPlayed")
+            _gameStat.setValue(gameStat.opposingTeamName, forKey: "opposingTeamName")
+            _gameStat.setValue(gameStat.homeOrAway, forKey: "homeOrAway")
+            
+            try managedContext.save()
+        } catch let error as NSError {
+            print("could not update, \(error), \(error.userInfo)")
+        }
+        
+    }
     
     // Purpose: Save a GameStat to our CoreData persistent data storage
     // Parameter: The GameStat object you want saved
@@ -44,7 +81,6 @@ public class GameStatDbContext {
         
         do {
             try managedContext.save()
-            print("GameStat saved to CoreData")
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }

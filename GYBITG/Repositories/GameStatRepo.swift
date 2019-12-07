@@ -44,6 +44,7 @@ class GameStatRepo: GameStatProtocol {
         for (index, old) in allGameStats.enumerated() {
             if old.statId == gamestat.statId {
                 allGameStats[index] = gamestat
+                _context.updateStat(gameStat: gamestat)
                 break
             }
         }
@@ -84,6 +85,7 @@ class GameStatRepo: GameStatProtocol {
     func getAllGameStatsByUserId(userId: String) {
         // fetch an array of GameStat objects from CoreData
         // use a closure to fill the allGameStats array
+        // the returned "data" is a 2D array: [[GameStat],[GameStat]]: the first array are saved stats, the second array are the gamestat drafs
         _context.fetchStatsByUserId(UserId: Constants.TEST_USERID){ (data) in
             if (data?.count ?? 0 > 0) {
                 self.allGameStats = data![0]

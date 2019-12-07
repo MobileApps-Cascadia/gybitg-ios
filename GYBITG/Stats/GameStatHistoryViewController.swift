@@ -114,7 +114,10 @@ class GameStatHistoryViewController: UITableViewController {
     }
 
     // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table view
-    @IBAction func cancel(_ unwindSegue: UIStoryboardSegue) { tableView.reloadData() }
+    @IBAction func cancel(_ unwindSegue: UIStoryboardSegue) {
+        dismiss(animated: true, completion: nil)
+        tableView.reloadData()
+    }
     
     // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table iew and saves (adds) the new game stat to the repository data array    
     @IBAction func save(_ unwindSegue: UIStoryboardSegue) {
