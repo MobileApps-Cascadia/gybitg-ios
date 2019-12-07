@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game Stat History View Controller-->
+        <!--Game Stats-->
         <scene sceneID="XTz-hQ-Cqc">
             <objects>
                 <tableViewController storyboardIdentifier="GameStatView" id="UAx-7c-djU" customClass="GameStatHistoryViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,16 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <color key="tintColor" red="0.91764705882352937" green="0.63921568627450975" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="GameStatCellReuseID" id="MPr-os-Y9R" customClass="GameStatCell" customModule="GYBITG" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GameStatCellReuseID" id="MPr-os-Y9R" customClass="GameStatCell" customModule="GYBITG" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MPr-os-Y9R" id="8Jt-Y0-pVH">
-                                    <rect key="frame" x="0.0" y="0.0" width="362" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vs. Warriors @ Home - 5/30/2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ur-6u-iZt">
-                                            <rect key="frame" x="20" y="10.5" width="337" height="22.5"/>
+                                            <rect key="frame" x="20" y="10.5" width="351" height="22.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -52,7 +53,7 @@
                             <outlet property="delegate" destination="UAx-7c-djU" id="GTV-Pz-GL8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="3GC-JL-RUo">
+                    <navigationItem key="navigationItem" title="Game Stats" id="3GC-JL-RUo">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="pUu-CT-3dS">
                             <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -65,10 +66,10 @@
             </objects>
             <point key="canvasLocation" x="4806" y="-854"/>
         </scene>
-        <!--New Game Stat View Controller-->
+        <!--Game Stat-->
         <scene sceneID="dHY-73-w02">
             <objects>
-                <viewController id="jas-Ev-8U8" customClass="NewGameStatViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewGameStatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jas-Ev-8U8" customClass="NewGameStatViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="juT-4G-pSQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -268,14 +269,14 @@
                             <outletCollection property="gestureRecognizers" destination="tqm-Tp-GKY" appends="YES" id="pJB-Mf-Y1j"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="KbV-sb-pFq">
+                    <navigationItem key="navigationItem" title="Game Stat" id="KbV-sb-pFq">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Zz9-rd-iMh">
                             <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="OgV-iM-4uT" kind="unwind" unwindAction="cancel:" id="2FU-Rm-nXP"/>
+                                <action selector="closeStatModal:" destination="jas-Ev-8U8" id="SP5-hN-xOX"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Kwq-bd-qea">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="Kwq-bd-qea">
                             <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="checkForEmptyFields:" destination="jas-Ev-8U8" id="ndl-zL-ZGU"/>

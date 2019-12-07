@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nV5-tT-wTU">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Notifications View Controller-->
+        <scene sceneID="m4W-eJ-wau">
+            <objects>
+                <viewController storyboardIdentifier="NotificationsView" id="ATg-PO-Ynk" customClass="NotificationsViewController" customModule="GYBITG" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="S80-3X-fRp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qX8-7I-jqu">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhR-M8-BvK">
+                                        <rect key="frame" x="0.0" y="8" width="414" height="36"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="fdx-2U-NLY">
+                                        <rect key="frame" x="0.0" y="91" width="414" height="678"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <color key="tintColor" red="0.91764705879999997" green="0.63921568630000003" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GameStatDraftCell" id="37T-0Q-Mh6" customClass="GameStatDraftTableViewCell" customModule="GYBITG" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="37T-0Q-Mh6" id="qNT-G2-e7z">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Stat Draft" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Qm-rn-uGy">
+                                                            <rect key="frame" x="8" y="10.5" width="406" height="22.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="1Qm-rn-uGy" firstAttribute="top" secondItem="qNT-G2-e7z" secondAttribute="top" constant="10.5" id="Sxm-pb-Lvt"/>
+                                                        <constraint firstItem="1Qm-rn-uGy" firstAttribute="leading" secondItem="qNT-G2-e7z" secondAttribute="leading" constant="8" id="Yxj-RN-yrK"/>
+                                                        <constraint firstAttribute="trailing" secondItem="1Qm-rn-uGy" secondAttribute="trailing" id="h1x-5H-Ky4"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1Qm-rn-uGy" secondAttribute="bottom" constant="10.5" id="ir2-Hh-nJZ"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                                <connections>
+                                                    <outlet property="cellLabel" destination="1Qm-rn-uGy" id="U6Q-e2-fVs"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="ATg-PO-Ynk" id="g6h-Bg-zXv"/>
+                                            <outlet property="delegate" destination="ATg-PO-Ynk" id="yk1-dE-rR2"/>
+                                        </connections>
+                                    </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Stat Drafts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9a-rq-lGm">
+                                        <rect key="frame" x="8" y="59" width="406" height="24"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="e9a-rq-lGm" firstAttribute="top" secondItem="EhR-M8-BvK" secondAttribute="bottom" constant="15" id="0eG-1s-hlc"/>
+                                    <constraint firstItem="fdx-2U-NLY" firstAttribute="leading" secondItem="qX8-7I-jqu" secondAttribute="leading" id="4WV-EC-dNJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="EhR-M8-BvK" secondAttribute="bottom" constant="725" id="4u2-ba-OdT"/>
+                                    <constraint firstItem="e9a-rq-lGm" firstAttribute="leading" secondItem="qX8-7I-jqu" secondAttribute="leading" constant="8" id="AHp-U2-iK3"/>
+                                    <constraint firstAttribute="trailing" secondItem="fdx-2U-NLY" secondAttribute="trailing" id="NBG-xv-hIb"/>
+                                    <constraint firstAttribute="trailing" secondItem="EhR-M8-BvK" secondAttribute="trailing" id="OWK-FK-l2Z"/>
+                                    <constraint firstItem="EhR-M8-BvK" firstAttribute="centerX" secondItem="qX8-7I-jqu" secondAttribute="centerX" id="Rov-NI-YBN"/>
+                                    <constraint firstItem="fdx-2U-NLY" firstAttribute="top" secondItem="e9a-rq-lGm" secondAttribute="bottom" constant="8" id="UJD-ym-cYh"/>
+                                    <constraint firstItem="EhR-M8-BvK" firstAttribute="leading" secondItem="qX8-7I-jqu" secondAttribute="leading" id="Xkq-oL-swH"/>
+                                    <constraint firstAttribute="trailing" secondItem="e9a-rq-lGm" secondAttribute="trailing" id="byO-xh-aCb"/>
+                                    <constraint firstAttribute="bottom" secondItem="fdx-2U-NLY" secondAttribute="bottom" id="ot1-KT-OcT"/>
+                                    <constraint firstItem="EhR-M8-BvK" firstAttribute="top" secondItem="qX8-7I-jqu" secondAttribute="topMargin" id="pl1-xo-cui"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qX8-7I-jqu" firstAttribute="top" secondItem="q4u-xH-tLp" secondAttribute="top" id="1dr-x9-ybw"/>
+                            <constraint firstItem="qX8-7I-jqu" firstAttribute="bottom" secondItem="q4u-xH-tLp" secondAttribute="bottom" id="A5I-TN-lEW"/>
+                            <constraint firstItem="qX8-7I-jqu" firstAttribute="leading" secondItem="S80-3X-fRp" secondAttribute="leading" id="Z6w-hw-DbK"/>
+                            <constraint firstAttribute="trailing" secondItem="qX8-7I-jqu" secondAttribute="trailing" id="uqY-8d-82c"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="q4u-xH-tLp"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="icon-bell-50" id="E4w-va-VKY">
+                        <color key="badgeColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="statDraftsTableView" destination="fdx-2U-NLY" id="yDA-7O-7bY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XTd-6K-0dw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4831.884057971015" y="-275.22321428571428"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="I1D-eJ-o6J">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="nV5-tT-wTU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EBN-7y-YLK">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ATg-PO-Ynk" kind="relationship" relationship="viewControllers" id="n7O-ov-lSu"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YTV-KS-tFV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3921.739130434783" y="-275.22321428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="icon-bell-50" width="25" height="25"/>
+    </resources>
+</document>

@@ -11,11 +11,15 @@ import UIKit
 protocol GameStatProtocol: Repo {
     @discardableResult func createRandomGameStat() -> GameStat
     var allGameStats: [GameStat] { get set }
+    var allGameStatDrafts: [GameStat] { get set }
     func removeGameStat(gameStat: GameStat)
     func removeGameStatByStatId(statId: Int)
     func addGameStat(gameStat: GameStat)
+    func saveGameStatDraft(gameStat: GameStat)
     func getGameStatByStatId(statId: Int) -> GameStat
-    func getAllGameStatsByUserId(userId: String) -> [GameStat]
+    func getAllGameStatsByUserId(userId: String)
+    func getAllDrafts() -> [GameStat]
+    func getAllGameStatDraftsByUserId(userId: String) -> [GameStat]
     func updateGameState(gamestat: GameStat)
 }
 
@@ -35,6 +39,7 @@ class GameStatHistoryViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        gameRepo?.getAllGameStatsByUserId(userId: Constants.TEST_USERID)
         // Reloads the gamestat data in the table each time the view is shown
         tableView.reloadData()
     }
@@ -58,16 +63,14 @@ class GameStatHistoryViewController: UITableViewController {
         let item = gameRepo!.allGameStats[indexPath.row]
         
         // Date formatter for converting "yyyy-MM-dd HH:mm:ss +0000" to "MM/dd/yyyy"
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "MM/dd/YY"
+        let date = item.gameDate
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/YY"
         
-        // fill in the cell with the format: "Vs. <opposing team name> @ <home/away> - <game date>"
-        if let date = dateFormatterGet.date(from: String(describing: item.gameDate)) {
-            cell.gameLabel.text = "Vs. \(item.opposingTeamName) @ \(item.homeOrAway) - \(dateFormatterPrint.string(from:date))"
+        if (item.homeOrAway == "Home") {
+            cell.gameLabel!.text = "vs \(item.opposingTeamName ?? "(no team name)") on \(formatter.string(from: date!))"
         } else {
-            print("There was an error decoding the string")
+            cell.gameLabel!.text = "@ \(item.opposingTeamName ?? "(no team name)") on \(formatter.string(from: date!))"
         }
         return cell
     }
@@ -111,18 +114,24 @@ class GameStatHistoryViewController: UITableViewController {
     }
 
     // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table view
-    @IBAction func cancel(_ unwindSegue: UIStoryboardSegue) { tableView.reloadData() }
+    @IBAction func cancel(_ unwindSegue: UIStoryboardSegue) {
+        dismiss(animated: true, completion: nil)
+        tableView.reloadData()
+    }
     
-    // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table iew and saves (adds) the new game stat to the repository data array
-    // fix the dd
-    
+    // This action method performs an unwind segue, returning the user from the game stat form back to the game stat history table iew and saves (adds) the new game stat to the repository data array    
     @IBAction func save(_ unwindSegue: UIStoryboardSegue) {
         if let newGameStatViewController = unwindSegue.source as? NewGameStatViewController {
             // check whethere the user is updating or creating a new Game Stat
             if (newGameStatViewController.isUpdate) {
                 gameRepo?.updateGameState(gamestat: newGameStatViewController.mGameStat!)
             } else {
-                gameRepo!.addGameStat(gameStat: newGameStatViewController.mGameStat!)
+                if (newGameStatViewController.saveAsDraft) {
+                    gameRepo!.saveGameStatDraft(gameStat: newGameStatViewController.mGameStat!)
+                }
+                else {
+                    gameRepo!.addGameStat(gameStat: newGameStatViewController.mGameStat!)
+                }
             }
             tableView.reloadData()
         }
