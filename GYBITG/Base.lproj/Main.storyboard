@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -43,7 +41,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="orangegybitgiconfromweb" translatesAutoresizingMaskIntoConstraints="NO" id="9sU-F5-e15">
-                                <rect key="frame" x="-112.5" y="109" width="600" height="100"/>
+                                <rect key="frame" x="37.5" y="109" width="300" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="PlF-PX-y8V"/>
                                 </constraints>
@@ -462,12 +460,11 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="82"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Okr-K2-fJ5" id="ACT-w0-OIc" customClass="GalleryCell" customModule="GYBITG" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="81.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="L5K-oA-IHG">
-                                            <rect key="frame" x="0.0" y="-1" width="374" height="82"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <rect key="frame" x="0.0" y="-1" width="374.5" height="82"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TXe-kI-VpF" userLabel="Thumbnail and Duration">
                                                     <rect key="frame" x="0.0" y="0.0" width="219.5" height="82"/>
@@ -500,19 +497,19 @@
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Wt-Y1-fV0" userLabel="Details">
-                                                    <rect key="frame" x="269.5" y="16" width="104.5" height="50"/>
+                                                    <rect key="frame" x="269.5" y="16" width="105" height="50"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Wc-BRB" userLabel="Title and Date">
-                                                            <rect key="frame" x="0.0" y="0.0" width="37.5" height="50"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="38" height="50"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3d4-lM-wia">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="37.5" height="32"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="38" height="32"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/19" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8H9-mF-775">
-                                                                    <rect key="frame" x="0.0" y="32" width="37.5" height="18"/>
+                                                                    <rect key="frame" x="0.0" y="32" width="38" height="18"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -520,7 +517,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCf-26-DDE">
-                                                            <rect key="frame" x="54.5" y="0.0" width="50" height="50"/>
+                                                            <rect key="frame" x="55" y="0.0" width="50" height="50"/>
                                                             <state key="normal" image="white_vertical_menu"/>
                                                             <connections>
                                                                 <action selector="onEditMenuTouched:" destination="7Sr-sB-4lF" eventType="touchUpInside" id="V60-XH-nNZ"/>
@@ -598,7 +595,6 @@
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e14-up-tlU">
                                 <rect key="frame" x="160" y="33" width="170" height="30"/>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -662,28 +658,6 @@
             </objects>
             <point key="canvasLocation" x="329" y="-530"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="jhl-Gz-24o">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d3L-6j-fAW" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5Gi-Ec-3Go">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                        <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="7Sr-sB-4lF" kind="relationship" relationship="rootViewController" id="FOC-tq-duv"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VXp-s4-JGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2002" y="-1015"/>
-        </scene>
     </scenes>
     <resources>
         <image name="action-athletes-ball-934083" width="4928" height="3264"/>
@@ -693,8 +667,5 @@
         <image name="orangegybitgiconfromweb" width="300" height="201"/>
         <image name="white_vertical_menu" width="50" height="50"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="FOC-tq-duv"/>
-    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.94901960780000005" green="0.55294117649999996" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>
