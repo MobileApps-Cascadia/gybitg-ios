@@ -6,9 +6,9 @@ target 'GYBITG' do
   use_frameworks!
 
   # Pods for GYBITG
+pod 'EzPopup'
 pod 'youtube-ios-player-helper-swift'
 pod 'Alamofire', '~> 5.0.0-rc.3'
-
   target 'GYBITGTests' do
     inherit! :search_paths
     # Pods for testing
