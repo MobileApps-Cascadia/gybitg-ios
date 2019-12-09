@@ -1,0 +1,24 @@
+PODS:
+  - Alamofire (5.0.0-rc.3)
+  - EzPopup (1.1)
+  - youtube-ios-player-helper-swift (1.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.0.0-rc.3)
+  - EzPopup
+  - youtube-ios-player-helper-swift
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - EzPopup
+    - youtube-ios-player-helper-swift
+
+SPEC CHECKSUMS:
+  Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
+  EzPopup: b959cfb0d70d782a28e770a96c454df0401467c7
+  youtube-ios-player-helper-swift: 51a3c5325317c8271d0c7985c1bbe5a252ffb2fd
+
+PODFILE CHECKSUM: 8ce89c34d09917faf43f7e059a3b85c88a37df34
+
+COCOAPODS: 1.8.4

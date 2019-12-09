@@ -75,7 +75,6 @@ class GalleryViewController: UITableViewController, UINavigationControllerDelega
         let popupVC = PopupViewController(contentController: contentVC, popupWidth: 300, popupHeight: 300)
         popupVC.cornerRadius = 5
         present(popupVC, animated: true, completion: nil)
-
     }
 
 
