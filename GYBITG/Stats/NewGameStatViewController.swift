@@ -197,7 +197,7 @@ class NewGameStatViewController: UIViewController {
             // show the alert
             alert.addAction(YesAction)
             alert.addAction(NoAction)
-            if (self.isDraft) {
+            if (self.isUpdate == false) {
                 alert.addAction(SaveDraftAction)
             }
             self.present(alert, animated: true, completion: nil)
